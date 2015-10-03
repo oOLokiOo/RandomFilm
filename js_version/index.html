@@ -20,9 +20,10 @@
 			cartoons: [],
 			random_movie: null,
 			settings: {
-				google_images_url: "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=",
+				// https://developers.google.com/image-search/v1/jsondevguide
+				google_images_url: "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=medium&q=",
 				en_search_prefix: " film poster",
-				ru_search_prefix: " фильм обложка",
+				ru_search_prefix: " фильм постер",
 			},
 			init: function() {
 				var rand = this.rand(0, this.films.length - 1);
@@ -39,7 +40,7 @@
 				else if (random_movie && random_movie.ru && random_movie.ru != "") search_movie_title = random_movie.ru 
 					+ (this.random_movie.year ? " " 
 					+ this.random_movie.year : "") 
-					+ this.settings.ru_search_prefix;
+					+ this.settings.en_search_prefix; // ru_search_prefix - bad result
 
 				if (search_movie_title != "") {
 					var self = this;

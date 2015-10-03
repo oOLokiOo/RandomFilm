@@ -1,6 +1,7 @@
 <?php
 
-define('IMAGE_TYPE', 'jpg');
+//https://developers.google.com/image-search/v1/jsondevguide
+
 define('PARSER_RESOURCE_URL', 'http://ajax.googleapis.com/ajax/services/search/images?');
 define('PARSER_CURL_REQUEST_ATTEMPT', 5);
 
@@ -12,17 +13,13 @@ function d($arr, $die = false) {
     if ($die != false) die();
 }
 
-function get_from_images_google($search_words, $start_point = 0) {
+function get_from_images_google($search_words) {
     $manual_referer = 'http://google.com/';
 
     $args = array(
         'v' => '1.0',
         'q' => $search_words,
-        'as_filetype' => IMAGE_TYPE,
-        'imgsz' => 'medium',
-        'safe' => 'active',
-        'as_filetype' => IMAGE_TYPE,
-        'start' => $start_point,
+        'imgsz' => 'medium'
     );
 
     $url = PARSER_RESOURCE_URL;
@@ -31,9 +28,11 @@ function get_from_images_google($search_words, $start_point = 0) {
     }
 
     $ch = curl_init();
+
     curl_setopt($ch, CURLOPT_URL, $url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
     curl_setopt($ch, CURLOPT_REFERER, $manual_referer);
+    
     $body = curl_exec($ch);
     $response = curl_getinfo($ch);
 
@@ -50,7 +49,7 @@ function get_from_images_google($search_words, $start_point = 0) {
     curl_close($ch);
 
     if ($attempt <= 0) {
-        self::log('WARNING: CURL cant do request. Do something...');
+        echo 'WARNING: CURL cant do request. Do something...';
         return false;
     }
 
