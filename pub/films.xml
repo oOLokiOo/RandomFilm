@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<film>
+	<ru>test</ru>
+	<en>тест</en>
+	<year>1234</year>
+	<kinopoisk>http://www.kinopoisk.ru/</kinopoisk>
+	<imdb>http://www.imdb.com/</imdb>
+</film>
