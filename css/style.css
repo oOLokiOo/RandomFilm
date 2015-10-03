@@ -21,14 +21,18 @@ main>section {
 	padding: 10px;
 }
 
-h1 {
-	text-transform: capitalize;
-}
-
 a {
 	color: #7C7CFB;
 	font-weight: bold;
 	font-size: 20px;
+}
+
+h1 {
+	text-transform: capitalize;
+}
+
+h1>a {
+	color: #444;
 }
 
 img {

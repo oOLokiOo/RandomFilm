@@ -50,10 +50,13 @@
 					// JQUERY VERSION
 					//this.jQueryGetJSONP(this.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
 						if (json && json.responseData.results) {
+							console.log(json.responseData.results);
+							console.log(json.responseData.results[0].url);
+
 							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "") + (self.random_movie.en ? self.random_movie.en + " | ": "") + (self.random_movie.year ? self.random_movie.year : "");
 							if (title.slice(-2) == "| ") title = title.slice(0, -2);
 							
-							self.getBySelector("main>h1")[0].innerHTML = title;
+							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="+ title.replace(/\|/g, "") + " смотреть фильм онлайн'>" + title + "</a>";
 							self.getBySelector("main>img")[0].src = json.responseData.results[0].url;
 							self.getBySelector("main>img")[0].alt = title;
 							self.getBySelector("main>img")[0].title = title;
@@ -67,8 +70,6 @@
 								self.getById("imdb").href = self.random_movie.imdb;
 								self.getById("imdb").style.display = "block";
 							}
-
-							//var parser = new DOMImplementation();
 						}
 						else alert("Movie [" + rand + "] : Image not found!");
 					});
@@ -121,7 +122,6 @@
 			}
 		};
 
-		//document.addEventListener("DOMContentLoaded", function() {
 		var DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
 		DOMReady(function() {
 		//$(document).ready(function() {

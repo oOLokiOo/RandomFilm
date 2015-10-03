@@ -25,13 +25,12 @@ echo '
 	</header>
 	<main>
 		<section>
+			<h3>Фильм, который можно пересмотреть:</h3>
 
-		<h3>Фильм, который можно пересмотреть:</h3>
-
-		<form action="" method="post">
-			<input type="hidden" name="action" value="get_film" />
-			<input type="submit" value="Get Film!" />
-		</form>
+			<form action="" method="post">
+				<input type="hidden" name="action" value="get_film" />
+				<input type="submit" value="Get Film!" />
+			</form>
 ';
 
 $random_film_number = rand(0, count($films) - 1);
@@ -39,7 +38,7 @@ $random_film_number = rand(0, count($films) - 1);
 if (!empty($_POST['action']) && $_POST['action'] == 'get_film') {
 	$film = str_replace(' | ', '<br />', $films[$random_film_number]);
 	$film_to_search = explode('<br />', $film);
-	echo '<h1><a href="#" onclick="window.open(\'http://google.com/search?q=' . $film_to_search[0] . ' смотреть фильм онлайн\'); return false;">' . $film . '</a></h1>';
+	echo '<h1><a target="_blank" href="http://google.com/search?q=' . $film_to_search[0] . ' смотреть фильм онлайн">' . $film . '</a></h1>';
 
 	//$poster = file_get_contents('http://images.google.at/images?hl=de&q=' . urlencode($film_to_search[0] . ' постер') . '"', 'r');
 	//@ereg ("imgurl=http://www.[A-Za-z0-9-]*.[A-Za-z]*[^.]*.[A-Za-z]*", $poster, $img);
@@ -51,6 +50,7 @@ if (!empty($_POST['action']) && $_POST['action'] == 'get_film') {
 }
 
 echo '
+		</section>
 	</main>
 
 	<footer>
