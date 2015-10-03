@@ -8,7 +8,18 @@ ini_set('error_reporting', E_ALL);
 require_once 'functions.php';
 require_once '../users/1/films.php';
 
-echo '
+$random_film_number = rand(0, count($films) - 1);
+$film_to_search = $films[$random_film_number];
+
+//$poster = file_get_contents('http://images.google.at/images?hl=de&q=' . urlencode($film_to_search[0] . ' постер') . '"', 'r');
+//@ereg ("imgurl=http://www.[A-Za-z0-9-]*.[A-Za-z]*[^.]*.[A-Za-z]*", $poster, $img);
+//@ereg ("http://(.*)", $img[0], $img_url);
+//echo '<img src="' . $img_url[0] . '" height="400" />';
+
+$img = get_from_images_google($film_to_search[0] . ' фильм постер');
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,39 +34,15 @@ echo '
 <body>
 	<header>
 	</header>
+
 	<main>
-		<section>
-			<h3>Фильм, который можно пересмотреть:</h3>
-
-			<form action="" method="post">
-				<input type="hidden" name="action" value="get_film" />
-				<input type="submit" value="Get Film!" />
-			</form>
-';
-
-$random_film_number = rand(0, count($films) - 1);
-
-if (!empty($_POST['action']) && $_POST['action'] == 'get_film') {
-	$film = str_replace(' | ', '<br />', $films[$random_film_number]);
-	$film_to_search = explode('<br />', $film);
-	echo '<h1><a target="_blank" href="http://google.com/search?q=' . $film_to_search[0] . ' смотреть фильм онлайн">' . $film . '</a></h1>';
-
-	//$poster = file_get_contents('http://images.google.at/images?hl=de&q=' . urlencode($film_to_search[0] . ' постер') . '"', 'r');
-	//@ereg ("imgurl=http://www.[A-Za-z0-9-]*.[A-Za-z]*[^.]*.[A-Za-z]*", $poster, $img);
-	//@ereg ("http://(.*)", $img[0], $img_url);
-	//echo '<img src="' . $img_url[0] . '" height="400" />';
-
-	$img = get_from_images_google($film_to_search[0] . ' фильм постер');
-	echo '<img src="' . $img[2]['url'] . '" alt="'.$film_to_search[0] .'" title="'.$film_to_search[0] .'" />';
-}
-
-echo '
-		</section>
+		<h1><a target="_blank" href="http://google.com/search?q=<?=$film_to_search[0]?> смотреть фильм онлайн"><?=$film_to_search?></a></h1>
+		<button type="button" onclick="location.reload(); return false;">Get Film!</button>
+		<br /><br />
+		<img src="<?=$img[2]['url']?>" alt="<?=$film_to_search[0]?>" title="<?=$film_to_search[0]?>" />
 	</main>
 
 	<footer>
 	</footer>
 </body>
 </html>
-';
-
