@@ -6,7 +6,7 @@ ini_set('error_reporting', E_ALL);
 @session_start();
 
 require_once 'functions.php';
-require_once 'films.php';
+require_once '../users/1/films.php';
 
 echo '
 <!DOCTYPE html>

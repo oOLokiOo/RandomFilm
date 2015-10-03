@@ -277,5 +277,29 @@ var films = [
 		"ru": "Дежа Вю",
 		"en": "Deja vu",
 		"year": 2006
-	}
+	},
+	{
+		"ru": "Покорители волн",
+		"en": "Chasing Mavericks",
+		"year": 2012,
+		"kinopoisk": "http://www.kinopoisk.ru/film/546244/"
+	},
+	{
+		"ru": "Смертельная гонка",
+		"en": "Death Race",
+		"year": 2008,
+		"kinopoisk": "http://www.kinopoisk.ru/film/102136/"
+	},
+	{
+		"ru": "Вспомнить всё",
+		"en": "Total Recall",
+		"year": 2012,
+		"kinopoisk": "http://www.kinopoisk.ru/film/453374/"
+	},
+	{
+		"ru": "В первый раз",
+		"en": "The First Time",
+		"year": 2012,
+		"kinopoisk": "http://www.kinopoisk.ru/film/572376/"
+	},
 ];
