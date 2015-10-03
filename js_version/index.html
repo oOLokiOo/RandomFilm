@@ -25,6 +25,8 @@
 				ru_search_prefix: " фильм обложка",
 			},
 			init: function() {
+				this.getBySelector("button")[0].onclick = function() { location.reload(); }
+
 				var rand = this.rand(0, this.films.length - 1);
 
 				var random_movie = this.films[rand];
@@ -68,7 +70,7 @@
 
 							if (self.random_movie.imdb) {
 								self.getById("imdb").href = self.random_movie.imdb;
-								self.getById("imdb").style.display = "block";
+								self.getById("imdb").style.display = "inline";
 							}
 						}
 						else alert("Movie [" + rand + "] : Image not found!");
@@ -135,6 +137,7 @@
 
 	<main>
 		<h1></h1>
+		<button type="button">Get Film!</button>
 		<section>
 			<a href="#" target="_blank" id="kinopoisk">kinopoisk</a>
 			<a href="#" target="_blank" id="imdb">imdb</a>
