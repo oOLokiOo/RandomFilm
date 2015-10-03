@@ -12,15 +12,11 @@ echo '
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Random film from my collection.</title>
+	<title>Random movie that you would like to revise (c) Script by oOLokiOo</title>
 
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8">
 
-	<style>
-		body {text-align: center; padding: 0; margin: 0;}
-		a {color: #000; text-decoration: underline;}
-		h1,h2,h3,h4,h5,h6 {padding: 4; margin: 4;}
-	</style>
+	<link rel="stylesheet" href="../css/style.css" />
 </head>
 
 <body>
