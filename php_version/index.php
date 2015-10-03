@@ -20,12 +20,18 @@ echo '
 </head>
 
 <body>
-	<h3>Фильм, который можно пересмотреть:</h3>
+<body>
+	<header>
+	</header>
+	<main>
+		<section>
 
-	<form action="" method="post">
-		<input type="hidden" name="action" value="get_film" />
-		<input type="submit" value="Get Film!" />
-	</form>
+		<h3>Фильм, который можно пересмотреть:</h3>
+
+		<form action="" method="post">
+			<input type="hidden" name="action" value="get_film" />
+			<input type="submit" value="Get Film!" />
+		</form>
 ';
 
 $random_film_number = rand(0, count($films) - 1);
@@ -41,10 +47,14 @@ if (!empty($_POST['action']) && $_POST['action'] == 'get_film') {
 	//echo '<img src="' . $img_url[0] . '" height="400" />';
 
 	$img = get_from_images_google($film_to_search[0] . ' фильм постер');
-	echo '<img src="' . $img[2]['url'] . '" />';
+	echo '<img src="' . $img[2]['url'] . '" alt="'.$film_to_search[0] .'" title="'.$film_to_search[0] .'" />';
 }
 
 echo '
+	</main>
+
+	<footer>
+	</footer>
 </body>
 </html>
 ';
