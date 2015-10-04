@@ -19,7 +19,8 @@ function get_from_images_google($search_words) {
     $args = array(
         'v' => '1.0',
         'q' => $search_words,
-        'imgsz' => 'medium'
+        'imgsz' => 'large',
+        'rsz' => 8
     );
 
     $url = PARSER_RESOURCE_URL;

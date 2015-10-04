@@ -21,16 +21,20 @@
 			random_movie: null,
 			settings: {
 				// https://developers.google.com/image-search/v1/jsondevguide
-				google_images_url: "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=medium&q=",
+				google_images_url: "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=large&rsz=8&q=",
 				en_search_prefix: " film poster",
 				ru_search_prefix: " фильм постер",
+				blocked_resources: [
+					'www.impawards.com',
+					'en.wikipedia.org'
+				]
 			},
 			init: function() {
 				var rand = this.rand(0, this.films.length - 1);
 				var random_movie = this.films[rand];
 				var search_movie_title = "";
 
-				this.getBySelector("button")[0].onclick = function() { location.reload(); }
+				this.getBySelector("button")[0].onclick = function() { location.reload(true); }
 				this.random_movie = random_movie;
 
 				if (random_movie && random_movie.en && random_movie.en != "") search_movie_title = random_movie.en 
@@ -40,7 +44,7 @@
 				else if (random_movie && random_movie.ru && random_movie.ru != "") search_movie_title = random_movie.ru 
 					+ (this.random_movie.year ? " " 
 					+ this.random_movie.year : "") 
-					+ this.settings.en_search_prefix; // ru_search_prefix - bad result
+					+ this.settings.en_search_prefix; // ru_search_prefix - bad result with "ru"
 
 				if (search_movie_title != "") {
 					var self = this;
@@ -58,7 +62,7 @@
 							if (title.slice(-2) == "| ") title = title.slice(0, -2);
 							
 							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="+ title.replace(/ \| /g, " ") + " смотреть фильм онлайн'>" + title + "</a>";
-							self.getBySelector("main>img")[0].src = json.responseData.results[0].url;
+							self.getBySelector("main>img")[0].src = self.filter_from_blocked_resources(json.responseData.results);
 							self.getBySelector("main>img")[0].alt = title;
 							self.getBySelector("main>img")[0].title = title;
 
@@ -120,6 +124,21 @@
 						callback(null);
 					}
 				});
+			},
+			filter_from_blocked_resources: function(arr) {
+				var good_url = "";
+
+				for (var i in arr) {
+					console.log(i);
+					if (this.settings.blocked_resources.join(" ").indexOf(arr[i].visibleUrl) < 0) {
+						good_url = arr[i].url;
+						console.log(this.settings.blocked_resources.join(" "));
+						console.log(good_url);
+						break;
+					}
+				}
+
+				return (good_url == "" ? arr[0].url : good_url);
 			}
 		};
 
