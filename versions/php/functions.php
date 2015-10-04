@@ -10,6 +10,7 @@ function d($arr, $die = false) {
     echo '<pre>';
     print_r($arr);
     echo '</pre>';
+
     if ($die != false) die();
 }
 
@@ -24,6 +25,7 @@ function get_from_images_google($search_words) {
     );
 
     $url = PARSER_RESOURCE_URL;
+
     foreach ($args as $key => $val) {
         $url .= $key . '=' . rawurlencode($val) . '&';
     }
@@ -38,6 +40,7 @@ function get_from_images_google($search_words) {
     $response = curl_getinfo($ch);
 
     $attempt = PARSER_CURL_REQUEST_ATTEMPT;
+
     if ($response['http_code'] != 200) {
         while ($attempt > 0) {
             $body = curl_exec($ch);
@@ -55,6 +58,7 @@ function get_from_images_google($search_words) {
     }
 
     $json = json_decode($body, true);
+
     return $json['responseData']['results'];
 }
 
@@ -64,14 +68,15 @@ function filter_from_blocked_resources($arr) {
         'en.wikipedia.org'
     );
 
-    $good_url = "";
+    $good_url = '';
 
     for ($i = 0; $i < count($arr); $i++) {
         if (!in_array($arr[$i]['visibleUrl'], $blocked_resources)) {
+            //d($arr[$i]['visibleUrl']);
             $good_url = $arr[$i]['url'];
             break;
         }
     }
 
-    return ($good_url == "" ? $arr[0]['url'] : $good_url); 
+    return ($good_url == '' ? $arr[0]['url'] : $good_url); 
 }

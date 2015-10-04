@@ -5,8 +5,8 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 
 
+require_once '../../users/1/films.php';
 require_once 'functions.php';
-require_once '../users/1/films.php';
 
 
 $random_film_number = rand(0, count($films) - 1);
@@ -24,7 +24,7 @@ $img_url = filter_from_blocked_resources($img);
 
 	<meta charset="utf-8">
 
-	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../../css/style.css" />
 </head>
 
 <body>
