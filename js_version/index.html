@@ -62,7 +62,7 @@
 							if (title.slice(-2) == "| ") title = title.slice(0, -2);
 							
 							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="+ title.replace(/ \| /g, " ") + " смотреть фильм онлайн'>" + title + "</a>";
-							self.getBySelector("main>img")[0].src = self.filter_from_blocked_resources(json.responseData.results);
+							self.getBySelector("main>img")[0].src = self.filterFromBlockedResources(json.responseData.results);
 							self.getBySelector("main>img")[0].alt = title;
 							self.getBySelector("main>img")[0].title = title;
 
@@ -81,6 +81,9 @@
 				}
 				else alert("Movie [" + rand + "] - not found!");
 			},
+			rand: function (min, max) {
+				return Math.round(min - 0.5 + Math.random() * (max - min + 1));
+			},
 			_filter: function(param) {
 				return ((param && param != "") ? param : null);
 			},
@@ -89,9 +92,6 @@
 			},
 			getBySelector: function(selector) {
 				return (this._filter(selector) ? document.querySelectorAll(selector) : null);
-			},
-			rand: function (min, max) {
-				return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 			},
 			getJSONP: function(url, callback) {
 /*
@@ -125,7 +125,7 @@
 					}
 				});
 			},
-			filter_from_blocked_resources: function(arr) {
+			filterFromBlockedResources: function(arr) {
 				var good_url = "";
 
 				for (var i in arr) {

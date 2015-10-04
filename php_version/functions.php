@@ -57,3 +57,21 @@ function get_from_images_google($search_words) {
     $json = json_decode($body, true);
     return $json['responseData']['results'];
 }
+
+function filter_from_blocked_resources($arr) {
+    $blocked_resources = array(
+        'www.impawards.com',
+        'en.wikipedia.org'
+    );
+
+    $good_url = "";
+
+    for ($i = 0; $i < count($arr); $i++) {
+        if (!in_array($arr[$i]['visibleUrl'], $blocked_resources)) {
+            $good_url = $arr[$i]['url'];
+            break;
+        }
+    }
+
+    return ($good_url == "" ? $arr[0]['url'] : $good_url); 
+}
