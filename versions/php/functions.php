@@ -1,11 +1,5 @@
 <?php
 
-//https://developers.google.com/image-search/v1/jsondevguide
-
-define('PARSER_RESOURCE_URL', 'http://ajax.googleapis.com/ajax/services/search/images?');
-define('PARSER_CURL_REQUEST_ATTEMPT', 5);
-
-
 function d($arr, $die = false) {
     echo '<pre>';
     print_r($arr);
@@ -13,6 +7,12 @@ function d($arr, $die = false) {
 
     if ($die != false) die();
 }
+
+
+//https://developers.google.com/image-search/v1/jsondevguide
+
+define('PARSER_RESOURCE_URL', 'http://ajax.googleapis.com/ajax/services/search/images?');
+define('PARSER_CURL_REQUEST_ATTEMPT', 5);
 
 function get_from_images_google($search_words) {
     $manual_referer = 'http://google.com/';
@@ -72,7 +72,6 @@ function filter_from_blocked_resources($arr) {
 
     for ($i = 0; $i < count($arr); $i++) {
         if (!in_array($arr[$i]['visibleUrl'], $blocked_resources)) {
-            //d($arr[$i]['visibleUrl']);
             $good_url = $arr[$i]['url'];
             break;
         }

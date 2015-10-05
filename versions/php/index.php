@@ -13,7 +13,6 @@ $random_film_number = rand(0, count($films) - 1);
 $film_to_search = $films[$random_film_number];
 $img = get_from_images_google($film_to_search . ' film poster');
 $img_url = filter_from_blocked_resources($img);
-//d($img);
 ?>
 
 
@@ -21,7 +20,6 @@ $img_url = filter_from_blocked_resources($img);
 <html>
 <head>
 	<title>Random movie that you would like to revise (c) Script by oOLokiOo</title>
-
 	<meta charset="utf-8">
 
 	<link rel="stylesheet" href="../../css/style.css" />

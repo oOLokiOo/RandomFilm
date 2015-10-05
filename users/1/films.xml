@@ -1,8 +1,354 @@
-<?xml version="1.0" ?>
-<film>
-	<ru>test</ru>
-	<en>тест</en>
-	<year>1234</year>
-	<kinopoisk>http://www.kinopoisk.ru/</kinopoisk>
-	<imdb>http://www.imdb.com/</imdb>
-</film>
+<?xml version="1.0" encoding="UTF-8"?>
+<movies>
+	<film>
+		<ru>test</ru>
+		<en>тест</en>
+		<year>1234</year>
+		<kinopoisk>http://www.kinopoisk.ru/</kinopoisk>
+		<imdb>http://www.imdb.com/</imdb>
+	</film>
+	<film>
+		<ru>Мстители</ru>
+		<en>The Avengers</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/263531/</kinopoisk>
+		<imdb>http://www.imdb.com/title/tt0848228/</imdb>
+	</film>
+	<film>
+		<ru>Халк</ru>
+		<en>Hulk</en>
+		<year>2003</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/7962/</kinopoisk>
+	</film>
+	<film>
+		<ru>Третий лишний</ru>
+		<en>Ted</en>
+		<year>2003</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/507817/</kinopoisk>
+	</film>
+	<film>
+		<ru>Игра</ru>
+		<en>The Game</en>
+		<year>1997</year>
+		<imdb>http://www.imdb.com/title/tt0119174/</imdb>
+	</film>
+	<film>
+		<ru>Телепорт</ru>
+		<en>Jumper</en>
+		<year>2008</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/220589/</kinopoisk>
+	</film>
+	<film>
+		<ru>Угнать за 60 секунд</ru>
+		<en>Gone in Sixty Seconds</en>
+		<year>2000</year>
+		<imdb>http://www.imdb.com/title/tt0187078/</imdb>
+	</film>
+	<film>
+		<ru>Пророк</ru>
+		<en>Next</en>
+		<year>2007</year>
+	</film>
+	<film>
+		<ru>Город ангелов</ru>
+		<en>City of Angels</en>
+		<year>1998</year>
+	</film>
+	<film>
+		<ru>Мачо и ботан</ru>
+		<en>21 Jump Street</en>
+		<year>2012</year>
+	</film>
+	<film>
+		<ru>Рок-волна</ru>
+		<en>The Boat That Rocked</en>
+		<year>2009</year>
+	</film>
+	<film>
+		<ru>Незваные гости</ru>
+		<en>Wedding Crashers</en>
+		<year>2005</year>
+	</film>
+	<film>
+		<ru>Начало</ru>
+		<en>Inception</en>
+		<year>2010</year>
+	</film>
+	<film>
+		<ru>Социальная сеть</ru>
+		<en>The Social Network</en>
+		<year>2010</year>
+	</film>
+	<film>
+		<ru>Эквилибриум</ru>
+		<en>Equilibrium</en>
+		<year>2002</year>
+	</film>
+	<film>
+		<ru>Престиж</ru>
+		<en>The Prestige</en>
+		<year>2002</year>
+	</film>
+	<film>
+		<ru>Треугольник</ru>
+		<en>Triangle</en>
+		<year>2009</year>
+	</film>
+	<film>
+		<ru>Королева проклятых</ru>
+		<en>Queen of the Damned</en>
+		<year>2002</year>
+	</film>
+	<film>
+		<ru>Мистер и миссис Смит</ru>
+		<en>Mr. and Mrs. Smith</en>
+		<year>2005</year>
+	</film>
+	<film>
+		<ru>Послезавтра</ru>
+		<en>The Day After Tomorrow</en>
+		<year>2004</year>
+	</film>
+	<film>
+		<ru>1408</ru>
+		<en>1408</en>
+		<year>2007</year>
+	</film>
+	<film>
+		<ru>2012</ru>
+		<en>2012</en>
+		<year>2009</year>
+	</film>
+	<film>
+		<ru>Война миров</ru>
+		<en>War of the Worlds</en>
+		<year>2005</year>
+	</film>
+	<film>
+		<ru>Двухсотлетний человек</ru>
+		<en>Bicentennial Man</en>
+		<year>1999</year>
+	</film>
+	<film>
+		<ru>Искусственный разум</ru>
+		<en>Artificial Intelligence: AI</en>
+		<year>2001</year>
+	</film>
+	<film>
+		<ru>Аватар</ru>
+		<en>Avatar</en>
+		<year>2009</year>
+	</film>
+	<film>
+		<ru>Казанова</ru>
+		<en>Casanova</en>
+		<year>2005</year>
+	</film>
+	<film>
+		<ru>Я, робот</ru>
+		<en>I, Robot</en>
+		<year>2004</year>
+	</film>
+	<film>
+		<ru>Суррогаты</ru>
+		<en>Surrogates</en>
+		<year>2009</year>
+	</film>
+	<film>
+		<ru>Остаться в живых</ru>
+		<en>Stay Alive</en>
+		<year>2006</year>
+	</film>
+	<film>
+		<ru>Особо опасен</ru>
+		<en>Wanted</en>
+		<year>2008</year>
+	</film>
+	<film>
+		<ru>Живая сталь</ru>
+		<en>Real Steel</en>
+		<year>2011</year>
+	</film>
+	<film>
+		<ru>Тринадцатый этаж</ru>
+		<en>The Thirteenth Floor</en>
+		<year>1999</year>
+	</film>
+	<film>
+		<ru>Время</ru>
+		<en>In Time</en>
+		<year>2011</year>
+	</film>
+	<film>
+		<ru>Пастырь</ru>
+		<en>Priest</en>
+		<year>2011</year>
+	</film>
+	<film>
+		<ru>Исходный код</ru>
+		<en>Source Code</en>
+		<year>2011</year>
+	</film>
+	<film>
+		<ru>Области тьмы</ru>
+		<en>Limitless</en>
+		<year>2011</year>
+	</film>
+	<film>
+		<ru>Меняющие реальность</ru>
+		<en>The Adjustment Bureau</en>
+		<year>2011</year>
+	</film>
+	<film>
+		<ru>Ученик чародея</ru>
+		<en>The Sorcerer's Apprentice</en>
+		<year>2010</year>
+	</film>
+	<film>
+		<ru>Телефонная будка</ru>
+		<en>Phone Booth</en>
+		<year>2002</year>
+	</film>
+	<film>
+		<ru>Константин: Повелитель тьмы</ru>
+		<en>Constantine</en>
+		<year>2005</year>
+	</film>
+	<film>
+		<ru>Зеленая миля</ru>
+		<en>The Green Mile</en>
+		<year>1999</year>
+	</film>
+	<film>
+		<ru>Достучаться до небес</ru>
+		<en>Knockin' on Heaven's Door</en>
+		<year>1997</year>
+	</film>
+	<film>
+		<ru>Голодные игры</ru>
+		<en>The Hunger Games</en>
+		<year>2012</year>
+	</film>
+	<film>
+		<ru>Хэнкок</ru>
+		<en>Hancock</en>
+		<year>2008</year>
+	</film>
+	<film>
+		<ru>Экстремалы</ru>
+		<en>Extreme Ops</en>
+		<year>2002</year>
+	</film>
+	<film>
+		<ru>Лица в толпе</ru>
+		<en>Faces in the Crowd</en>
+		<year>2011</year>
+	</film>
+	<film>
+		<ru>Особое мнение</ru>
+		<en>Minority Report</en>
+		<year>2002</year>
+	</film>
+	<film>
+		<ru>Охотники за разумом</ru>
+		<en>Mindhunters</en>
+		<year>2004</year>
+	</film>
+	<film>
+		<ru>Ловец снов</ru>
+		<en>Dreamcatcher</en>
+		<year>2003</year>
+	</film>
+	<film>
+		<ru>Остров</ru>
+		<en>The Island</en>
+		<year>2005</year>
+	</film>
+	<film>
+		<ru>Власть огня</ru>
+		<en>Reign of Fire</en>
+		<year>2002</year>
+	</film>
+	<film>
+		<ru>Книга Илая</ru>
+		<en>The Book of Eli</en>
+		<year>2009</year>
+	</film>
+	<film>
+		<ru>Дежа Вю</ru>
+		<en>Deja vu</en>
+		<year>2006</year>
+	</film>
+	<film>
+		<ru>Покорители волн</ru>
+		<en>Chasing Mavericks</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/546244/</kinopoisk>
+	</film>
+	<film>
+		<ru>Смертельная гонка</ru>
+		<en>Death Race</en>
+		<year>2008</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/102136/</kinopoisk>
+	</film>
+	<film>
+		<ru>Вспомнить всё</ru>
+		<en>Total Recall</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/453374/</kinopoisk>
+	</film>
+	<film>
+		<ru>В первый раз</ru>
+		<en>The First Time</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/572376/</kinopoisk>
+	</film>
+	<film>
+		<ru>Хранители</ru>
+		<en>Watchmen</en>
+		<year>2009</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/252641/</kinopoisk>
+	</film>
+	<film>
+		<ru>Ведьмина гора</ru>
+		<en>Race to Witch Mountain</en>
+		<year>2009</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/395051/</kinopoisk>
+	</film>
+	<film>
+		<ru>Обливион</ru>
+		<en>Oblivion</en>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/470185/</kinopoisk>
+	</film>
+	<film>
+		<ru>Судья Дредд 3D</ru>
+		<en>Dredd</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/437678/</kinopoisk>
+	</film>
+	<film>
+		<ru>Хроники Риддика</ru>
+		<en>The Chronicles of Riddick</en>
+		<year>2004</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/5900/</kinopoisk>
+	</film>
+	<film>
+		<ru>Чёрная дыра</ru>
+		<en>Pitch Black</en>
+		<year>1999</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/785/</kinopoisk>
+	</film>
+	<film>
+		<ru>Крепкий орешек 4.0</ru>
+		<en>Live Free or Die Hard</en>
+		<year>2007</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/9544/</kinopoisk>
+	</film>
+	<film>
+		<ru>Хоббит: Нежданное путешествие</ru>
+		<en>The Hobbit: An Unexpected Journey</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/278522/</kinopoisk>
+	</film>
+</movies>

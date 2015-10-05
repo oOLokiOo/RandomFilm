@@ -6,10 +6,9 @@
 
 	<link rel="stylesheet" href="../../css/style.css" />
 
-	<script src="../../users/1/films.js"></script>
 	<script type="text/javascript">
 		var APP = {
-			films: films,
+			films: [],
 			serials: [],
 			cartoons: [],
 			random_movie: null,
@@ -21,60 +20,63 @@
 				blocked_resources: [
 					'www.impawards.com',
 					'en.wikipedia.org'
-				]
+				],
+				XMLpath: "../../users/1/films.xml"
 			},
 			init: function() {
-				var rand = this.rand(0, this.films.length - 1);
-				var random_movie = this.films[rand];
-				var search_movie_title = "";
+				var self = this;
 
-				this.getBySelector("button")[0].onclick = function() { location.reload(true); }
-				this.random_movie = random_movie;
+				this.XML2JSArr(this.settings.XMLpath, function() {
+					var rand = self.rand(0, self.films.length - 1);
+					var random_movie = self.films[rand];
+					var search_movie_title = "";
 
-				if (random_movie && random_movie.en && random_movie.en != "") search_movie_title = random_movie.en 
-					+ (this.random_movie.year ? " " 
-					+ this.random_movie.year : "") 
-					+ this.settings.en_search_prefix;
+					self.getBySelector("button")[0].onclick = function() { location.reload(true); }
+					self.random_movie = random_movie;
 
-				else if (random_movie && random_movie.ru && random_movie.ru != "") search_movie_title = random_movie.ru 
-					+ (this.random_movie.year ? " " 
-					+ this.random_movie.year : "") 
-					+ this.settings.en_search_prefix; // ru_search_prefix - bad result with "ru"
+					if (random_movie && random_movie.en && random_movie.en != "") search_movie_title = random_movie.en 
+						+ (self.random_movie.year ? " " 
+						+ self.random_movie.year : "") 
+						+ self.settings.en_search_prefix;
 
-				if (search_movie_title != "") {
-					var self = this;
+					else if (random_movie && random_movie.ru && random_movie.ru != "") search_movie_title = random_movie.ru 
+						+ (self.random_movie.year ? " " 
+						+ self.random_movie.year : "") 
+						+ self.settings.en_search_prefix; // ru_search_prefix - bad result with "ru"
 
-					this.getJSONP(this.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
-						if (json && json.responseData.results) {
-							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
-								+ (self.random_movie.en ? self.random_movie.en + " | ": "")
-								+ (self.random_movie.year ? self.random_movie.year : "");
-							
-							if (title.slice(-2) == "| ") title = title.slice(0, -2);
-							
-							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="
-								+ title.replace(/ \| /g, " ")
-								+ " смотреть фильм онлайн'>"
-								+ title
-								+ "</a>";
-							self.getBySelector("main>img")[0].src = self.filterFromBlockedResources(json.responseData.results);
-							self.getBySelector("main>img")[0].alt = title;
-							self.getBySelector("main>img")[0].title = title;
+					if (search_movie_title != "") {
+						self.getJSONP(self.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
+							if (json && json.responseData.results) {
+								var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
+									+ (self.random_movie.en ? self.random_movie.en + " | ": "")
+									+ (self.random_movie.year ? self.random_movie.year : "");
+								
+								if (title.slice(-2) == "| ") title = title.slice(0, -2);
+								
+								self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="
+									+ title.replace(/ \| /g, " ")
+									+ " смотреть фильм онлайн'>"
+									+ title
+									+ "</a>";
+								self.getBySelector("main>img")[0].src = self.filterFromBlockedResources(json.responseData.results);
+								self.getBySelector("main>img")[0].alt = title;
+								self.getBySelector("main>img")[0].title = title;
 
-							if (self.random_movie.kinopoisk) {
-								self.getById("kinopoisk").href = self.random_movie.kinopoisk;
-								self.getById("kinopoisk").style.display = "inline";
+								if (self.random_movie.kinopoisk) {
+									self.getById("kinopoisk").href = self.random_movie.kinopoisk;
+									self.getById("kinopoisk").style.display = "inline";
+								}
+
+								if (self.random_movie.imdb) {
+									self.getById("imdb").href = self.random_movie.imdb;
+									self.getById("imdb").style.display = "inline";
+								}
 							}
-
-							if (self.random_movie.imdb) {
-								self.getById("imdb").href = self.random_movie.imdb;
-								self.getById("imdb").style.display = "inline";
-							}
-						}
-						else alert("Movie [" + rand + "] : Image not found!");
-					});
-				}
-				else alert("Movie [" + rand + "] - not found!");
+							else alert("Movie [" + rand + "] : Image not found!");
+						});
+					}
+					else alert("Movie [" + rand + "] - not found!");
+				});
 			},
 			rand: function (min, max) {
 				return Math.round(min - 0.5 + Math.random() * (max - min + 1));
@@ -118,6 +120,57 @@
 				}
 
 				return (good_url == "" ? arr[0].url : good_url);
+			},
+			JSArr2XML: function(films) {
+				console.log('<?xml version="1.0" encoding="UTF-8"?>');
+				console.log("<movies>");
+
+				for (var i = 0; i < films.length; i++) {
+					console.log("\t<film>");
+					if (films[i].ru) console.log("\t\t<ru>" + films[i].ru.replace(/ \& /g, " and ") + "</ru>");
+					if (films[i].en) console.log("\t\t<en>" + films[i].en.replace(/ \& /g, " and ") + "</en>");
+					if (films[i].year) console.log("\t\t<year>" + films[i].year + "</year>");
+					if (films[i].kinopoisk) console.log("\t\t<kinopoisk>" + films[i].kinopoisk + "</kinopoisk>");
+					if (films[i].imdb) console.log("\t\t<imdb>" + films[i].imdb + "</imdb>");;
+					console.log("\t</film>");
+				}
+				console.log("</movies>");
+			},
+			loadXMLDoc: function(xml_path, callback) {
+				var xmlhttp = new XMLHttpRequest();
+
+				xmlhttp.onreadystatechange = function() {
+					if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+						callback(xmlhttp);
+					}
+				}
+
+				xmlhttp.open("GET", xml_path, true);
+				xmlhttp.send();
+			},
+			XML2JSArr: function(xml_path, callback) {
+				var self = this;
+
+				this.loadXMLDoc(xml_path, function(xml) {
+					var xmlDoc = xml.responseXML;
+
+					if (xmlDoc != null) {
+						var films = xmlDoc.getElementsByTagName("film");
+						
+						for (var i = 0; i < films.length; i++) {
+							self.films[i] = {};
+
+							if (films[i].children[0]) self.films[i].ru = films[i].children[0].textContent;
+							if (films[i].children[1]) self.films[i].en = films[i].children[1].textContent;
+							if (films[i].children[2]) self.films[i].year = films[i].children[2].textContent;
+							if (films[i].children[3]) self.films[i].kinopoisk = films[i].children[3].textContent;
+							if (films[i].children[4]) self.films[i].imdb = films[i].children[4].textContent;
+						}
+					}
+					else alert("Error loading Movies DB XML");
+
+					callback();
+				});
 			}
 		};
 
