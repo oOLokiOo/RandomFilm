@@ -302,4 +302,52 @@ var films = [
 		"year": 2012,
 		"kinopoisk": "http://www.kinopoisk.ru/film/572376/"
 	},
+	{
+		"ru": "Хранители",
+		"en": "Watchmen",
+		"year": 2009,
+		"kinopoisk": "http://www.kinopoisk.ru/film/252641/"
+	},
+	{
+		"ru": "Ведьмина гора",
+		"en": "Race to Witch Mountain",
+		"year": 2009,
+		"kinopoisk": "http://www.kinopoisk.ru/film/395051/"
+	},
+	{
+		"ru": "Обливион",
+		"en": "Oblivion",
+		"year": 2013,
+		"kinopoisk": "http://www.kinopoisk.ru/film/470185/"
+	},
+	{
+		"ru": "Судья Дредд 3D",
+		"en": "Dredd",
+		"year": 2012,
+		"kinopoisk": "http://www.kinopoisk.ru/film/437678/"
+	},
+	{
+		"ru": "Хроники Риддика",
+		"en": "The Chronicles of Riddick",
+		"year": 2004,
+		"kinopoisk": "http://www.kinopoisk.ru/film/5900/"
+	},
+	{
+		"ru": "Чёрная дыра",
+		"en": "Pitch Black",
+		"year": 1999,
+		"kinopoisk": "http://www.kinopoisk.ru/film/785/"
+	},
+	{
+		"ru": "Крепкий орешек 4.0",
+		"en": "Live Free or Die Hard",
+		"year": 2007,
+		"kinopoisk": "http://www.kinopoisk.ru/film/9544/"
+	},
+	{
+		"ru": "Хоббит: Нежданное путешествие",
+		"en": "The Hobbit: An Unexpected Journey",
+		"year": 2012,
+		"kinopoisk": "http://www.kinopoisk.ru/film/278522/"
+	},
 ];

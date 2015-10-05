@@ -26,8 +26,6 @@ $img_url = filter_from_blocked_resources($img);
 
 	<link rel="stylesheet" href="../../css/style.css" />
 </head>
-
-<body>
 <body>
 	<header>
 	</header>
