@@ -6,6 +6,11 @@
 
 	<link rel="stylesheet" href="../../css/style.css" />
 
+	<!-- WITHOUT INTERNET -->
+	<!--script src="../../js/jquery-1.11.3.min.js"></script-->
+	<!-- WITH INTERNET -->
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
 	<script src="../../users/1/films.js"></script>
 	<script type="text/javascript">
 		var APP = {
@@ -28,7 +33,7 @@
 				var random_movie = this.films[rand];
 				var search_movie_title = "";
 
-				this.getBySelector("button")[0].onclick = function() { location.reload(true); }
+				$("button").on("click", function() { location.reload(true); });
 				this.random_movie = random_movie;
 
 				if (random_movie && random_movie.en && random_movie.en != "") search_movie_title = random_movie.en 
@@ -43,24 +48,24 @@
 				if (search_movie_title != "") {
 					var self = this;
 
-					this.getJSONP(this.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
+					this.jQueryGetJSONP(this.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
 						if (json && json.responseData.results) {
 							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "") + (self.random_movie.en ? self.random_movie.en + " | ": "") + (self.random_movie.year ? self.random_movie.year : "");
 							if (title.slice(-2) == "| ") title = title.slice(0, -2);
 							
-							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="+ title.replace(/ \| /g, " ") + " смотреть фильм онлайн'>" + title + "</a>";
-							self.getBySelector("main>img")[0].src = self.filterFromBlockedResources(json.responseData.results);
-							self.getBySelector("main>img")[0].alt = title;
-							self.getBySelector("main>img")[0].title = title;
+							$("main>h1").html("<a target='_blank' href='http://google.com/search?q="+ title.replace(/ \| /g, " ") + " смотреть фильм онлайн'>" + title + "</a>");
+							$("main>img").attr("src", self.filterFromBlockedResources(json.responseData.results));
+							$("main>img").attr("alt", title);
+							$("main>img").attr("title", title);
 
 							if (self.random_movie.kinopoisk) {
-								self.getById("kinopoisk").href = self.random_movie.kinopoisk;
-								self.getById("kinopoisk").style.display = "inline";
+								$("#kinopoisk").attr("href", self.random_movie.kinopoisk);
+								$("#kinopoisk").css("display", "inline");
 							}
 
 							if (self.random_movie.imdb) {
-								self.getById("imdb").href = self.random_movie.imdb;
-								self.getById("imdb").style.display = "inline";
+								$("#imdb").attr("href", self.random_movie.imdb);
+								$("#imdb").css("display", "inline");
 							}
 						}
 						else alert("Movie [" + rand + "] : Image not found!");
@@ -71,34 +76,17 @@
 			rand: function (min, max) {
 				return Math.round(min - 0.5 + Math.random() * (max - min + 1));
 			},
-			_filter: function(param) {
-				return ((param && param != "") ? param : null);
-			},
-			getById: function(id) {
-				return (this._filter(id) ? document.getElementById(id) : null);
-			},
-			getBySelector: function(selector) {
-				return (this._filter(selector) ? document.querySelectorAll(selector) : null);
-			},
-			getJSONP: function(url, callback) {
-/*
-				var script = document.createElement('script');
-				script.src = this.settings.google_images_url + search_movie_title;
-				document.getElementsByTagName('head')[0].appendChild(script);
-*/
-				// http://stackoverflow.com/questions/32302518/javascript-cross-domain-json-object-reader
-				var ud = "_" + +new Date,
-					script = document.createElement('script'),
-					head = document.getElementsByTagName('head')[0]
-					|| document.documentElement;
-
-				window[ud] = function(data) {
-					head.removeChild(script);
-					callback && callback(data);
-				};
-
-				script.src = url.replace('callback=?', 'callback=' + ud);
-				head.appendChild(script);
+			jQueryGetJSONP: function(url, callback) {
+				$.ajax({
+					url: url,
+					dataType: "jsonp", 
+					success: function(json) {
+						callback(json);
+					},
+					error: function() {
+						callback(null);
+					}
+				});
 			},
 			filterFromBlockedResources: function(arr) {
 				var good_url = "";
@@ -114,8 +102,7 @@
 			}
 		};
 
-		var DOMReady = function(a,b,c){b=document,c='addEventListener';b[c]?b[c]('DOMContentLoaded',a):window.attachEvent('onload',a)}
-		DOMReady(function() {
+		$(document).ready(function() {
 			APP.init();
 		});
 	</script>
