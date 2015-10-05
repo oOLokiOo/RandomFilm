@@ -35,6 +35,7 @@
 					+ (this.random_movie.year ? " " 
 					+ this.random_movie.year : "") 
 					+ this.settings.en_search_prefix;
+
 				else if (random_movie && random_movie.ru && random_movie.ru != "") search_movie_title = random_movie.ru 
 					+ (this.random_movie.year ? " " 
 					+ this.random_movie.year : "") 
@@ -45,10 +46,17 @@
 
 					this.getJSONP(this.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
 						if (json && json.responseData.results) {
-							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "") + (self.random_movie.en ? self.random_movie.en + " | ": "") + (self.random_movie.year ? self.random_movie.year : "");
+							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
+								+ (self.random_movie.en ? self.random_movie.en + " | ": "")
+								+ (self.random_movie.year ? self.random_movie.year : "");
+							
 							if (title.slice(-2) == "| ") title = title.slice(0, -2);
 							
-							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="+ title.replace(/ \| /g, " ") + " смотреть фильм онлайн'>" + title + "</a>";
+							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="
+								+ title.replace(/ \| /g, " ")
+								+ " смотреть фильм онлайн'>"
+								+ title
+								+ "</a>";
 							self.getBySelector("main>img")[0].src = self.filterFromBlockedResources(json.responseData.results);
 							self.getBySelector("main>img")[0].alt = title;
 							self.getBySelector("main>img")[0].title = title;
@@ -89,8 +97,7 @@
 				// http://stackoverflow.com/questions/32302518/javascript-cross-domain-json-object-reader
 				var ud = "_" + +new Date,
 					script = document.createElement('script'),
-					head = document.getElementsByTagName('head')[0]
-					|| document.documentElement;
+					head = document.getElementsByTagName('head')[0] || document.documentElement;
 
 				window[ud] = function(data) {
 					head.removeChild(script);

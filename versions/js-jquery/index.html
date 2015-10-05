@@ -40,6 +40,7 @@
 					+ (this.random_movie.year ? " " 
 					+ this.random_movie.year : "") 
 					+ this.settings.en_search_prefix;
+
 				else if (random_movie && random_movie.ru && random_movie.ru != "") search_movie_title = random_movie.ru 
 					+ (this.random_movie.year ? " " 
 					+ this.random_movie.year : "") 
@@ -48,12 +49,19 @@
 				if (search_movie_title != "") {
 					var self = this;
 
-					this.jQueryGetJSONP(this.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
+					this.jQueryGetJSONP(this.settings.google_images_url + search_movie_title, function(json) {
 						if (json && json.responseData.results) {
-							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "") + (self.random_movie.en ? self.random_movie.en + " | ": "") + (self.random_movie.year ? self.random_movie.year : "");
+							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
+								+ (self.random_movie.en ? self.random_movie.en + " | ": "")
+								+ (self.random_movie.year ? self.random_movie.year : "");
+							
 							if (title.slice(-2) == "| ") title = title.slice(0, -2);
 							
-							$("main>h1").html("<a target='_blank' href='http://google.com/search?q="+ title.replace(/ \| /g, " ") + " смотреть фильм онлайн'>" + title + "</a>");
+							$("main>h1").html("<a target='_blank' href='http://google.com/search?q="
+								+ title.replace(/ \| /g, " ")
+								+ " смотреть фильм онлайн'>"
+								+ title
+								+ "</a>");
 							$("main>img").attr("src", self.filterFromBlockedResources(json.responseData.results));
 							$("main>img").attr("alt", title);
 							$("main>img").attr("title", title);
