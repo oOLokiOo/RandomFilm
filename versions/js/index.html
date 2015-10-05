@@ -18,8 +18,8 @@
 				en_search_prefix: " film poster",
 				ru_search_prefix: " фильм постер",
 				blocked_resources: [
-					'www.impawards.com',
-					'en.wikipedia.org'
+					"www.impawards.com",
+					"en.wikipedia.org"
 				],
 				XMLpath: "../../users/1/films.xml"
 			},
@@ -92,21 +92,21 @@
 			},
 			getJSONP: function(url, callback) {
 /*
-				var script = document.createElement('script');
+				var script = document.createElement("script");
 				script.src = this.settings.google_images_url + search_movie_title;
-				document.getElementsByTagName('head')[0].appendChild(script);
+				document.getElementsByTagName("head")[0].appendChild(script);
 */
 				// http://stackoverflow.com/questions/32302518/javascript-cross-domain-json-object-reader
 				var ud = "_" + +new Date,
-					script = document.createElement('script'),
-					head = document.getElementsByTagName('head')[0] || document.documentElement;
+					script = document.createElement("script"),
+					head = document.getElementsByTagName("head")[0] || document.documentElement;
 
 				window[ud] = function(data) {
 					head.removeChild(script);
 					callback && callback(data);
 				};
 
-				script.src = url.replace('callback=?', 'callback=' + ud);
+				script.src = url.replace("callback=?", "callback=" + ud);
 				head.appendChild(script);
 			},
 			filterFromBlockedResources: function(arr) {
