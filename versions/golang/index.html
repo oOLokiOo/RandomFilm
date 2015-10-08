@@ -11,13 +11,14 @@
 	</header>
 
 	<main>
-		<h1>{{.Test}}</h1>
-		<button type="button">Get Film!</button>
+		{{if .Error}}<p><b>{{.Error}}</b></p>{{end}}
+		<h1>{{if and (.Title) (.TitleForSearch)}}<a target="_blank" href="http://google.com/search?q={{.TitleForSearch}} смотреть фильм онлайн">{{.Title}}</a>{{end}}</h1>
+		<button type="button" onclick="location.reload(true); return false;">Get Film!</button>
 		<section>
-			<a href="#" target="_blank" id="kinopoisk">kinopoisk</a>
-			<a href="#" target="_blank" id="imdb">imdb</a>
+			{{if .Kinopoisk}}<a href="{{.Kinopoisk}}" target="_blank" id="kinopoisk">kinopoisk</a>{{end}}
+			{{if .Imdb}}<a href="{{.Imdb}}" target="_blank" id="imdb">imdb</a>{{end}}
 		</section>
-		<img src="" alt="" title="" />
+		<img src="" alt="{{if .Title}}{{.Title}}{{end}}" title="{{if .Title}}{{.Title}}{{end}}" />
 	</main>
 
 	<footer>
