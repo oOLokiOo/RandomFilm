@@ -26,7 +26,7 @@ const (
 	GOOGLE_IMAGES_URL 	string 	= "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=large&rsz=8&q="
 	EN_SEARCH_PREFIX 	string 	= " film poster"
 	RU_SEARCH_PREFIX 	string 	= " фильм постер"
-	//BLOCKED_RESOURCES = []string {"www.impawards.com", "en.wikipedia.org"}
+	//BLOCKED_RESOURCES []string = {"www.impawards.com", "en.wikipedia.org"}
 	XML_PATH 			string 	= "../../users/1/films.xml"
 )
 
