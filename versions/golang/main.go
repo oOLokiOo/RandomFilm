@@ -97,6 +97,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 		p.Kinopoisk = random_movie.Kinopoisk
 		p.Imdb = random_movie.Imdb
+		
 	} else {
 		p.Error = "Movie [" + strconv.Itoa(rand) + "] - not found!"
 	}
