@@ -9,7 +9,8 @@ import (
 	"math/rand"
 	"strconv"
 	"strings"
-	//"encoding/json"
+	"encoding/json"
+	"net/url"
 )
 
 
@@ -26,15 +27,25 @@ type Film struct {
 	Imdb 		string 	`xml:"imdb"`
 }
 
+type JsonMap struct {
+	ResponseData struct {
+		Results []struct {
+				Url 		string `json:"url"`
+				VisibleUrl 	string `json:"visibleUrl"`
+			} `json:"results"`
+	} `json:"responseData"`
+}
+
 var (
 	GOOGLE_IMAGES_URL 	string 	= "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=large&rsz=8&q="
 	EN_SEARCH_PREFIX 	string 	= " film poster"
 	RU_SEARCH_PREFIX 	string 	= " фильм постер"
-	BLOCKED_RESOURCES = [...]string {
+	BLOCKED_RESOURCES = []string {
 		"www.impawards.com",
 		"en.wikipedia.org",
 	}
 	XML_PATH 			string 	= "../../users/1/films.xml"
+	CSS_ROOT 			string 	= "../../css/"
 )
 
 type Page struct {
@@ -44,6 +55,7 @@ type Page struct {
 	Kinopoisk 		string
 	Imdb 			string
 	ImageUrl 		string
+	JsonData 		string
 }
 
 
@@ -57,6 +69,27 @@ func catch(err error) {
 	}
 }
 
+func stringInSlice(str string, list []string) bool {
+	for _, listVal := range list {
+		if listVal == str {
+			return true
+		}
+	}
+
+    return false
+}
+
+func filterFromBlockedResources(arr JsonMap) (good_url string) {
+	for _, row := range arr.ResponseData.Results {
+        if stringInSlice(row.VisibleUrl, BLOCKED_RESOURCES) == false {
+            good_url = row.Url
+            return good_url
+        }
+	}
+
+	return good_url
+}
+
 func index(w http.ResponseWriter, r *http.Request) {
 	m := Movies{}
 	p := Page{}
@@ -64,11 +97,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	xmlFile, _ := ioutil.ReadFile(XML_PATH)
 	err := xml.Unmarshal(xmlFile, &m)
 	catch(err)
-
-	//for _, film := range m.FilmsList {
-	//	fmt.Printf("\t%s\n", film)
-	//}
-
+ 
 	rand := rand.Intn(len(m.FilmsList));
 	random_movie := m.FilmsList[rand]
 
@@ -80,11 +109,23 @@ func index(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if search_movie_title != "" {
-		//fmt.Println(search_movie_title)
-		//res, err := http.Get(GOOGLE_IMAGES_URL + search_movie_title)
-		//perror(err)
-		//body, err := ioutil.ReadAll(res.Body)
-		//perror(err)
+		resp, err := http.Get(GOOGLE_IMAGES_URL + url.QueryEscape(search_movie_title))
+		catch(err)
+
+		if (resp.StatusCode == 200) {
+			defer resp.Body.Close()
+			jsonData, err := ioutil.ReadAll(resp.Body)
+			catch(err)
+
+			var jsonMap JsonMap
+			//var jsonMap map[string]interface{}
+			
+			err = json.Unmarshal([]byte(jsonData), &jsonMap)
+			catch(err)
+
+			//p.JsonData = jsonData
+			p.ImageUrl = filterFromBlockedResources(jsonMap)
+		}
 
 		title := ""
 		if random_movie.Ru != "" 	{ title += random_movie.Ru + " | " }
@@ -113,6 +154,9 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", index)
+
+	fs := http.FileServer(http.Dir(CSS_ROOT))
+	http.Handle("/css/", http.StripPrefix("/css/", fs))
 
 	http.ListenAndServe(":80", nil)
 }

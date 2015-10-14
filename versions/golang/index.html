@@ -4,7 +4,7 @@
 	<title>Random movie that you would like to revise (c) Script by oOLokiOo</title>
 	<meta charset="utf-8">
 
-	<link rel="stylesheet" href="../../css/style.css" />
+	<link rel="stylesheet" href="/../../css/style.css" />
 </head>
 <body>
 	<header>
@@ -18,10 +18,10 @@
 			{{if .Kinopoisk}}<a href="{{.Kinopoisk}}" target="_blank" id="kinopoisk">kinopoisk</a>{{end}}
 			{{if .Imdb}}<a href="{{.Imdb}}" target="_blank" id="imdb">imdb</a>{{end}}
 		</section>
-		<img src="" alt="{{if .Title}}{{.Title}}{{end}}" title="{{if .Title}}{{.Title}}{{end}}" />
+		<img src="{{if .ImageUrl}}{{.ImageUrl}}{{end}}" alt="{{if .Title}}{{.Title}}{{end}}" title="{{if .Title}}{{.Title}}{{end}}" />
 	</main>
 
 	<footer>
 	</footer>
 </body>
-</html> 
+</html>
