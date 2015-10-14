@@ -17,7 +17,7 @@ $error = '';
 if (isset($random_movie)) {
 	$search_movie_title .= ($random_movie->en != '' ? $random_movie->en . ' ' : '')
 		. ($random_movie->ru != '' ? $random_movie->ru . ' ' : '')
-		. ($random_movie->year != '' ? $random_movie->year . ' ' : '')
+		//. ($random_movie->year != '' ? $random_movie->year . ' ' : '')
 		. EN_SEARCH_PREFIX; // RU_SEARCH_PREFIX - bad result with "ru"
 
 	$imges_arr = get_from_images_google($search_movie_title);

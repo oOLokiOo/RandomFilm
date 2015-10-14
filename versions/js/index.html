@@ -15,8 +15,8 @@
 			settings: {
 				// https://developers.google.com/image-search/v1/jsondevguide
 				google_images_url: "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=large&rsz=8&q=",
-				en_search_prefix: " film poster",
-				ru_search_prefix: " фильм постер",
+				en_search_prefix: "film poster",
+				ru_search_prefix: "фильм постер",
 				blocked_resources: [
 					"www.impawards.com",
 					"en.wikipedia.org"
@@ -34,12 +34,9 @@
 					self.getBySelector("button")[0].onclick = function() { location.reload(true); }
 					self.random_movie = random_movie;
 
-					if (random_movie && random_movie.en && random_movie.en != "") search_movie_title = random_movie.en 
-						+ (self.random_movie.year ? " " + self.random_movie.year : "") 
-						+ self.settings.en_search_prefix;
-
-					else if (random_movie && random_movie.ru && random_movie.ru != "") search_movie_title = random_movie.ru 
-						+ (self.random_movie.year ? " " + self.random_movie.year : "") 
+					search_movie_title += ((random_movie && random_movie.en && random_movie.en != "") ? random_movie.en + " " : "")
+						+ ((random_movie && random_movie.ru && random_movie.ru != "") ? random_movie.ru + " " : "")
+						//+ (self.random_movie.year ? self.random_movie.year + " " : "") 
 						+ self.settings.en_search_prefix; // ru_search_prefix - bad result with "ru"
 
 					if (search_movie_title != "") {

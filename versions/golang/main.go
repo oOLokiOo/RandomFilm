@@ -38,8 +38,8 @@ type JsonMap struct {
 
 var (
 	GOOGLE_IMAGES_URL 	string 	= "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=large&rsz=8&q="
-	EN_SEARCH_PREFIX 	string 	= " film poster"
-	RU_SEARCH_PREFIX 	string 	= " фильм постер"
+	EN_SEARCH_PREFIX 	string 	= "film poster"
+	RU_SEARCH_PREFIX 	string 	= "фильм постер"
 	BLOCKED_RESOURCES = []string {
 		"www.impawards.com",
 		"en.wikipedia.org",
@@ -102,11 +102,10 @@ func index(w http.ResponseWriter, r *http.Request) {
 	random_movie := m.FilmsList[rand]
 
 	search_movie_title := ""
-	if random_movie.En != "" {
-		search_movie_title = random_movie.En + " " + random_movie.Year + " " + EN_SEARCH_PREFIX
-	} else if random_movie.Ru != "" {
-		search_movie_title = random_movie.Ru + " " + random_movie.Year + " " + EN_SEARCH_PREFIX // RU_SEARCH_PREFIX - bad result with "ru"
-	}
+	if random_movie.En != "" { search_movie_title += random_movie.En + " " }
+	if random_movie.Ru != "" { search_movie_title += random_movie.Ru + " " }
+	//if random_movie.Year != "" { search_movie_title += random_movie.Year + " " }
+	search_movie_title += EN_SEARCH_PREFIX
 
 	if search_movie_title != "" {
 		resp, err := http.Get(GOOGLE_IMAGES_URL + url.QueryEscape(search_movie_title))
