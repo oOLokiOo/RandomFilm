@@ -46,7 +46,7 @@
 						self.getJSONP(self.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
 							if (json && json.responseData.results) {
 								var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
-									+ (self.random_movie.en ? self.random_movie.en + " | ": "")
+									+ (self.random_movie.en ? self.random_movie.en + " | " : "")
 									+ (self.random_movie.year ? self.random_movie.year : "");
 								
 								if (title.slice(-2) == "| ") title = title.slice(0, -2);
