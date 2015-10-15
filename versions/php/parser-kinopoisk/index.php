@@ -1,10 +1,7 @@
 <?php
 
-// require_once CORE with all inludes and default settings here
-
-mb_internal_encoding('UTF-8');
-error_reporting(E_ALL);
-ini_set('error_reporting', E_ALL);
+require_once '../config.php';
+//require_once '../functions.php';
 
 
 $detail_page_url = '';
@@ -18,9 +15,8 @@ $result = array(
 
 if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 	// https://github.com/RubtsovAV/php-curl-lib
-	// http://simplehtmldom.sourceforge.net/manual.htm
-	require_once '../functions.php';
 	require_once 'Curl.php';
+	// http://simplehtmldom.sourceforge.net/manual.htm
 	require_once 'simple_html_dom.php';
 
 	$domen = 'http://www.kinopoisk.ru';
@@ -63,6 +59,12 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 	<title>Kinopoisk Parser</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="../../../css/style.css" />
+	<style>
+		p {
+			padding: 4px;
+			margin: 0;
+		}
+	</style>
 </head>
 <body>
 	<main>
@@ -75,10 +77,10 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 
 		<section>
 			<p>RESULT:</p>
-			<a href="<?=$detail_page_url?>" target="_blank"><?=$detail_page_url?></a><br />
-			<input type="text" name="ru" value="<?=$result['ru']?>" /><br />
-			<input type="text" name="en" value="<?=$result['en']?>" /><br />
-			<input type="text" name="year" value="<?=$result['year']?>" />
+			<p><a href="<?=$detail_page_url?>" target="_blank"><?=$detail_page_url?></a></p>
+			<p><input type="text" name="ru" value="<?=strip_tags($result['ru'])?>" /></p>
+			<p><input type="text" name="en" value="<?=strip_tags($result['en'])?>" /></p>
+			<p><input type="text" name="year" value="<?=strip_tags($result['year'])?>" /></p>
 			<br /><br />
 			<img src="<?=$result['img']?>" />
 		</section>
