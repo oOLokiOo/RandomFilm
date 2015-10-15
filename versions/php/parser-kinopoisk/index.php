@@ -66,7 +66,7 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 	<title>Kinopoisk.ru PHP simple parser / КиноПоиск.ру PHP простой парсер</title>
 	<meta charset="utf-8">
 
-	<!-- Just for local & github project version, you can remove it -->
+	<!-- Just for local & github project version, common CSS file, you can remove it -->
 	<link rel="stylesheet" href="../../../css/style.css" />
 	<style>
 		p {
