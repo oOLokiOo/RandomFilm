@@ -59,6 +59,7 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html>
 <head>
