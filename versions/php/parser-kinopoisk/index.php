@@ -1,7 +1,15 @@
 <?php
 
-require_once '../config.php';
-//require_once '../functions.php';
+/**
+ * @author Ivan Volkov <ivan.volkov.older@gmail.com>
+ * @version 1.0
+ * @see https://github.com/RubtsovAV/php-curl-lib
+ * @see http://simplehtmldom.sourceforge.net
+ */
+
+mb_internal_encoding('UTF-8');
+error_reporting(E_ALL);
+ini_set('error_reporting', E_ALL);
 
 
 $detail_page_url = '';
@@ -14,9 +22,7 @@ $result = array(
 );
 
 if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
-	// https://github.com/RubtsovAV/php-curl-lib
 	require_once 'Curl.php';
-	// http://simplehtmldom.sourceforge.net/manual.htm
 	require_once 'simple_html_dom.php';
 
 	$domen = 'http://www.kinopoisk.ru';
@@ -56,8 +62,10 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Kinopoisk Parser</title>
+	<title>Kinopoisk.ru PHP simple parser / КиноПоиск.ру PHP простой парсер</title>
 	<meta charset="utf-8">
+
+	<!-- Just for local & github project version, you can remove it -->
 	<link rel="stylesheet" href="../../../css/style.css" />
 	<style>
 		p {
@@ -65,18 +73,20 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 			margin: 0;
 		}
 	</style>
+	<!-- /end -->
 </head>
 <body>
 	<main>
-		<p><?=$result['error']?></p>
+		<p><h3><?=$result['error']?></h3></p>
 
+		<p>Введите название фильма:</p>
 		<form method="post">
 			<input type="text" name="movie" value="" />
 			<button type="submit">Go!</button>
 		</form>
 
 		<section>
-			<p>RESULT:</p>
+			<p>Результат:</p>
 			<p><a href="<?=$detail_page_url?>" target="_blank"><?=$detail_page_url?></a></p>
 			<p><input type="text" name="ru" value="<?=strip_tags($result['ru'])?>" /></p>
 			<p><input type="text" name="en" value="<?=strip_tags($result['en'])?>" /></p>
