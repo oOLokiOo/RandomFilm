@@ -22,7 +22,7 @@ $result = array(
 );
 
 if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
-	require_once 'Curl.php';
+	require_once 'curl.php';
 	require_once 'simple_html_dom.php';
 
 	$domen = 'http://www.kinopoisk.ru';
