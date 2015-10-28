@@ -7,6 +7,14 @@ import (
 	"github.com/google/gxui/samples/flags"
 )
 
+
+var (
+	APP_TITLE 		string = "Random movie that you would like to revise (c) Script by oOLokiOo"
+	WINDOW_WIDTH 	int = 800
+	WINDOW_HEIGHT 	int = 600
+)
+
+
 func appMain(driver gxui.Driver) {
 	theme := flags.CreateTheme(driver)
 
@@ -15,7 +23,7 @@ func appMain(driver gxui.Driver) {
 		panic(err)
 	}
 
-	window := theme.CreateWindow(800, 600, "Random movie that you would like to revise (c) Script by oOLokiOo")
+	window := theme.CreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, APP_TITLE)
 	window.SetBackgroundBrush(gxui.CreateBrush(gxui.Gray50))
 
 	label := theme.CreateLabel()
@@ -26,6 +34,7 @@ func appMain(driver gxui.Driver) {
 
 	window.OnClose(driver.Terminate)
 }
+
 
 func main() {
 	gl.StartDriver(appMain)
