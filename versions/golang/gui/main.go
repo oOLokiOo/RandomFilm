@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/google/gxui"
 	"github.com/google/gxui/drivers/gl"
 	"github.com/google/gxui/gxfont"
@@ -15,13 +17,22 @@ var (
 )
 
 
+func catch(err error) {
+	if err != nil {
+		fmt.Println("\n\n--- --- ---\nERROR: ", err)
+		fmt.Println("--- --- ---\n")
+		panic(err)
+
+		return
+	}
+}
+
+
 func appMain(driver gxui.Driver) {
 	theme := flags.CreateTheme(driver)
 
 	font, err := driver.CreateFont(gxfont.Default, 75)
-	if err != nil {
-		panic(err)
-	}
+	catch(err)
 
 	window := theme.CreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, APP_TITLE)
 	window.SetBackgroundBrush(gxui.CreateBrush(gxui.Gray50))
@@ -29,7 +40,6 @@ func appMain(driver gxui.Driver) {
 	label := theme.CreateLabel()
 	label.SetFont(font)
 	label.SetText("just test")
-
 	window.AddChild(label)
 
 	window.OnClose(driver.Terminate)
