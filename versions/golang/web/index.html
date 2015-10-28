@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Random movie that you would like to revise (c) Script by oOLokiOo</title>
+	<meta charset="utf-8">
+
+	<link rel="stylesheet" href="/../../css/style.css" />
+</head>
+<body>
+	<header>
+	</header>
+
+	<main>
+		{{if .Error}}<p><b>{{.Error}}</b></p>{{end}}
+		<h1>{{if and (.Title) (.TitleForSearch)}}<a target="_blank" href="http://google.com/search?q={{.TitleForSearch}} смотреть фильм онлайн">{{.Title}}</a>{{end}}</h1>
+		<button type="button" onclick="location.reload(true); return false;">Get Film!</button>
+		<section>
+			{{if .Kinopoisk}}<a href="{{.Kinopoisk}}" target="_blank" id="kinopoisk">kinopoisk</a>{{end}}
+			{{if .Imdb}}<a href="{{.Imdb}}" target="_blank" id="imdb">imdb</a>{{end}}
+		</section>
+		<img src="{{if .ImageUrl}}{{.ImageUrl}}{{end}}" alt="{{if .Title}}{{.Title}}{{end}}" title="{{if .Title}}{{.Title}}{{end}}" />
+	</main>
+
+	<footer>
+	</footer>
+</body>
+</html>
