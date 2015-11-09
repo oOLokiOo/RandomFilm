@@ -358,4 +358,221 @@
 		<year>2012</year>
 		<kinopoisk>http://www.kinopoisk.ru/film/278522/</kinopoisk>
 	</film>
+	<film>
+		<ru>Прекрасные создания</ru>
+		<en>Beautiful Creatures</en>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/489438/</kinopoisk>
+	</film>
+	<film>
+		<ru>Байкеры</ru>
+		<en>Biker Boyz</en>
+		<year>2003</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/3731/</kinopoisk>
+	</film>
+	<film>
+		<ru>Иллюзия обмана</ru>
+		<en>Now You See Me</en>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/522892/</kinopoisk>
+	</film>
+	<film>
+		<ru>Армагедон</ru>
+		<en>Armaguedon</en>
+		<year>1977</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/64053/</kinopoisk>
+	</film>
+	<film>
+		<ru>Земное ядро</ru>
+		<en>The Core</en>
+		<year>2003</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/20158/</kinopoisk>
+	</film>
+	<film>
+		<ru>Тор</ru>
+		<en>Thor</en>
+		<year>2011</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/258941/</kinopoisk>
+	</film>
+	<film>
+		<ru>Ной</ru>
+		<en>Noah</en>
+		<year>2014</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/596001/</kinopoisk>
+	</film>
+	<film>
+		<ru>Робин Гуд</ru>
+		<en>Robin Hood</en>
+		<year>2010</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/278177/</kinopoisk>
+	</film>
+	<film>
+		<ru>Тысяча слов</ru>
+		<en>A Thousand Words</en>
+		<year>2009</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/395709/</kinopoisk>
+	</film>
+	<film>
+		<ru>Морской бой</ru>
+		<en>Battleship</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/466844/</kinopoisk>
+	</film>
+	<film>
+		<ru>Не пойман – не вор</ru>
+		<en>Inside Man</en>
+		<year>2006</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/103785/</kinopoisk>
+	</film>
+	<film>
+		<ru>Никогда не сдавайся</ru>
+		<en>Never Back Down</en>
+		<year>2008</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/311268/</kinopoisk>
+	</film>
+	<film>
+		<ru>Перси Джексон и похититель молний</ru>
+		<en>Percy Jackson and the Olympians: The Lightning Thief</en>
+		<year>2010</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/403986/</kinopoisk>
+	</film>
+	<film>
+		<ru>Король вечеринок</ru>
+		<en>Van Wilder</en>
+		<year>2001</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/6519/</kinopoisk>
+	</film>
+	<film>
+		<ru>Торчки</ru>
+		<en>How High</en>
+		<year>2001</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/5092/</kinopoisk>
+	</film>
+	<film>
+		<ru>Я – легенда</ru>
+		<en>I Am Legend</en>
+		<year>2007</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/195524/</kinopoisk>
+	</film>
+	<film>
+		<ru>Правила съема: Метод Хитча</ru>
+		<en>Hitch</en>
+		<year>2005</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/77454/</kinopoisk>
+	</film>
+	<film>
+		<ru>Оз: Великий и Ужасный</ru>
+		<en>Oz the Great and Powerful</en>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/506005/</kinopoisk>
+	</film>
+	<film>
+		<ru>Кадры</ru>
+		<en>The Internship</en>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/666935/</kinopoisk>
+	</film>
+	<film>
+		<ru>Гостья</ru>
+		<en>The Host</en>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/477647/</kinopoisk>
+	</film>
+	<film>
+		<ru>Фортуна Вегаса</ru>
+		<en>Lay the Favorite</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/484437/</kinopoisk>
+	</film>
+	<film>
+		<ru>Гравитация</ru>
+		<en>Gravity</en>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/468466/</kinopoisk>
+	</film>
+	<film>
+		<ru>Лига выдающихся джентльменов</ru>
+		<en>The League of Extraordinary Gentlemen</en>
+		<year>2003</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/7975/</kinopoisk>
+	</film>
+	<film>
+		<ru>Заложница</ru>
+		<en>Taken</en>
+		<year>2007</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/276376/</kinopoisk>
+	</film>
+	<film>
+		<ru>Дом у озера</ru>
+		<en>The Lake House</en>
+		<year>2006</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/102130/</kinopoisk>
+	</film>
+	<film>
+		<ru>Грань будущего</ru>
+		<en>Edge of Tomorrow</en>
+		<year>2014</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/505851/</kinopoisk>
+	</film>
+	<film>
+		<ru>Посвященный</ru>
+		<en>The Giver</en>
+		<year>2014</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/88078/</kinopoisk>
+	</film>
+	<film>
+		<ru>Петля времени</ru>
+		<en>Looper</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/463354/</kinopoisk>
+	</film>
+	<film>
+		<ru>Сейчас самое время</ru>
+		<en>Now Is Good</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/594778/</kinopoisk>
+	</film>
+	<film>
+		<ru>Почти знаменит</ru>
+		<en>Almost Famous</en>
+		<year>2000</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/454/</kinopoisk>
+	</film>
+	<film>
+		<ru>Посейдон</ru>
+		<en>Poseidon</en>
+		<year>2006</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/81525/</kinopoisk>
+	</film>
+	<film>
+		<ru>Параллельные миры</ru>
+		<en>Upside Down</en>
+		<year>2011</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/481086/</kinopoisk>
+	</film>
+	<film>
+		<ru>Эон Флакс</ru>
+		<en>Eon Flux</en>
+		<year>2005</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/77426/</kinopoisk>
+	</film>
+	<film>
+		<ru>Континуум</ru>
+		<en>Project Almanac</en>
+		<year>2014</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/711454/</kinopoisk>
+	</film>
+	<film>
+		<ru>Прогулка</ru>
+		<en>The Walk</en>
+		<year>2015</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/829368/</kinopoisk>
+	</film>
+	<film>
+		<ru>Экипаж</ru>
+		<en>Flight</en>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/592203/</kinopoisk>
+	</film>
+	
 </movies>

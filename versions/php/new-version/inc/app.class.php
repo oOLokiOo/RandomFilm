@@ -155,7 +155,7 @@ Class APP {
 	}
 
 	/**
-	 * @return object|null object with parsed movie data from XML file or NULL.
+	 * @return 	object|null object with parsed movie data from XML file or NULL.
 	 */
 	public function get_random_movie() {
 		$random_movie = null;
@@ -178,7 +178,7 @@ Class APP {
 	}
 
 	/**
-	 * @return string title of movie for Google serach, to get it poster image.
+	 * @return 	string title of movie for Google serach, to get it poster image.
 	 */
 	public function get_search_movie_title() {
 		if ($this->search_movie_title != '') return $this->search_movie_title;
@@ -193,7 +193,7 @@ Class APP {
 	}
 
 	/**
-	 * @return string filter Google Search results and return single image from it.
+	 * @return 	string filter Google Search results and return single image from it.
 	 */
 	public function get_image_url() {
 		if ($this->image_url != '') return $this->image_url;
@@ -206,7 +206,7 @@ Class APP {
 	}
 
 	/**
-	 * @return string filtered $this->search_movie_title.
+	 * @return 	string filtered $this->search_movie_title.
 	 */
 	public function get_h1_title() {
 		if ($this->h1_title != '') return $this->h1_title;
