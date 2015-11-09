@@ -7,7 +7,7 @@
 
 <p><b>JS</b></p>
 * Only JS - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index.html
-* JS + jQuery - https://github.com/oOLokiOo/random-film/tree/master/versions/php/old-version
+* JS + jQuery - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index_jquery.html
 
 <p><b>GOLANG</b></p>
 * WEB version - https://github.com/oOLokiOo/random-film/tree/master/versions/golang/web
