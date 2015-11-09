@@ -9,7 +9,7 @@ function d($arr, $die = false) {
 }
 
 //https://developers.google.com/image-search/v1/jsondevguide
-function get_from_images_google($search_words) {
+function get_from_images_google($search_words = '') {
     $manual_referer = 'http://google.com/';
 
     $args = array(
@@ -57,7 +57,7 @@ function get_from_images_google($search_words) {
     return $json['responseData']['results'];
 }
 
-function filter_from_blocked_resources($imges_arr, $BLOCKED_RESOURCES) {
+function filter_from_blocked_resources($imges_arr = array(), $BLOCKED_RESOURCES = array()) {
     $good_url = '';
 
     for ($i = 0; $i < count($imges_arr); $i++) {

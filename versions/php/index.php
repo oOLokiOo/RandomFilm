@@ -1,18 +1,32 @@
 <?php
 
+require_once 'app.class.php';
+$app = new APP();
+$app->d($app, 1);
+
 require_once 'config.php';
 require_once 'functions.php';
 
+$errors = array();
 $xml = file_get_contents(XML_PATH);
-$xmlData = new SimpleXMLElement($xml);
 
-$rand = rand(0, count($xmlData) - 1);
-$random_movie = $xmlData->film[$rand];
+if ($xml) {
+	//@$xmlData = new SimpleXMLElement($xml);
+	@$xmlData = simplexml_load_string($xml);
 
+	if ($xmlData) {
+		$rand = rand(0, count($xmlData) - 1);
+		$random_movie = $xmlData->film[$rand];
+	}
+	else $errors[] = 'Xml file not Found';
+}
+else $errors[] = 'String could not be parsed as XML';
+
+$rand = -1;
 $search_movie_title = '';
-$title = '';
-$img_url = '';
-$error = '';
+$h1_title = '';
+$image_url = '';
+
 
 if (isset($random_movie)) {
 	$search_movie_title .= ($random_movie->en != '' ? $random_movie->en . ' ' : '')
@@ -20,16 +34,16 @@ if (isset($random_movie)) {
 		//. ($random_movie->year != '' ? $random_movie->year . ' ' : '')
 		. EN_SEARCH_PREFIX; // RU_SEARCH_PREFIX - bad result with "ru"
 
-	$imges_arr = get_from_images_google($search_movie_title);
-	$img_url = filter_from_blocked_resources($imges_arr, $BLOCKED_RESOURCES);
+	$images_arr = get_from_images_google($search_movie_title);
+	$image_url = filter_from_blocked_resources($images_arr, $BLOCKED_RESOURCES);
 
-	$title = ($random_movie->ru ? $random_movie->ru . ' | ' : '')
+	$h1_title = ($random_movie->ru ? $random_movie->ru . ' | ' : '')
 		. ($random_movie->en ? $random_movie->en . ' | ' : '')
 		. ($random_movie->year ? $random_movie->year : '');
 
-	//if (mb_substr($title, -2) == "| ") $title = mb_substr($title, 0, mb_strlen($title, -2));
+	//if (mb_substr($h1_title, -2) == "| ") $h1_title = mb_substr($h1_title, 0, mb_strlen($h1_title, -2));
 }
-else $error = "Movie [" . $rand . "] - not found!" 
+else $errors[] = "Movie [" . $rand . "] - not found!" 
 ?>
 
 
@@ -46,11 +60,11 @@ else $error = "Movie [" . $rand . "] - not found!"
 	</header>
 
 	<main>
-		<?php if ($error != '') { ?><p><b><?=$error?></b></p><?php } ?>
-		<h1><a target="_blank" href="http://google.com/search?q=<?=str_replace(' | ', ' ', $title)?> смотреть фильм онлайн"><?=$title?></a></h1>
+		<?php if (count($errors)) { ?><p><b><?=implode('<br />', $errors)?></b></p><?php } ?>
+		<h1><a target="_blank" href="http://google.com/search?q=<?=str_replace(' | ', ' ', $h1_title)?> смотреть фильм онлайн"><?=$h1_title?></a></h1>
 		<button type="button" onclick="location.reload(); return false;">Get Film!</button>
 		<br /><br />
-		<img src="<?=$img_url?>" alt="<?=$title?>" title="<?=$title?>" />
+		<img src="<?=$image_url?>" alt="<?=$h1_title?>" title="<?=$h1_title?>" />
 	</main>
 
 	<footer>
