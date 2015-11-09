@@ -1,8 +1,8 @@
 <?php
 
-require_once 'app.class.php';
-$app = new APP();
-$app->d($app, 1);
+//require_once 'app.class.php';
+//$app = new APP();
+//$app->d($app, 1);
 
 require_once 'config.php';
 require_once 'functions.php';

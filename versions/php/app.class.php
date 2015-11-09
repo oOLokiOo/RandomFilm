@@ -49,7 +49,7 @@ Class APP {
 	 * 
 	 * @param 	string 	$search_words 	title for Google Search.
 	 * 
-	 * @return 	array 	result of decoded json array.
+	 * @return 	array|boolean 	result of decoded json array or FALSE.
 	 */
 	private function get_from_images_google($search_words = '') {
 		$manual_referer = 'http://google.com/';
