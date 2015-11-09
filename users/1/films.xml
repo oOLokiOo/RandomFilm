@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <movies>
 	<film>
-		<ru>test</ru>
+		<ru>test movie</ru>
 		<en>тест</en>
 		<year>1234</year>
-		<kinopoisk>http://www.kinopoisk.ru/</kinopoisk>
-		<imdb>http://www.imdb.com/</imdb>
+		<kinopoisk>http://www.kinopoisk.ru/xxx</kinopoisk>
+		<imdb>http://www.imdb.com/xxx</imdb>
+	</film>
+	<film>
+		<ru>test movie 2</ru>
+		<en>тест</en>
+		<year>1234</year>
+		<kinopoisk>http://www.kinopoisk.ru/xxx2</kinopoisk>
+		<imdb>http://www.imdb.com/xxx2</imdb>
 	</film>
 	<film>
 		<ru>Мстители</ru>
