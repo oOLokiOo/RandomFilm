@@ -4,7 +4,7 @@
 	<title>Random movie that you would like to revise (c) Script by oOLokiOo</title>
 	<meta charset="utf-8">
 
-	<link rel="stylesheet" href="../../../../css/style.css" />
+	<link rel="stylesheet" href="<?=$CSS_PATH?>" />
 </head>
 <body>
 	<header>
