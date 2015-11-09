@@ -574,5 +574,16 @@
 		<year>2012</year>
 		<kinopoisk>http://www.kinopoisk.ru/film/592203/</kinopoisk>
 	</film>
-	
+	<film>
+		<ru>Гладиатор</ru>
+		<en>Gladiator</en>
+		<year>2000</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/474/</kinopoisk>
+	</film>
+	<film>
+		<ru>Хеллбой: Герой из пекла</ru>
+		<en>Hellboy</en>
+		<year>2004</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/5052/</kinopoisk>
+	</film>
 </movies>
