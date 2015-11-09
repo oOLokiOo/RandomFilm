@@ -13,4 +13,4 @@ $BLOCKED_RESOURCES = array(
     'www.impawards.com',
     'en.wikipedia.org'
 );
-const XML_PATH = '../../users/1/films.xml';
+const XML_PATH = '../../../users/1/films.xml';

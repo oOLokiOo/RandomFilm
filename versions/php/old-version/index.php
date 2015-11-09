@@ -1,9 +1,5 @@
 <?php
 
-//require_once 'app.class.php';
-//$app = new APP();
-//$app->d($app, 1);
-
 require_once 'config.php';
 require_once 'functions.php';
 
@@ -53,7 +49,7 @@ else $errors[] = "Movie [" . $rand . "] - not found!"
 	<title>Random movie that you would like to revise (c) Script by oOLokiOo</title>
 	<meta charset="utf-8">
 
-	<link rel="stylesheet" href="../../css/style.css" />
+	<link rel="stylesheet" href="../../../css/style.css" />
 </head>
 <body>
 	<header>

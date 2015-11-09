@@ -9,8 +9,7 @@
  */
 
 Class APP {
-	private $rand 	= 0;
-	private $error 	= '';
+	private $rand 		= 0;
 	private $errors_arr = array(
 		'0' => 'Xml file not Found',
 		'1' => 'String could not be parsed as XML'
@@ -23,18 +22,23 @@ Class APP {
 		'en.wikipedia.org'
 	);
 
-	public $EN_SEARCH_PREFIX 	= 'film poster';
-	public $RU_SEARCH_PREFIX 	= 'фильм постер';
+	private $EN_SEARCH_PREFIX 	= 'film poster';
+	private $RU_SEARCH_PREFIX 	= 'фильм постер';
 
-	public $XML_PATH = '../../users/1/films.xml';
+	private $XML_PATH = '';
 
 	public $random_movie 		= null;
 	public $search_movie_title 	= '';
 	public $image_url 			= '';
 	public $h1_title 			= '';
+	public $error 				= '';
 
 
-	function __construct() {
+	/**
+	 * @param string $XML_PATH path to XML file with movies.
+	 */
+	function __construct($XML_PATH = '') {
+		$this->XML_PATH = $XML_PATH;
 		$this->random_movie = $this->get_random_movie();
 		
 		if ($this->random_movie != null) {
@@ -121,10 +125,10 @@ Class APP {
 	/**.
 	 * @param 	int 	$error_num 	nuber of error from error array.
 	 * 
-	 * @return 	boolean 	TRUE, if error was set. FALSE, if not.
+	 * @return 	boolean TRUE, if error was set. FALSE, if not.
 	 */
 	private function set_error($error_num = null) {
-		if ($error_num != null && is_numeric($error_num)) {
+		if (is_numeric($error_num)) {
 			$this->error = $this->errors_arr[$error_num];
 			return true;
 		}
@@ -135,9 +139,9 @@ Class APP {
 
 	/**
 	 * @param 	mixed 	$data 	data for debuging.
-	 * @param 	boolean 	$die 	param for stop running script after debug. defalt - FALSE.
+	 * @param 	boolean $die 	param for stop running script after debug. defalt - FALSE.
 	 * 
-	 * @return 	boolean 	TRUE, anyway.
+	 * @return 	boolean TRUE, anyway.
 	 */
 	public function d($data, $die = false) {
 		echo '<pre>';
@@ -151,12 +155,12 @@ Class APP {
 	}
 
 	/**
-	 * @return 	object|null 	object with parsed movie data from XML file or NULL.
+	 * @return object|null object with parsed movie data from XML file or NULL.
 	 */
 	public function get_random_movie() {
 		$random_movie = null;
-		
-		$xml = file_get_contents($this->XML_PATH);
+
+		@$xml = file_get_contents($this->XML_PATH);
 
 		if ($xml) {
 			//@$xmlData = new SimpleXMLElement($xml);
@@ -174,7 +178,7 @@ Class APP {
 	}
 
 	/**
-	 * @return 	string 	title of movie for Google serach, to get it poster image.
+	 * @return string title of movie for Google serach, to get it poster image.
 	 */
 	public function get_search_movie_title() {
 		if ($this->search_movie_title != '') return $this->search_movie_title;
@@ -189,7 +193,7 @@ Class APP {
 	}
 
 	/**
-	 * @return 	string 	filter Google Search results and return single image from it.
+	 * @return string filter Google Search results and return single image from it.
 	 */
 	public function get_image_url() {
 		if ($this->image_url != '') return $this->image_url;
@@ -202,7 +206,7 @@ Class APP {
 	}
 
 	/**
-	 * @return 	string 	filtered $this->search_movie_title.
+	 * @return string filtered $this->search_movie_title.
 	 */
 	public function get_h1_title() {
 		if ($this->h1_title != '') return $this->h1_title;
