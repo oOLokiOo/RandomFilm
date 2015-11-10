@@ -8,7 +8,7 @@
  * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php
  */
 
-Class APP {
+class APP {
 	private $rand 		= 0;
 	private $errors_arr = array(
 		'0' => 'Xml file not Found',
@@ -37,7 +37,7 @@ Class APP {
 	/**
 	 * @param string $XML_PATH path to XML file with movies.
 	 */
-	function __construct($XML_PATH = '') {
+	public function __construct($XML_PATH = '') {
 		$this->XML_PATH = $XML_PATH;
 		$this->random_movie = $this->get_random_movie();
 		
@@ -68,7 +68,7 @@ Class APP {
 		$url = $this->GOOGLE_IMAGES_URL;
 
 		foreach ($args as $key => $val) {
-			$url .= $key . '=' . rawurlencode($val) . '&';
+			$url .= $key.'='.rawurlencode($val).'&';
 		}
 
 		$ch = curl_init();

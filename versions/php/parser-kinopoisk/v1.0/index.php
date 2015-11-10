@@ -32,7 +32,6 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 	$curl = new Curl();
 	$response = $curl->get($url);
 	$html = str_get_html($response);
-	//echo $response; // Берём сперва страницу по вашему запросу из поисковой выдачи www.kinopoisk.ru
 
 	$e = $html->find('.search_results .name a', 0);
 
@@ -41,7 +40,6 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 
 		$response = $curl->get($detail_page_url);
 		$html = str_get_html($response);
-		//echo $response; // Берём первый результат из блока "Скорее всего, вы ищете:" (обычно он самый верный если был задан нормальный запрос) и переходим по нему, а далее просто парсим страницу из выдачи по этой ссылке из блока
 
 		$ru = $html->find('#headerFilm h1', 0);
 		$result['ru'] = mb_convert_encoding($ru->innertext, 'UTF-8', 'Windows-1251');
@@ -67,7 +65,7 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 	<meta charset="utf-8">
 
 	<!-- Just for local & github project version, common CSS file, you can remove it from here -->
-	<link rel="stylesheet" href="../../../css/style.css" />
+	<link rel="stylesheet" href="../../../../css/style.css" />
 	<style>
 		p {
 			padding: 4px;
