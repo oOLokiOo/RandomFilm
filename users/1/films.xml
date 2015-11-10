@@ -586,4 +586,80 @@
 		<year>2004</year>
 		<kinopoisk>http://www.kinopoisk.ru/film/5052/</kinopoisk>
 	</film>
+	<film>
+		<ru>Бойцовский клуб</ru>
+		<en>Fight Club</en>
+		<year>1999</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/361/</kinopoisk>
+	</film>
+	<film>
+		<ru>Хочу в тюрьму</ru>
+		<year>1998</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/41236/</kinopoisk>
+	</film>
+	<film>
+		<ru>Курьер из Рая</ru>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/652088/</kinopoisk>
+	</film>
+	<film>
+		<ru>Питер FM</ru>
+		<year>2006</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/252063/</kinopoisk>
+	</film>
+	<film>
+		<ru>Даже не думай!</ru>
+		<year>2003</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/63235/</kinopoisk>
+	</film>
+	<film>
+		<ru>Бой с тенью</ru>
+		<year>2005</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/81485/</kinopoisk>
+	</film>
+	<film>
+		<ru>Каникулы строгого режима</ru>
+		<year>2009</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/417840/</kinopoisk>
+	</film>
+	<film>
+		<ru>День хомячка</ru>
+		<year>2003</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/81008/</kinopoisk>
+	</film>
+	<film>
+		<ru>8 первых свиданий</ru>
+		<year>2012</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/615823/</kinopoisk>
+	</film>
+	<film>
+		<ru>Хоттабыч</ru>
+		<year>2006</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/161085/</kinopoisk>
+	</film>
+	<film>
+		<ru>Выкрутасы</ru>
+		<year>2010</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/471158/</kinopoisk>
+	</film>
+	<film>
+		<ru>Ёлки</ru>
+		<year>2010</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/493768/</kinopoisk>
+	</film>
+	<film>
+		<ru>Ёлки 2</ru>
+		<year>2011</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/573817/</kinopoisk>
+	</film>
+	<film>
+		<ru>Ёлки 3</ru>
+		<year>2013</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/652659/</kinopoisk>
+	</film>
+	<film>
+		<ru>Ёлки 1914</ru>
+		<year>2014</year>
+		<kinopoisk>http://www.kinopoisk.ru/film/687193/</kinopoisk>
+	</film>
 </movies>
