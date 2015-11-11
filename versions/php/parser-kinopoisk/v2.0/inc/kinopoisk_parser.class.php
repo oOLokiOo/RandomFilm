@@ -13,15 +13,17 @@ class KinopoiskParser {
 
 	public $result = array(
 		'error'				=> '',
-		'detail_page_url' 	=> '',
-		'ru' 				=> '',
-		'en' 				=> '',
-		'year' 				=> '',
-		'country' 			=> '',
-		'genre' 			=> '',
-		'time' 				=> '',
-		'starring' 			=> '',
-		'img' 				=> ''
+		'detail_page_url'	=> '',
+		'ru'				=> '',
+		'en'				=> '',
+		'year'				=> '',
+		'country'			=> '',
+		'genre'				=> '',
+		'genre_arr'			=> array(),
+		'time'				=> '',
+		'starring'			=> '',
+		'starring_arr'		=> array(),
+		'img'				=> ''
 		);
 
 
@@ -56,16 +58,20 @@ class KinopoiskParser {
 						$a = $td_value->find('a', 0);
 						$this->result['year'] = $a->innertext;
 						break;
+
 					case 'страна':
 						$a = $td_value->find('a', 0);
 						$a_mb = mb_convert_encoding($a->innertext, 'UTF-8', 'Windows-1251');
 						$this->result['country'] = $a_mb;
 						break;
+
 					case 'жанр':
 						$span = $td_value->find('span', 0);
 						$span_mb = mb_convert_encoding($span->innertext, 'UTF-8', 'Windows-1251');
+						$this->result['genre_arr'] = explode(', ', strip_tags($span_mb));
 						$this->result['genre'] = $span_mb;
 						break;
+
 					case 'время':
 						$this->result['time'] = $mb_td_value;
 						break;
@@ -73,7 +79,15 @@ class KinopoiskParser {
 			}
 
 			$starring = $html->find('#actorList ul', 0);
-			if ($starring) $this->result['starring'] = mb_convert_encoding($starring->innertext, 'UTF-8', 'Windows-1251');
+			if ($starring) {
+				//$this->result['starring'] = mb_convert_encoding($starring->innertext, 'UTF-8', 'Windows-1251');
+
+				foreach ($starring->find('li') as $li_content) {
+					$this->result['starring_arr'][] = mb_convert_encoding(strip_tags($li_content->innertext), 'UTF-8', 'Windows-1251');
+				}
+				array_pop($this->result['starring_arr']);
+				$this->result['starring'] = implode(', ', $this->result['starring_arr']);
+			}
 
 			$img = $html->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
 			if ($img) $this->result['img'] = $img->src;

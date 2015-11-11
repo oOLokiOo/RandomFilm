@@ -72,7 +72,7 @@
 				</tr>
 				<tr>
 					<td class="lit">в главных ролях</td>
-					<td align="left"><textarea name="starring" rows="6"><?=strip_tags($parser->result['starring'])?></textarea></td>
+					<td align="left"><textarea name="starring" rows="6"><?=$parser->result['starring']?></textarea></td>
 				</tr>
 			</table>
 

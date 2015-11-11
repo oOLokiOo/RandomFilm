@@ -18,7 +18,6 @@ $css_path = '../../../../css/style.css'; // Just for local & github project vers
 $search_query = ((isset($_REQUEST['search_query']) && $_REQUEST['search_query'] != '') ? $_REQUEST['search_query'] : 'мстители');
 
 $parser = new KinopoiskParser($search_query);
-//var_dump($parser);
-//die('Finished!');
+//echo '<pre>'; print_r($parser); echo '</pre>';
 
 require_once getcwd().'/tpl/index.tpl';
