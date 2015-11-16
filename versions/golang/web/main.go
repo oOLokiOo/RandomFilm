@@ -94,6 +94,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	m := Movies{}
 	p := Page{}
 
+	// TODO: cache file in memory
 	xmlFile, _ := ioutil.ReadFile(XML_PATH)
 	err := xml.Unmarshal(xmlFile, &m)
 	catch(err)
@@ -104,7 +105,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 	search_movie_title := ""
 	if random_movie.En != "" { search_movie_title += random_movie.En + " " }
 	if random_movie.Ru != "" { search_movie_title += random_movie.Ru + " " }
-	//if random_movie.Year != "" { search_movie_title += random_movie.Year + " " }
+	if random_movie.Year != "" { search_movie_title += random_movie.Year + " " }
 	search_movie_title += EN_SEARCH_PREFIX
 
 	if search_movie_title != "" {
@@ -137,7 +138,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 		p.Kinopoisk = random_movie.Kinopoisk
 		p.Imdb = random_movie.Imdb
-		
 	} else {
 		p.Error = "Movie [" + strconv.Itoa(rand) + "] - not found!"
 	}
