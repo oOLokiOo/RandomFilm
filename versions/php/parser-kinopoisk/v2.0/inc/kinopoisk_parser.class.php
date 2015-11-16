@@ -38,15 +38,15 @@ class KinopoiskParser {
 			$this->result['detail_page_url'] = $this->main_domen.$top_search_result->href;
 
 			$response = $curl->get($this->result['detail_page_url']);
-			$html = str_get_html($response);
+			$dom = str_get_html($response);
 
-			$ru = $html->find('#headerFilm h1, #headerPeople h1', 0);
+			$ru = $dom->find('#headerFilm h1, #headerPeople h1', 0);
 			if ($ru) $this->result['ru'] = mb_convert_encoding($ru->innertext, 'UTF-8', 'Windows-1251');
 
-			$en = $html->find('#headerFilm span, #headerPeople span', 0);
+			$en = $dom->find('#headerFilm span, #headerPeople span', 0);
 			if ($en) $this->result['en'] = $en->innertext;
 
-			foreach ($html->find('#infoTable table tr') as $tr_content) {
+			foreach ($dom->find('#infoTable table tr') as $tr_content) {
 				$td_title = $tr_content->find('td', 0);
 				$mb_td_title = mb_convert_encoding($td_title->innertext, 'UTF-8', 'Windows-1251');
 
@@ -78,7 +78,7 @@ class KinopoiskParser {
 				}
 			}
 
-			$starring = $html->find('#actorList ul', 0);
+			$starring = $dom->find('#actorList ul', 0);
 			if ($starring) {
 				//$this->result['starring'] = mb_convert_encoding($starring->innertext, 'UTF-8', 'Windows-1251');
 
@@ -89,7 +89,7 @@ class KinopoiskParser {
 				$this->result['starring'] = implode(', ', $this->result['starring_arr']);
 			}
 
-			$img = $html->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
+			$img = $dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
 			if ($img) $this->result['img'] = $img->src;
 		}
 		else $this->result['error'] = $this->errors_arr[0];
