@@ -134,7 +134,6 @@ func getFilm(driver gxui.Driver, h1Title gxui.Label, KinopoiskLabel gxui.Label, 
 			img.SetTexture(texture)
 		}
 
-		// TODO: OPTIMIZATION - up to IF with search_movie_title
 		title := ""
 		if random_movie.Ru != "" 	{ title += random_movie.Ru + " | " }
 		if random_movie.En != "" 	{ title += random_movie.En + " | " }
