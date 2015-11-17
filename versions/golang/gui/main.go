@@ -134,6 +134,7 @@ func getFilm(driver gxui.Driver, h1Title gxui.Label, KinopoiskLabel gxui.Label, 
 			img.SetTexture(texture)
 		}
 
+		// TODO: OPTIMIZATION - up to IF with search_movie_title
 		title := ""
 		if random_movie.Ru != "" 	{ title += random_movie.Ru + " | " }
 		if random_movie.En != "" 	{ title += random_movie.En + " | " }
@@ -141,7 +142,7 @@ func getFilm(driver gxui.Driver, h1Title gxui.Label, KinopoiskLabel gxui.Label, 
 
 		if (title[len(title)-2:] == "| ") { title = title[:len(title)-2] }
 		h1Title.SetText(title)
-		//p.TitleForSearch = strings.Replace(title, " | ", " ", -1)
+		//p.TitleForSearch = strings.Replace(title, " | ", " ", -1) // TODO: TitleForSearch == search_movie_title ? replace it!
 
 		KinopoiskLabel.SetText(random_movie.Kinopoisk)
 		ImdbLabel.SetText(random_movie.Imdb)

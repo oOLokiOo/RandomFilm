@@ -127,6 +127,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 			p.ImageUrl = filterFromBlockedResources(jsonMap)
 		}
 
+		// TODO: OPTIMIZATION - up to IF with search_movie_title
 		title := ""
 		if random_movie.Ru != "" 	{ title += random_movie.Ru + " | " }
 		if random_movie.En != "" 	{ title += random_movie.En + " | " }
@@ -134,7 +135,7 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 		if (title[len(title)-2:] == "| ") { title = title[:len(title)-2] }
 		p.Title = title
-		p.TitleForSearch = strings.Replace(title, " | ", " ", -1)
+		p.TitleForSearch = strings.Replace(title, " | ", " ", -1) // TODO: TitleForSearch == search_movie_title ? replace it!
 
 		p.Kinopoisk = random_movie.Kinopoisk
 		p.Imdb = random_movie.Imdb
