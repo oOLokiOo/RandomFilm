@@ -17,11 +17,11 @@ XML_PATH = "/../../users/1/films.xml"
 CSS_PATH = "/../../css/style.css"
 CSS_FILE = open(os.getcwd()+CSS_PATH).read()
 
-error = ""
-h1_title = ""
-kinopoisk = ""
-imdb = ""
-image_url = ""
+error 		= ""
+h1_title 	= ""
+kinopoisk 	= ""
+imdb 		= ""
+image_url 	= ""
 
 
 #https://docs.python.org/3/library/xml.etree.elementtree.html
@@ -55,7 +55,6 @@ if search_movie_title != "":
 	#image_url = filterFromBlockedResources(jsonMap)
 	
 	#response = requests.get(GOOGLE_IMAGES_URL+search_movie_title, verify=True)
-
 
 	if random_movie.find("kinopoisk") in random_movie:
 		kinopoisk = random_movie.find("kinopoisk").text

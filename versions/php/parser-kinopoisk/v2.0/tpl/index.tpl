@@ -63,12 +63,36 @@
 					<td align="left"><input type="text" name="country" value="<?=strip_tags($parser->result['country'])?>" /></td>
 				</tr>
 				<tr>
+					<td class="lit">режиссер</td>
+					<td align="left"><input type="text" name="producer" value="<?=strip_tags($parser->result['producer'])?>" /></td>
+				</tr>
+				<tr>
 					<td class="lit">жанр</td>
 					<td align="left"><textarea name="genre" rows="2"><?=strip_tags($parser->result['genre'])?></textarea></td>
 				</tr>
 				<tr>
+					<td class="lit">бюджет</td>
+					<td align="left"><input type="text" name="budget" value="<?=strip_tags($parser->result['budget'])?>" /></td>
+				</tr>
+				<tr>
+					<td class="lit">сборы в США</td>
+					<td align="left"><input type="text" name="budget_usa" value="<?=strip_tags($parser->result['budget_usa'])?>" /></td>
+				</tr>
+				<tr>
+					<td class="lit">сборы в мире</td>
+					<td align="left"><input type="text" name="budget_world" value="<?=strip_tags($parser->result['budget_world'])?>" /></td>
+				</tr>
+				<tr>
+					<td class="lit">премьера (мир)</td>
+					<td align="left"><input type="text" name="premiere_world" value="<?=strip_tags($parser->result['premiere_world'])?>" /></td>
+				</tr>
+				<tr>
+					<td class="lit">премьера (РФ)</td>
+					<td align="left"><input type="text" name="premiere_rf" value="<?=strip_tags($parser->result['premiere_rf'])?>" /></td>
+				</tr>
+				<tr>
 					<td class="lit">время</td>
-					<td align="left"><textarea name="genre" rows="2"><?=strip_tags($parser->result['time'])?></textarea></td>
+					<td align="left"><input type="text" name="time" value="<?=strip_tags($parser->result['time'])?>" /></textarea></td>
 				</tr>
 				<tr>
 					<td class="lit">в главных ролях</td>
