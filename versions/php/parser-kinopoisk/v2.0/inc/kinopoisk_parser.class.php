@@ -84,7 +84,7 @@ class KinopoiskParser {
 			if ($ru) $this->result['ru'] = mb_convert_encoding($ru->innertext, 'UTF-8', 'Windows-1251');
 
 			$en = $dom->find('#headerFilm span, #headerPeople span', 0);
-			if ($en) $this->result['en'] = $en->innertext;
+			if ($en) $this->result['en'] = mb_convert_encoding($en->innertext, 'UTF-8', 'Windows-1251');
 
 			// parse middle column info
 			foreach ($dom->find('#infoTable table tr') as $tr_content) {
@@ -126,7 +126,7 @@ class KinopoiskParser {
 
 					case 'бюджет':
 						$a = $td_value->find('a', 0);
-						$this->result['budget'] = $a->innertext;
+						@$this->result['budget'] = $a->innertext;
 						break;
 
 					case 'сборы в США':
@@ -180,9 +180,15 @@ class KinopoiskParser {
 				if ($img /*&& !file_exists($image_path)*/) {
 					file_put_contents($image_path, file_get_contents($img->src));
 
+					$this->result['_id'] = $this->result['id']; // 2321
 					$mongo = new MongoClient();
 					$collection = $mongo->kinopoisk->movies->films;
-					$collection->save($this->result);
+					try {
+						$collection->save($this->result);
+					} catch (MongoException $e) {
+						d($this->result);
+						die('<h1>MongoException Error: code - '.$e->getCode().'. ObjectID: '.$film_id.'</h1>');
+					}
 					$mongo->close();
 				}
 
