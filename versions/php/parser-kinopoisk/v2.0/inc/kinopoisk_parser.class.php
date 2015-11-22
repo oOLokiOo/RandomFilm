@@ -180,7 +180,8 @@ class KinopoiskParser {
 				if ($img /*&& !file_exists($image_path)*/) {
 					file_put_contents($image_path, file_get_contents($img->src));
 
-					$this->result['_id'] = $this->result['id']; // 2321
+					$this->result['_id'] = $this->result['id'];
+
 					$mongo = new MongoClient();
 					$collection = $mongo->kinopoisk->movies->films;
 					try {
@@ -214,8 +215,6 @@ class KinopoiskParser {
 
 	private function do_redirect() {
 		$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
-
-		//header('Location: http://'.$_SERVER['HTTP_HOST'].$uri_parts[0].'?r='.rand(0, 999999));
 		require_once ROOT.'/tpl/redirect.tpl';
 		exit();
 	}
