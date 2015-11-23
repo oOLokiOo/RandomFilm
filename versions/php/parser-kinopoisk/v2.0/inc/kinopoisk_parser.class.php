@@ -12,7 +12,7 @@ class KinopoiskParser {
 		'0' => 'Nothing was found...',
 		);
 
-	//public $start_from_id 	= 0;
+	//public $start_from_id 	= 0; // max - http://www.kinopoisk.ru/film/555400 ?
 	public $web_version 	= false;
 
 	public $save_result 	= true;
@@ -81,28 +81,28 @@ class KinopoiskParser {
 
 			// parse left column info
 			$ru = $dom->find('#headerFilm h1, #headerPeople h1', 0);
-			if ($ru) $this->result['ru'] = mb_convert_encoding($ru->innertext, 'UTF-8', 'Windows-1251');
+			if ($ru) $this->result['ru'] = $this->decode($ru->innertext);
 
 			$en = $dom->find('#headerFilm span, #headerPeople span', 0);
-			if ($en) $this->result['en'] = mb_convert_encoding($en->innertext, 'UTF-8', 'Windows-1251');
+			if ($en) $this->result['en'] = $this->decode($en->innertext);
 
 			// parse middle column info
 			foreach ($dom->find('#infoTable table tr') as $tr_content) {
 				$td_title = $tr_content->find('td', 0);
-				$mb_td_title = mb_convert_encoding($td_title->innertext, 'UTF-8', 'Windows-1251');
+				$mb_td_title = $this->decode($td_title->innertext);
 
 				$td_value = $tr_content->find('td', 1);
-				$mb_td_value = mb_convert_encoding($td_value->innertext, 'UTF-8', 'Windows-1251');
+				$mb_td_value = $this->decode($td_value->innertext);
 
 				switch ($mb_td_title) {
 					case 'год':
 						$a = $td_value->find('a', 0);
-						$this->result['year'] = $a->innertext;
+						$this->result['year'] = $this->decode($a->innertext);
 						break;
 
 					case 'страна':
 						foreach ($td_value->find('a') as $a) {
-							$a_mb = mb_convert_encoding($a->innertext, 'UTF-8', 'Windows-1251');
+							$a_mb = $this->decode($a->innertext);
 							$this->result['country_arr'][] = $a_mb;
 						}
 						$this->result['country'] = implode(',', $this->result['country_arr']);
@@ -110,7 +110,7 @@ class KinopoiskParser {
 
 					case 'режиссер':
 						foreach ($td_value->find('a') as $a) {
-							$a_mb = mb_convert_encoding($a->innertext, 'UTF-8', 'Windows-1251');
+							$a_mb = $this->decode($a->innertext);
 							$this->result['producer_arr'][] = $a_mb;
 						}
 						$this->result['producer'] = implode(',', $this->result['producer_arr']);
@@ -118,7 +118,7 @@ class KinopoiskParser {
 
 					case 'жанр':
 						foreach ($td_value->find('span a') as $a) {
-							$a_mb = mb_convert_encoding($a->innertext, 'UTF-8', 'Windows-1251');
+							$a_mb = $this->decode($a->innertext);
 							$this->result['genre_arr'][] = $a_mb;
 						}
 						$this->result['genre'] = implode(',', $this->result['genre_arr']);
@@ -126,28 +126,28 @@ class KinopoiskParser {
 
 					case 'бюджет':
 						$a = $td_value->find('a', 0);
-						@$this->result['budget'] = $a->innertext;
+						if ($a) $this->result['budget'] = $this->decode($a->innertext);
 						break;
 
 					case 'сборы в США':
 						$a = $td_value->find('a', 0);
-						$this->result['budget_usa'] = $a->innertext;
+						$this->result['budget_usa'] = $this->decode($a->innertext);
 						break;
 
 					case 'сборы в мире':
 						$a = $td_value->find('a', 0);
-						$this->result['budget_world'] = $a->innertext;
+						$this->result['budget_world'] = $this->decode($a->innertext);
 						break;
 
 					case 'премьера (мир)':
 						$a = $td_value->find('a', 0);
-						$a_mb = mb_convert_encoding($a->innertext, 'UTF-8', 'Windows-1251');
+						$a_mb = $this->decode($a->innertext);
 						$this->result['premiere_world'] = $a_mb;
 						break;
 
 					case 'премьера (РФ)':
 						$a = $td_value->find('a', 0);
-						$a_mb = mb_convert_encoding($a->innertext, 'UTF-8', 'Windows-1251');
+						$a_mb = $this->decode($a->innertext);
 						$this->result['premiere_rf'] = $a_mb;
 						break;
 
@@ -160,10 +160,10 @@ class KinopoiskParser {
 			// parse right column info
 			$starring = $dom->find('#actorList ul', 0);
 			if ($starring) {
-				$this->result['starring'] = mb_convert_encoding($starring->innertext, 'UTF-8', 'Windows-1251');
+				$this->result['starring'] = $this->decode($starring->innertext);
 
 				foreach ($starring->find('li') as $li_content) {
-					$this->result['starring_arr'][] = mb_convert_encoding(strip_tags($li_content->innertext), 'UTF-8', 'Windows-1251');
+					$this->result['starring_arr'][] = $this->decode(strip_tags($li_content->innertext));
 				}
 				array_pop($this->result['starring_arr']);
 				$this->result['starring'] = implode(',', $this->result['starring_arr']);
@@ -173,27 +173,33 @@ class KinopoiskParser {
 			$img = $dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
 			if ($img) $this->result['img'] = $img->src;
 
-
+// 3906
 			// save all data to DB & HDD
 			if ($this->save_result === true) {
-				$image_path = ROOT.$this->result_folder.$film_id.'.jpg';
-				if ($img /*&& !file_exists($image_path)*/) {
-					file_put_contents($image_path, file_get_contents($img->src));
+				//if ($this->result['en'] == '' && $this->result['ru'] == '') { // TODO: check for 404 page here!
+				//	d($this->result);
+				//	die('<h1>Wrong Film Title! ObjectID: '.$film_id.'</h1>');
+				//} else {
+					$image_path = ROOT.$this->result_folder.$film_id.'.jpg';
 
-					$this->result['_id'] = $this->result['id'];
+					//if ($img /*&& !file_exists($image_path)*/) {
+						if ($img) file_put_contents($image_path, file_get_contents($img->src));
 
-					$mongo = new MongoClient();
-					$collection = $mongo->kinopoisk->movies->films;
-					try {
-						$collection->save($this->result);
-					} catch (MongoException $e) {
-						d($this->result);
-						die('<h1>MongoException Error: code - '.$e->getCode().'. ObjectID: '.$film_id.'</h1>');
-					}
-					$mongo->close();
-				}
+						$this->result['_id'] = $this->result['id'];
 
-				$this->log($film_id, 'result');
+						$mongo = new MongoClient();
+						$collection = $mongo->kinopoisk->movies->films;
+						try {
+							$collection->save($this->result);
+						} catch (MongoException $e) {
+							d($this->result);
+							die('<h1>MongoException Error: code - '.$e->getCode().'. ObjectID: '.$film_id.'</h1>');
+						}
+						$mongo->close();
+					//}
+					//die("!");
+					$this->log($film_id, 'result');	
+				//}
 			}
 		}
 		else $this->result['error'] = $this->errors_arr[0];
@@ -217,5 +223,14 @@ class KinopoiskParser {
 		$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 		require_once ROOT.'/tpl/redirect.tpl';
 		exit();
+	}
+
+	private function decode($str) {
+		$str = mb_convert_encoding($str, 'UTF-8', 'Windows-1251');
+		$str = html_entity_decode($str);
+		$str = trim($str);
+		$str = preg_replace('/\s+/', ' ', $str);
+
+		return $str;
 	}
 }
