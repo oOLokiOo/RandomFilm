@@ -81,8 +81,9 @@ class KinopoiskParser {
 
 			// parse left column info
 			$ru = $dom->find('#headerFilm h1, #headerPeople h1', 0);
+//var_dump($ru->innertext);
 			if ($ru) $this->result['ru'] = $this->decode($ru->innertext);
-
+//var_dump($this->result['ru']);
 			$en = $dom->find('#headerFilm span, #headerPeople span', 0);
 			if ($en) $this->result['en'] = $this->decode($en->innertext);
 
@@ -173,10 +174,10 @@ class KinopoiskParser {
 			$img = $dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
 			if ($img) $this->result['img'] = $img->src;
 
-// 3906
+// 19603
 			// save all data to DB & HDD
 			if ($this->save_result === true) {
-				//if ($this->result['en'] == '' && $this->result['ru'] == '') { // TODO: check for 404 page here!
+				//if ($this->result['en'] == '' && $this->result['ru'] == '') { // TODO: check for 404 page here! (foreach all base and reove empty objects like 12400 id)
 				//	d($this->result);
 				//	die('<h1>Wrong Film Title! ObjectID: '.$film_id.'</h1>');
 				//} else {
@@ -197,7 +198,7 @@ class KinopoiskParser {
 						}
 						$mongo->close();
 					//}
-					//die("!");
+//die("!");
 					$this->log($film_id, 'result');	
 				//}
 			}

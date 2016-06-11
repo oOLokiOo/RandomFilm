@@ -1,6 +1,15 @@
 <h1>Just my little "Hello World" project :)</h1>
 
 <p><b>PHP</b></p>
+<b>
+NOTE: add your Apache virtual host to root of the project:<br />
+<i>/random-film/</i><br />
+add to your hosts:<br />
+<i>127.0.0.1 random-film</i><br />
+and open it, by URL:<br />
+<i>http://random-film/versions/php/*</i>
+<br /><br />
+</b>
 * Finished - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk
 * New version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/new-version
 * Old version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/old-version

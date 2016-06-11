@@ -29,7 +29,7 @@ require_once getcwd().'/inc/app.class.php';
 */
 
 $XML_PATH = '../../../users/1/films.xml';
-$CSS_PATH = '../../../../css/style.css';
+$CSS_PATH = '../../../css/style.css';
 
 $app = new APP($XML_PATH);
 
