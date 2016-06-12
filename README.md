@@ -7,7 +7,7 @@ Add to your hosts:<br />
 <i>127.0.0.1 random-film</i><br />
 And open it, by URL:<br />
 <i>http://random-film/versions/php/*</i>
-<br /><br />
+<br />
 
 * Finished - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk
 * New version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/new-version
