@@ -1,7 +1,8 @@
 <h1>Just my little "Hello World" project :)</h1>
 
 <p><b>PHP</b></p>
-<b>NOTE!<br /> Add your Apache virtual host to root of the project:
+<b>NOTE!</b><br />
+Add your Apache virtual host to root of the project:<br />
 <i>/random-film/</i><br />
 Add to your hosts:<br />
 <i>127.0.0.1 random-film</i><br />
