@@ -34,10 +34,12 @@ class APP {
 	private $RU_SEARCH_PREFIX 	= 'kinopoisk.ru'; // фильм постер
 
 	private $XML_PATH = '';
+	
+	private $random_movie 		= null;
+	private $search_movie_title = '';
 
 
-	public $random_movie 		= null;
-	public $search_movie_title 	= '';
+	public $get_large_images 	= true; // It makes the process slower...
 	public $image_url 			= '';
 	public $h1_title 			= '';
 	public $error 				= '';
@@ -136,7 +138,7 @@ class APP {
 		//$this->d($html, 1);
 
 		// get big iamge from kinopoisk.ru
-		if (strpos($google_image_href, 'kinopoisk.ru') !== false) {
+		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
 			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 			$html = $curl->get($google_image_href);
 			$dom = str_get_html($html);
@@ -144,7 +146,10 @@ class APP {
 			if ($img) $image_url = $img->src;
 		}
 
-		if ($image_url == '') $image_url = $google_image_thumb;
+		if ($image_url == '') {
+			$image_url = $google_image_thumb;
+			$this->get_large_images = false;
+		}
 
 		return $image_url;
 	}

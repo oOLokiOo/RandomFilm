@@ -7,7 +7,11 @@
 	<link rel="stylesheet" href="<?=$CSS_PATH?>" />
 	<style type="text/css">
 		img {
-			min-width: 350px;
+			<?php if ($app->get_large_images == true) { ?>
+				min-width: 360px;
+			<?php } else { ?>
+				min-width: 180px;
+			<?php } ?>
 		}
 	</style>
 </head>
