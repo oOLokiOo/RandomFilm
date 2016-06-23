@@ -174,7 +174,6 @@ class KinopoiskParser {
 			$img = $dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
 			if ($img) $this->result['img'] = $img->src;
 
-// 19603
 			// save all data to DB & HDD
 			if ($this->save_result === true) {
 				//if ($this->result['en'] == '' && $this->result['ru'] == '') { // TODO: check for 404 page here! (foreach all base and reove empty objects like 12400 id)
@@ -209,6 +208,15 @@ class KinopoiskParser {
 	}
 
 
+	private function decode($str) {
+		$str = mb_convert_encoding($str, 'UTF-8', 'Windows-1251');
+		$str = html_entity_decode($str);
+		$str = trim($str);
+		$str = preg_replace('/\s+/', ' ', $str);
+
+		return $str;
+	}
+
 	private function log($str = '', $label = 'error') {
 		if ($this->logging === true) {
 			if ($label == 'result') file_put_contents(ROOT.$this->log_result, $str);
@@ -224,14 +232,5 @@ class KinopoiskParser {
 		$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 		require_once ROOT.'/tpl/redirect.tpl';
 		exit();
-	}
-
-	private function decode($str) {
-		$str = mb_convert_encoding($str, 'UTF-8', 'Windows-1251');
-		$str = html_entity_decode($str);
-		$str = trim($str);
-		$str = preg_replace('/\s+/', ' ', $str);
-
-		return $str;
 	}
 }

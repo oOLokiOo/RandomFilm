@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Random movie that you would like to revise (c) Script by oOLokiOo</title>
+	<title>Random movie that you would like to revise (c) Script was made by Ivan Volkov aka oOLokiOo</title>
 	<meta charset="utf-8">
 
 	<link rel="stylesheet" href="<?=$CSS_PATH?>" />
+	<style type="text/css">
+		img {
+			min-width: 100px;
+			width: 150px;
+		}
+	</style>
 </head>
 <body>
 	<header>

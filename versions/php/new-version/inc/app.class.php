@@ -1,31 +1,39 @@
 <?php
 
 /**
- * Common Class for my project - "random-film". All in one Class, without different files with scripts.
+ * Common Class for my project - "random-film".
  * 
  * @author Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com>
- * @version 1.0
+ * @version 2.0
  * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php
  */
 
+require_once 'simple_html_dom.php';
+
+
 class APP {
-	private $rand 		= 0;
 	private $errors_arr = array(
-		'0' => 'Xml file not Found',
+		'0' => 'User Films Xml file - not Found',
 		'1' => 'String could not be parsed as XML'
 		);
 
-	private $GOOGLE_IMAGES_URL 		= 'http://ajax.googleapis.com/ajax/services/search/images?';
-	private $CURL_REQUEST_ATTEMPT 	= 5;
-	private $BLOCKED_RESOURCES = array(
-		'www.impawards.com',
-		'en.wikipedia.org'
-	);
+	/**
+	 * @see Commented properties & methods are DEPRECATED! https://developers.google.com/web-search/docs/
+	 */
+	//private $GOOGLE_IMAGES_URL 		= 'http://ajax.googleapis.com/ajax/services/search/images?';
+	//private $CURL_REQUEST_ATTEMPT 	= 5;
+	//private $BLOCKED_RESOURCES = array(
+	//	'www.impawards.com',
+	//	'en.wikipedia.org'
+	//);
+	private $GOOGLE_IMAGES_URL 				= 'https://www.google.by/search?q=';
+	private $GOOGLE_IMAGES_URL_END_PREFIX 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
 
 	private $EN_SEARCH_PREFIX 	= 'film poster';
 	private $RU_SEARCH_PREFIX 	= 'фильм постер';
 
 	private $XML_PATH = '';
+
 
 	public $random_movie 		= null;
 	public $search_movie_title 	= '';
@@ -54,7 +62,10 @@ class APP {
 	 * @param 	string 	$search_words 	title for Google Search.
 	 * 
 	 * @return 	array|boolean 	result of decoded json array or FALSE.
+	 *
+	 * @see Commented properties & methods are DEPRECATED! https://developers.google.com/web-search/docs/
 	 */
+	/*
 	private function get_from_images_google($search_words = '') {
 		$manual_referer = 'http://google.com/';
 
@@ -102,13 +113,31 @@ class APP {
 
 		return $json['responseData']['results'];
 	}
+	*/
+
+	/**
+	 *
+	 */
+	private function get_from_images_google($search_words = '') {
+		$html 	= file_get_contents($this->GOOGLE_IMAGES_URL.urlencode($search_words).$this->GOOGLE_IMAGES_URL_END_PREFIX);
+		$dom 	= str_get_html($html);
+		$result = $dom->find('#search .images_table a img', 0);
+
+		//$this->d($result, 1);
+		// data:image/jpeg;base64,
+
+		return $result->attr['src'];
+	}
 
 	/**
 	 * @param 	array 	$imges_arr 			array of images from result after Google Search.
 	 * @param 	array 	$BLOCKED_RESOURCES 	array with resourses witch blocks their images for parsing.
 	 * 
 	 * @return 	string 	result of decoded json array
+	 *
+	 * @see Commented properties & methods are DEPRECATED! https://developers.google.com/web-search/docs/
 	 */
+	/*
 	private function filter_from_blocked_resources($imges_arr = array(), $BLOCKED_RESOURCES = array()) {
 		$good_url = '';
 
@@ -121,6 +150,7 @@ class APP {
 
 		return (isset($imges_arr[0]['url']) && $good_url == '' ? $imges_arr[0]['url'] : $good_url); 
 	}
+	*/
 
 	/**.
 	 * @param 	int 	$error_num 	nuber of error from error array.
@@ -166,10 +196,7 @@ class APP {
 			//@$xmlData = new SimpleXMLElement($xml);
 			@$xmlData = simplexml_load_string($xml);
 
-			if ($xmlData) {
-				$this->rand = rand(0, count($xmlData) - 1);
-				$random_movie = $xmlData->film[$this->rand];
-			}
+			if ($xmlData) $random_movie = $xmlData->film[rand(0, count($xmlData) - 1)];
 			else $this->set_error(1);
 		}
 		else $this->set_error(0);
@@ -199,8 +226,9 @@ class APP {
 		if ($this->image_url != '') return $this->image_url;
 		if ($this->search_movie_title != '') $this->search_movie_title = $this->get_search_movie_title();
 
-		$images_arr = $this->get_from_images_google($this->search_movie_title);
-		$image_url = $this->filter_from_blocked_resources($images_arr, $this->BLOCKED_RESOURCES);
+		//$images_arr = $this->get_from_images_google($this->search_movie_title);
+		//$image_url = $this->filter_from_blocked_resources($images_arr, $this->BLOCKED_RESOURCES);
+		$image_url = $this->get_from_images_google($this->search_movie_title);
 
 		return $image_url;
 	}
