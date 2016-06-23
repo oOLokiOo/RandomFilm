@@ -8,6 +8,7 @@
  * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php
  */
 
+require_once 'curl.php';
 require_once 'simple_html_dom.php';
 
 
@@ -29,8 +30,8 @@ class APP {
 	private $GOOGLE_IMAGES_URL 				= 'https://www.google.by/search?q=';
 	private $GOOGLE_IMAGES_URL_END_PREFIX 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
 
-	private $EN_SEARCH_PREFIX 	= 'film poster';
-	private $RU_SEARCH_PREFIX 	= 'фильм постер';
+	private $EN_SEARCH_PREFIX 	= 'kinopoisk.ru'; // film poster
+	private $RU_SEARCH_PREFIX 	= 'kinopoisk.ru'; // фильм постер
 
 	private $XML_PATH = '';
 
@@ -119,14 +120,33 @@ class APP {
 	 *
 	 */
 	private function get_from_images_google($search_words = '') {
-		$html 	= file_get_contents($this->GOOGLE_IMAGES_URL.urlencode($search_words).$this->GOOGLE_IMAGES_URL_END_PREFIX);
-		$dom 	= str_get_html($html);
-		$result = $dom->find('#search .images_table a img', 0);
+		$curl = new Curl();
+		$url = $this->GOOGLE_IMAGES_URL.urlencode($search_words).$this->GOOGLE_IMAGES_URL_END_PREFIX;
+		$image_url = '';
 
-		//$this->d($result, 1);
-		// data:image/jpeg;base64,
+		// get thumb from google search by images 
+		$html = $curl->get($url);
+		$dom = str_get_html($html);
+		$result = $dom->find('#search .images_table a', 0);
+		$google_image_href = $result->attr['href'];
+		$google_image_thumb = $result->children[0]->attr['src'];
 
-		return $result->attr['src'];
+		//data:image/jpeg;base64,
+		//echo($url); die();
+		//$this->d($html, 1);
+
+		// get big iamge from kinopoisk.ru
+		if (strpos($google_image_href, 'kinopoisk.ru') !== false) {
+			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
+			$html = $curl->get($google_image_href);
+			$dom = str_get_html($html);
+			$img = $dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
+			if ($img) $image_url = $img->src;
+		}
+
+		if ($image_url == '') $image_url = $google_image_thumb;
+
+		return $image_url;
 	}
 
 	/**

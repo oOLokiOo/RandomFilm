@@ -7,8 +7,7 @@
 	<link rel="stylesheet" href="<?=$CSS_PATH?>" />
 	<style type="text/css">
 		img {
-			min-width: 100px;
-			width: 150px;
+			min-width: 350px;
 		}
 	</style>
 </head>
