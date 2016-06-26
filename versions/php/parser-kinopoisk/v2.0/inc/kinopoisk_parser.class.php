@@ -244,7 +244,7 @@ d($this->result, 1);
 				}
 				$mongo->close();
 			}
-//die("loging to log file");
+//die("write to log file");
 			$this->log($this->_film_id, 'result');
 		}
 
