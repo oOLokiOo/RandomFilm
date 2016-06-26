@@ -214,7 +214,7 @@ class KinopoiskParser {
 		}
 
 		// parse image
-		$img = $this->parse_image();
+		$img = $this->find_image();
 
 		// save all data to DB & HDD
 		if ($this->save_result === true && $this->web_version == false) {
@@ -255,7 +255,7 @@ d($this->result, 1);
 		if ($this->web_version === false) $this->do_redirect();
 	}
 
-	public function parse_image() {
+	public function find_image() {
 		$this->setup();
 
 		$img = null;

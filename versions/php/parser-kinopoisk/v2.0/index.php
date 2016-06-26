@@ -48,7 +48,7 @@ $parser->search_query = $search_query;
 // 7095700 - test
 // 7095700 - 404 not found
 //$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
-//d($parser->parse_image()->src, 1);
+//d($parser->find_image()->src, 1);
 //d($parser, 1);
 $parser->process();
 

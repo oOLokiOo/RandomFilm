@@ -1,4 +1,8 @@
-<h1>Kinopoisk.ru PHP simple parser / КиноПоиск.ру PHP простой парсер</h1>
+# Kinopoisk.ru PHP simple parser / КиноПоиск.ру PHP простой парсер
+
+- **curl.php** library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> )
+- **simple_html_dom.php** library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll)
+- **kinopoisk_parser.class.php** - PHP class for parsing ( By Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com> )
 <hr />
 
-TODO: write description
+_TODO: write description..._
