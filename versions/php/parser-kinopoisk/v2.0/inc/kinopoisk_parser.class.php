@@ -24,7 +24,7 @@ class KinopoiskParser {
 	public $direct_url 		= '';
 
 	public $web_version 	= false;
-	public $save_result 	= false;
+	public $save_result 	= true;
 	public $result_folder 	= '/result/';
 	//public $start_from_id 	= 0; // max - http://www.kinopoisk.ru/film/555400 ? in future plans...
 
@@ -65,6 +65,8 @@ class KinopoiskParser {
 
 	public function setup() {
 //var_dump('in setup');
+		if (isset($this->_dom) && $this->_dom != null) return;
+
 		$curl = new Curl();
 		$response = null;
 
@@ -75,7 +77,7 @@ class KinopoiskParser {
 		else if ($this->web_version === true) { 
 			if ($this->search_query == '') {
 				$this->result['error'] = $this->errors_arr[1];
-				//return;
+				return;
 			}
 
 			// get first film url from top search results by $search_query
@@ -94,8 +96,8 @@ class KinopoiskParser {
 					$this->log('Cant find Film ID when parsing top results url by $search_query... URL - '.$this->result['detail_page_url']);
 					$this->result['error'] = $this->errors_arr[2];
 				}
-
-			} else $this->result['error'] = $this->errors_arr[0];
+			}
+			else $this->result['error'] = $this->errors_arr[0];
 		}
 		else if ($this->web_version === false) {
 			$this->_film_id = file_get_contents(ROOT.$this->log_result);
@@ -114,7 +116,8 @@ class KinopoiskParser {
 
 	public function process() {
 //var_dump('in process');
-		if (!isset($this->_dom) || $this->_dom == null) $this->setup();
+		$this->setup();
+		if ($this->_dom == null) return;
 
 		$this->result['id'] = $this->_film_id;
 
@@ -253,7 +256,7 @@ d($this->result, 1);
 	}
 
 	public function parse_image() {
-		if (!isset($this->_dom) || $this->_dom == null) $this->setup();
+		$this->setup();
 
 		$img = null;
 		$img = $this->_dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
