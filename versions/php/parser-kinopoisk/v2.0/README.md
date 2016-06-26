@@ -49,7 +49,7 @@ exit();
 * NOT Web version - get array with Film info by "direct_url":
 ```php
 $parser = new KinopoiskParser();
-//$parser->web_version = false;
+//$parser->web_version = false; /* false - by default */
 $parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
 $parser->process();
 
@@ -59,8 +59,8 @@ echo '<pre>'; print_r($parser->result); echo '</pre>';
 * NOT Web version - MAIN mode! Parse all site kinopoisk.ru and save all info to DB and all pictures to HDD:
 ```php
 $parser = new KinopoiskParser();
-//$parser->web_version = false;
-//$parser->direct_url = '';
+//$parser->web_version = false; /* false - by default */
+//$parser->direct_url = ''; /* '' - by default */
 $parser->parse_all_nonstop = true;
 $parser->save_result = true;
 $parser->process();
