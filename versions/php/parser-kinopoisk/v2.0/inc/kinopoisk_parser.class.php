@@ -233,7 +233,7 @@ d($this->result, 1);
 				}
 
 				$this->result['_id'] = $this->result['id'];
-d($this->result, 1);
+//d($this->result, 1);
 				$mongo = new MongoClient();
 				$collection = $mongo->kinopoisk->movies->films;
 				try {
@@ -244,7 +244,7 @@ d($this->result, 1);
 				}
 				$mongo->close();
 			}
-die("loging to log file");
+//die("loging to log file");
 			$this->log($this->_film_id, 'result');
 		}
 
