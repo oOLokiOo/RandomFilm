@@ -35,7 +35,7 @@ require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%..'/tpl/index.tpl';
 exit();
 ```
 
-* Web version - get Film by "direct_url":
+* Web version - get Film by "direct_url" to Film:
 ```php
 $parser = new KinopoiskParser();
 $parser->web_version = true;
@@ -46,7 +46,7 @@ require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%..'/tpl/index.tpl';
 exit();
 ```
 
-* NOT Web version - get array with Film info by "direct_url":
+* NOT Web version - get array with Film info by "direct_url" to Film:
 ```php
 $parser = new KinopoiskParser();
 //$parser->web_version = false; /* false - by default */
@@ -54,6 +54,16 @@ $parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
 $parser->process();
 
 echo '<pre>'; print_r($parser->result); echo '</pre>';
+```
+
+* NOT Web version - get only image url by "direct_url" to Film:
+```php
+$parser = new KinopoiskParser();
+//$parser->web_version = false; /* false - by default */
+$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
+$imge_src = $parser->find_image()->src;
+
+echo $imge_src;
 ```
 
 * NOT Web version - MAIN mode! Parse all site kinopoisk.ru and save all info to DB and all pictures to HDD:
