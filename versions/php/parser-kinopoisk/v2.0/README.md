@@ -31,7 +31,7 @@ $parser->web_version = true;
 $parser->search_query = $search_query;
 $parser->process();
 
-require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%..'/tpl/index.tpl';
+require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%.'/tpl/index.tpl';
 exit();
 ```
 
@@ -42,7 +42,7 @@ $parser->web_version = true;
 $parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
 $parser->process();
 
-require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%..'/tpl/index.tpl';
+require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%.'/tpl/index.tpl';
 exit();
 ```
 
