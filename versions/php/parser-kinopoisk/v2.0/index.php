@@ -47,11 +47,11 @@ $parser->search_query = $search_query;
 // 61237 - железный человек
 // 7095700 - test
 // 7095700 - 404 not found
-//$parser->direct_url = 'http://www.kinopoisk.ru/film/7095700/';
+$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
 //$parser->setup();
 //d($parser, 1);
-//d($parser->parse_image()->src, 1);
-$parser->process();
+d($parser->parse_image()->src, 1);
+//$parser->process();
 
 
 require_once ROOT.'/tpl/index.tpl';

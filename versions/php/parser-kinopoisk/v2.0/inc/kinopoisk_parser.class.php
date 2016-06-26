@@ -24,7 +24,7 @@ class KinopoiskParser {
 	public $direct_url 		= '';
 
 	public $web_version 	= false;
-	public $save_result 	= true;
+	public $save_result 	= false;
 	public $result_folder 	= '/result/';
 	//public $start_from_id 	= 0; // max - http://www.kinopoisk.ru/film/555400 ? in future plans...
 
@@ -104,7 +104,7 @@ class KinopoiskParser {
 			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
 		}
 
-		// do pasing
+		// get DOM of detail page
 		if ($this->_film_id > 0) {
 			$response = $curl->get($this->result['detail_page_url']);
 			$this->_dom = str_get_html($response);
@@ -205,6 +205,7 @@ class KinopoiskParser {
 			foreach ($starring->find('li') as $li_content) {
 				$this->result['starring_arr'][] = $this->decode(strip_tags($li_content->innertext));
 			}
+
 			array_pop($this->result['starring_arr']);
 			$this->result['starring'] = implode(',', $this->result['starring_arr']);
 		}
@@ -252,8 +253,9 @@ d($this->result, 1);
 	}
 
 	public function parse_image() {
-		$img = null;
+		if (!isset($this->_dom) || $this->_dom == null) $this->setup();
 
+		$img = null;
 		$img = $this->_dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
 		if ($img) $this->result['img'] = $img->src;
 

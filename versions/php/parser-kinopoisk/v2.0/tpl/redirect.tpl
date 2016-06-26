@@ -15,6 +15,6 @@
 	</script>
 </head>
 <body>
-	<b id="timer">5</b>
+	<b id="timer"><?=$this->wait_to_redirect_time?></b>
 </body>
 </html>
