@@ -16,7 +16,7 @@ class KinopoiskParser {
 		'0' => 'Nothing was found...',
 		'1' => 'Enter Film Title',
 		'2' => 'Cant find Film ID when parsing top results url by $search_query...',
-		'3' => 'ERROR! Wrong parser settings in config... Film ID is - 0'
+		//'3' => 'ERROR! Wrong parser settings in config... Film ID is - 0', // in future plans...
 		);
 
 
@@ -99,17 +99,14 @@ class KinopoiskParser {
 			else $this->result['error'] = $this->errors_arr[0];
 		}
 		// mode 2
-		else if ($this->web_version === true && $this->direct_url != '') {
+		else if ($this->direct_url != '') {
 			$this->_film_id = $this->get_film_id_from_url($this->direct_url);
 			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
 		}
 		// mode 3
-		else if ($this->web_version === false) {
-			if ($this->direct_url != '') $this->_film_id = $this->get_film_id_from_url($this->direct_url);
-			else {
-				$this->_film_id = file_get_contents(ROOT.$this->log_result);
-				$this->_film_id = ($this->_film_id == '' ? 1 : $this->_film_id+1);
-			}
+		else if ($this->web_version === false && ($this->save_result || $this->parse_all_nonstop)) {
+			$this->_film_id = file_get_contents(ROOT.$this->log_result);
+			$this->_film_id = ($this->_film_id == '' ? 1 : $this->_film_id+1);
 
 			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
 		}
