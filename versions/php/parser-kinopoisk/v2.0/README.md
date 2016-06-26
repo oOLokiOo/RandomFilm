@@ -10,16 +10,16 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 
 _TODO: write description for methods..._
 
-***Integrate the class into your project:***
+**Integrate the class into your project:**
 ```php
 require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%.'/inc/kinopoisk_parser.class.php';
 
 $parser = new KinopoiskParser();
-$parser->process();
 ```
 **_NOTICE*:_** _Replace %PATH_TO_kinopoisk_parser.class.php_DIRECTORY% with real path!_
 
-***BASIC USAGE:***
+
+**BASIC USAGE:**
 
 * Web version - get Film by "search_query":
 ```php
