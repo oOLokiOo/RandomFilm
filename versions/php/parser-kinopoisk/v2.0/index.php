@@ -38,19 +38,18 @@ $mongo->close();
 
 require_once ROOT.'/inc/kinopoisk_parser.class.php';
 
-
 $css_path = '../../../../css/style.css'; // Just for local & github project version, common CSS file, you can remove it from here
 $search_query = ((isset($_REQUEST['search_query']) && $_REQUEST['search_query'] != '') ? $_REQUEST['search_query'] : '');
 
 $parser = new KinopoiskParser();
+
 $parser->search_query = $search_query;
 // 61237 - железный человек
 // 7095700 - test
 // 7095700 - 404 not found
 //$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
-//d($parser->find_image()->src, 1);
-//d($parser, 1);
-$parser->process();
 
+$parser->process();
+//d($parser, 1);
 
 require_once ROOT.'/tpl/index.tpl';

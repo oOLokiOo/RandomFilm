@@ -24,9 +24,11 @@ class KinopoiskParser {
 	public $direct_url 		= '';
 
 	public $web_version 	= false;
-	public $save_result 	= true;
+	public $save_result 	= false;
 	public $result_folder 	= '/result/';
-	//public $start_from_id 	= 0; // max - http://www.kinopoisk.ru/film/555400 ? in future plans...
+
+	public $parse_all_nonstop 	= false;
+	//public $start_from_id 		= 0; // max - http://www.kinopoisk.ru/film/555400 ? in future plans...
 
 	public $logging 		= true;
 	public $log_result 		= '/logs/result.log';
@@ -70,11 +72,8 @@ class KinopoiskParser {
 		$curl = new Curl();
 		$response = null;
 
-		if ($this->direct_url != '') {
-			$this->_film_id = $this->get_film_id_from_url($this->direct_url);
-			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
-		}
-		else if ($this->web_version === true) { 
+		// mode 1
+		if ($this->web_version === true && $this->direct_url == '') { 
 			if ($this->search_query == '') {
 				$this->result['error'] = $this->errors_arr[1];
 				return;
@@ -99,9 +98,18 @@ class KinopoiskParser {
 			}
 			else $this->result['error'] = $this->errors_arr[0];
 		}
+		// mode 2
+		else if ($this->web_version === true && $this->direct_url != '') {
+			$this->_film_id = $this->get_film_id_from_url($this->direct_url);
+			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
+		}
+		// mode 3
 		else if ($this->web_version === false) {
-			$this->_film_id = file_get_contents(ROOT.$this->log_result);
-			$this->_film_id = ($this->_film_id == '' ? 1 : $this->_film_id+1);
+			if ($this->direct_url != '') $this->_film_id = $this->get_film_id_from_url($this->direct_url);
+			else {
+				$this->_film_id = file_get_contents(ROOT.$this->log_result);
+				$this->_film_id = ($this->_film_id == '' ? 1 : $this->_film_id+1);
+			}
 
 			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
 		}
@@ -217,7 +225,7 @@ class KinopoiskParser {
 		$img = $this->find_image();
 
 		// save all data to DB & HDD
-		if ($this->save_result === true && $this->web_version == false) {
+		if ($this->save_result === true) {
 /*
 var_dump($this->decode($this->_dom->find('title', 0)->innertext));
 die();
@@ -252,7 +260,7 @@ d($this->result, 1);
 			$this->log($this->_film_id, 'result');
 		}
 
-		if ($this->web_version === false) $this->do_redirect();
+		if ($this->web_version === false && $this->direct_url == '' && $this->parse_all_nonstop == true) $this->do_redirect();
 	}
 
 	public function find_image() {
