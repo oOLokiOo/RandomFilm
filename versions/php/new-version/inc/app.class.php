@@ -118,6 +118,8 @@ class APP {
 	 *
 	 */
 	private function get_from_images_google($search_words = '') {
+		require_once getcwd().'/../parser-kinopoisk/v2.0/inc/kinopoisk_parser.class.php';
+
 		$curl = new Curl();
 		$url = $this->GOOGLE_IMAGES_URL.urlencode($search_words).$this->GOOGLE_IMAGES_URL_END_PREFIX;
 		$image_url = '';
@@ -135,15 +137,11 @@ class APP {
 
 		// get big iamge from kinopoisk.ru
 		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
-			require_once 'curl.php';
-			require_once 'simple_html_dom.php';
+			//$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 
-			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
-			$html = $curl->get($google_image_href);
-			$dom = str_get_html($html);
-
-			$img = $dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
-			if ($img) $image_url = $img->src;
+			$parser = new KinopoiskParser();
+			$parser->direct_url = $google_image_href;
+			$image_url = $parser->find_image()->src;
 		}
 
 		if ($image_url == '') {
