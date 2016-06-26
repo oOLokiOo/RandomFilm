@@ -8,10 +8,6 @@
  * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php
  */
 
-require_once 'curl.php';
-require_once 'simple_html_dom.php';
-
-
 class APP {
 	private $errors_arr = array(
 		'0' => 'User Films Xml file - not Found',
@@ -139,9 +135,13 @@ class APP {
 
 		// get big iamge from kinopoisk.ru
 		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
+			require_once 'curl.php';
+			require_once 'simple_html_dom.php';
+
 			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 			$html = $curl->get($google_image_href);
 			$dom = str_get_html($html);
+
 			$img = $dom->find('#photoBlock .popupBigImage img, #photoBlock img', 0);
 			if ($img) $image_url = $img->src;
 		}

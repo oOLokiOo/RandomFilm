@@ -4,6 +4,7 @@
 	<title>Random movie that you would like to revise (c) Script was made by Ivan Volkov aka oOLokiOo</title>
 	<meta charset="utf-8">
 
+	<!-- Just for local & github project version, common CSS file, you can remove it from here -->
 	<link rel="stylesheet" href="<?=$CSS_PATH?>" />
 	<style type="text/css">
 		img {
@@ -14,6 +15,7 @@
 			<?php } ?>
 		}
 	</style>
+	<!-- /end -->
 </head>
 <body>
 	<header>
@@ -28,6 +30,7 @@
 	</main>
 
 	<footer>
+		&copy; Ivan Volkov aka oOLokiOo
 	</footer>
 </body>
 </html>

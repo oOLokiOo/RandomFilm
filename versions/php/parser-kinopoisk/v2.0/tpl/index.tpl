@@ -12,24 +12,39 @@
 			margin: 0;
 		}
 
+		img {
+			min-width: 250px;
+		}
+
 		table {
 			margin: 0 auto;
 			border: 1px solid #aaa;
 			padding: 10px;
 		}
+			table tr td {
+				text-transform: capitalize;
+				text-align: left;
+				vertical-align: top;
+			}
+			table input, table textarea {
+				width: 90%;
+				font-size: 16px;
+			}
+			table .lit {
+				width: 130px;
+			}
 
-		table input, table textarea {
-			width: 90%;
-			font-size: 16px;
-		}
-
-		table .lit {
-			width: 130px;
+		footer {
+			padding: 0 0 20px 0;
+			font-size: 12px;
 		}
 	</style>
 	<!-- /end -->
 </head>
 <body>
+	<header>
+	</header>
+
 	<main>
 		<p><h3><?=$parser->result['error']?></h3></p>
 
@@ -104,5 +119,9 @@
 			<img src="<?=$parser->result['img']?>" />
 		</section>
 	</main>
+
+	<footer>
+		&copy; Ivan Volkov aka oOLokiOo
+	</footer>
 </body>
 </html>
