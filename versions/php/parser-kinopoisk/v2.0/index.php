@@ -43,6 +43,7 @@ $search_query = ((isset($_REQUEST['search_query']) && $_REQUEST['search_query'] 
 
 $parser = new KinopoiskParser();
 
+$parser->web_version = true;
 $parser->search_query = $search_query;
 // 61237 - железный человек
 // 7095700 - test
