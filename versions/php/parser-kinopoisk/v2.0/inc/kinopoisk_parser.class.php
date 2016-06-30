@@ -88,7 +88,7 @@ class KinopoiskParser {
 			if (isset($top_search_result) && $top_search_result != null) {
 				$this->result['detail_page_url'] = $this->main_domen.$top_search_result->href;
 
-				$this->_film_id = $this->get_film_id_from_url($this->result['detail_page_url']);
+				$this->_film_id = $this->getFilmIdFromUrl($this->result['detail_page_url']);
 
 				if ($this->_film_id == 0) {
 					$this->log('Cant find Film ID when parsing top results url by $search_query... URL - '.$this->result['detail_page_url']);
@@ -99,7 +99,7 @@ class KinopoiskParser {
 		}
 		// mode 2
 		else if ($this->direct_url != '') {
-			$this->_film_id = $this->get_film_id_from_url($this->direct_url);
+			$this->_film_id = $this->getFilmIdFromUrl($this->direct_url);
 			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
 		}
 		// mode 3
@@ -218,7 +218,7 @@ class KinopoiskParser {
 		}
 
 		// parse image
-		$img = $this->find_image();
+		$img = $this->findImage();
 
 		// save all data to DB & HDD
 		if ($this->save_result === true) {
@@ -252,10 +252,10 @@ class KinopoiskParser {
 		}
 
 		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
-		if ($this->web_version === false && $this->direct_url == '' && $this->parse_all_nonstop == true) $this->do_redirect();
+		if ($this->web_version === false && $this->direct_url == '' && $this->parse_all_nonstop == true) $this->doRedirect();
 	}
 
-	public function find_image() {
+	public function findImage() {
 		$this->setup();
 
 		$img = null;
@@ -266,7 +266,7 @@ class KinopoiskParser {
 	}
 
 
-	private function get_film_id_from_url($url = '') {
+	private function getFilmIdFromUrl($url = '') {
 		$film_id = 0;
 		$tmp_arr = array();
 
@@ -297,7 +297,7 @@ class KinopoiskParser {
 		}
 	}
 
-	private function do_redirect() {
+	private function doRedirect() {
 		$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 		require_once ROOT.'/tpl/redirect.tpl';
 		exit();

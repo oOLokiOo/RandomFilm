@@ -61,7 +61,7 @@ echo '<pre>'; print_r($parser->result); echo '</pre>';
 $parser = new KinopoiskParser();
 //$parser->web_version = false; /* false - by default */
 $parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
-$imge_src = $parser->find_image()->src;
+$imge_src = $parser->findImage()->src;
 
 echo $imge_src;
 ```
