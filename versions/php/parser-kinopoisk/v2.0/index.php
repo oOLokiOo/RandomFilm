@@ -43,12 +43,15 @@ $search_query = ((isset($_REQUEST['search_query']) && $_REQUEST['search_query'] 
 
 $parser = new KinopoiskParser();
 
-$parser->web_version = true;
-$parser->search_query = $search_query;
+//$parser->web_version = true;
+//$parser->search_query = $search_query;
 // 61237 - железный человек
 // 7095700 - test
 // 7095700 - 404 not found
 //$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
+
+$parser->save_result = true;
+$parser->parse_all_nonstop = true;
 
 $parser->process();
 //d($parser, 1);

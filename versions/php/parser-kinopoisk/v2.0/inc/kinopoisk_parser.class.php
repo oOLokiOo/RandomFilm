@@ -23,12 +23,11 @@ class KinopoiskParser {
 	public $search_query 	= '';
 	public $direct_url 		= '';
 
+	public $parse_all_nonstop 	= false;
+	//public $start_from_id 		= 0; // max - http://www.kinopoisk.ru/film/555400 ? in future plans...
 	public $web_version 	= false;
 	public $save_result 	= false;
 	public $result_folder 	= '/result/';
-
-	public $parse_all_nonstop 	= false;
-	//public $start_from_id 		= 0; // max - http://www.kinopoisk.ru/film/555400 ? in future plans...
 
 	public $logging 		= true;
 	public $log_result 		= '/logs/result.log';
@@ -66,7 +65,7 @@ class KinopoiskParser {
 	}
 
 	public function setup() {
-//var_dump('in setup');
+//d('in setup', 1);
 		if (isset($this->_dom) && $this->_dom != null) return;
 
 		$curl = new Curl();
@@ -120,7 +119,7 @@ class KinopoiskParser {
 	}
 
 	public function process() {
-//var_dump('in process');
+//d('in process', 1);
 		$this->setup();
 		if ($this->_dom == null) return;
 
@@ -223,24 +222,19 @@ class KinopoiskParser {
 
 		// save all data to DB & HDD
 		if ($this->save_result === true) {
-/*
-var_dump($this->decode($this->_dom->find('title', 0)->innertext));
-die();
-
-// 28011 - result.txt
-d($this->result['id']);
-d($this->result, 1);
-*/
+			// check for 404 page
 			if ($this->result['en'] == '' && $this->result['ru'] == '') {
 				// or <title> ($this->decode($this->_dom->find('title', 0)->innertext)) == '404: Страница не найдена - Кинопоиск.ru'
 				$this->log('Film not found! 404 ERROR! URL - '.$this->result['detail_page_url']);
 			} else {
+				// save image to DB
 				$image_path = ROOT.$this->result_folder.$this->_film_id.'.jpg';
 				if ($img) {
 					$tmp = explode('/', $img->src);
 					if ($tmp[count($tmp)-1] != $this->no_image_prefix) file_put_contents($image_path, file_get_contents($img->src));
 				}
 
+				// add all parsed data to DB
 				$this->result['_id'] = $this->result['id'];
 //d($this->result, 1);
 				$mongo = new MongoClient();
@@ -253,10 +247,11 @@ d($this->result, 1);
 				}
 				$mongo->close();
 			}
-//die("write to log file");
+			// write ID of new added to the DB film to log result file
 			$this->log($this->_film_id, 'result');
 		}
 
+		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
 		if ($this->web_version === false && $this->direct_url == '' && $this->parse_all_nonstop == true) $this->do_redirect();
 	}
 
