@@ -15,11 +15,19 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 require_once %PATH_TO_kinopoisk_parser.class.php_DIRECTORY%.'/inc/kinopoisk_parser.class.php';
 
 $parser = new KinopoiskParser();
+// ... setup $parser methods
 ```
 **_NOTICE*:_** _Replace %PATH_TO_kinopoisk_parser.class.php_DIRECTORY% with real path!_
 
 
 <hr />
+**BASIC METHODS:**
+* search_query
+* direct_url
+* parse_all_nonstop
+* web_version
+* save_result
+
 **BASIC USAGE:**
 
 * Web version - get Film by "search_query":
