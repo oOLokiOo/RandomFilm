@@ -41,33 +41,32 @@
 
 					if (search_movie_title != "") {
 						self.getJSONP(self.settings.google_images_url + search_movie_title + "&callback=?", function(json) {
-							if (json && json.responseData.results) {
-								var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
-									+ (self.random_movie.en ? self.random_movie.en + " | " : "")
-									+ (self.random_movie.year ? self.random_movie.year : "");
-								
-								if (title.slice(-2) == "| ") title = title.slice(0, -2);
-								
-								self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="
-									+ title.replace(/ \| /g, " ")
-									+ " смотреть фильм онлайн'>"
-									+ title
-									+ "</a>";
-								self.getBySelector("main>img")[0].src = self.filterFromBlockedResources(json.responseData.results);
-								self.getBySelector("main>img")[0].alt = title;
-								self.getBySelector("main>img")[0].title = title;
-
-								if (self.random_movie.kinopoisk) {
-									self.getById("kinopoisk").href = self.random_movie.kinopoisk;
-									self.getById("kinopoisk").style.display = "inline";
-								}
-
-								if (self.random_movie.imdb) {
-									self.getById("imdb").href = self.random_movie.imdb;
-									self.getById("imdb").style.display = "inline";
-								}
-							}
+							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
+								+ (self.random_movie.en ? self.random_movie.en + " | " : "")
+								+ (self.random_movie.year ? self.random_movie.year : "");
+							
+							if (title.slice(-2) == "| ") title = title.slice(0, -2);
+							
+							self.getBySelector("main>h1")[0].innerHTML = "<a target='_blank' href='http://google.com/search?q="
+								+ title.replace(/ \| /g, " ")
+								+ " смотреть фильм онлайн'>"
+								+ title
+								+ "</a>";
+							// The Google Web Search API is officially DEPRECATED! - https://developers.google.com/image-search/v1/jsondevguide
+							if (json && json.responseData && json.responseData.results) self.getBySelector("main>img")[0].src = self.filterFromBlockedResources(json.responseData.results);
 							else alert("Movie [" + rand + "] : Image not found!");
+							self.getBySelector("main>img")[0].alt = title;
+							self.getBySelector("main>img")[0].title = title;
+
+							if (self.random_movie.kinopoisk) {
+								self.getById("kinopoisk").href = self.random_movie.kinopoisk;
+								self.getById("kinopoisk").style.display = "inline";
+							}
+
+							if (self.random_movie.imdb) {
+								self.getById("imdb").href = self.random_movie.imdb;
+								self.getById("imdb").style.display = "inline";
+							}
 						});
 					}
 					else alert("Movie [" + rand + "] - not found!");

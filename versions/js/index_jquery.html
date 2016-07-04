@@ -46,33 +46,32 @@
 
 					if (search_movie_title != "") {
 						self.jQueryGetJSONP(self.settings.google_images_url + search_movie_title, function(json) {
-							if (json && json.responseData.results) {
-								var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
-									+ (self.random_movie.en ? self.random_movie.en + " | " : "")
-									+ (self.random_movie.year ? self.random_movie.year : "");
-								
-								if (title.slice(-2) == "| ") title = title.slice(0, -2);
-								
-								$("main>h1").html("<a target='_blank' href='http://google.com/search?q="
-									+ title.replace(/ \| /g, " ")
-									+ " смотреть фильм онлайн'>"
-									+ title
-									+ "</a>");
-								$("main>img").attr("src", self.filterFromBlockedResources(json.responseData.results));
-								$("main>img").attr("alt", title);
-								$("main>img").attr("title", title);
-
-								if (self.random_movie.kinopoisk) {
-									$("#kinopoisk").attr("href", self.random_movie.kinopoisk);
-									$("#kinopoisk").css("display", "inline");
-								}
-
-								if (self.random_movie.imdb) {
-									$("#imdb").attr("href", self.random_movie.imdb);
-									$("#imdb").css("display", "inline");
-								}
-							}
+							var title = (self.random_movie.ru ? self.random_movie.ru + " | " : "")
+								+ (self.random_movie.en ? self.random_movie.en + " | " : "")
+								+ (self.random_movie.year ? self.random_movie.year : "");
+							
+							if (title.slice(-2) == "| ") title = title.slice(0, -2);
+							
+							$("main>h1").html("<a target='_blank' href='http://google.com/search?q="
+								+ title.replace(/ \| /g, " ")
+								+ " смотреть фильм онлайн'>"
+								+ title
+								+ "</a>");
+							// The Google Web Search API is officially DEPRECATED! - https://developers.google.com/image-search/v1/jsondevguide
+							if (json && json.responseData && json.responseData.results) $("main>img").attr("src", self.filterFromBlockedResources(json.responseData.results));
 							else alert("Movie [" + rand + "] : Image not found!");
+							$("main>img").attr("alt", title);
+							$("main>img").attr("title", title);
+
+							if (self.random_movie.kinopoisk) {
+								$("#kinopoisk").attr("href", self.random_movie.kinopoisk);
+								$("#kinopoisk").css("display", "inline");
+							}
+
+							if (self.random_movie.imdb) {
+								$("#imdb").attr("href", self.random_movie.imdb);
+								$("#imdb").css("display", "inline");
+							}
 						});
 					}
 					else alert("Movie [" + rand + "] - not found!");
