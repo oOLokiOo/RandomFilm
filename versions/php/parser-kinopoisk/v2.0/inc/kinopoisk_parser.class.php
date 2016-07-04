@@ -256,6 +256,7 @@ class KinopoiskParser {
 	}
 
 	public function findImage() {
+		if ($this->direct_url == '') return false;
 		$this->setup();
 
 		$img = null;
