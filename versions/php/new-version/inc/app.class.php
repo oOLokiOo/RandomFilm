@@ -192,9 +192,9 @@ class APP {
 
 	/**
 	 * @param 	mixed 	$data 	data for debuging.
-	 * @param 	boolean $die 	param for stop running script after debug. defalt - FALSE.
+	 * @param 	boolean $die 	parameter for stop running script after debug. default - FALSE.
 	 * 
-	 * @return 	boolean TRUE, anyway.
+	 * @return 	boolean TRUE, or die.
 	 */
 	public function d($data, $die = false) {
 		echo '<pre>';
