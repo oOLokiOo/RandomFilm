@@ -112,6 +112,8 @@ class KinopoiskParser {
 
 		// get DOM of detail page
 		if ($this->_film_id > 0) {
+			$this->direct_url = $this->result['detail_page_url'];
+
 			$response = $curl->get($this->result['detail_page_url']);
 			$this->_dom = str_get_html($response);
 		}
@@ -252,7 +254,7 @@ class KinopoiskParser {
 		}
 
 		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
-		if ($this->web_version === false && $this->direct_url == '' && $this->parse_all_nonstop == true) $this->doRedirect();
+		if ($this->web_version === false && $this->parse_all_nonstop == true) $this->doRedirect();
 	}
 
 	public function findImage() {
