@@ -46,7 +46,7 @@ $parser = new KinopoiskParser();
 //$parser->web_version = true;
 //$parser->search_query = $search_query;
 // 61237 - железный человек
-// 7095700 - test
+// 709570 - test
 // 7095700 - 404 not found
 //$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
 
