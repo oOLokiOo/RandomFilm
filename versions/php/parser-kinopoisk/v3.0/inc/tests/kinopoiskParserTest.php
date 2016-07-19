@@ -7,20 +7,78 @@ class KinopoiskParserTest extends PHPUnit_Framework_TestCase {
 	public function setUp() { }
 	public function tearDown() { }
 
+
+	// Test: $KinopoiskParser->FindImage();
 	public function testFindImage_WithNotSettedDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
 		$parser = new KinopoiskParser();
-		$this->assertFalse($parser->findImage());
+		$this->AssertNull($parser->findImage());
 	}
 
-	public function testFindImage_ObjectNotNull() {
+	public function testFindImage_WithNormalDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
 		$parser = new KinopoiskParser();
-		$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
-		$this->AssertNotNull($parser->findImage());
+		$this->AssertNotNull($parser->findImage('http://www.kinopoisk.ru/film/61237/'));
+	}
+
+	public function testFindImage_WithBadDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$this->AssertNull($parser->findImage('BAD_URL'));
 	}
 
 	public function testFindImage_SrcExist() {
+		echo "\n... ".__FUNCTION__." ...\n";
 		$parser = new KinopoiskParser();
-		$parser->direct_url = 'http://www.kinopoisk.ru/film/61237/';
-		$this->assertGreaterThan('1', $parser->findImage()->src);
+		$res = $parser->findImage('http://www.kinopoisk.ru/film/61237/');
+		$this->assertTrue((isset($res->src) && strlen($res->src)));
 	}
+
+
+	// Test: $KinopoiskParser->findStarring();
+	public function testFindStarring_WithNotSettedDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$this->AssertNull($parser->findStarring());
+	}
+
+	public function testFindStarring_WithNormalDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$this->AssertNotNull($parser->findStarring('http://www.kinopoisk.ru/film/61237/'));
+	}
+
+	public function testFindStarring_WithBadDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$this->AssertNull($parser->findStarring('BAD_URL'));
+	}
+
+
+	// Test: $KinopoiskParser->getFilmBySearchQuery();
+	public function testGetFilmBySearchQuery_WithNotSettedQuery() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$res = $parser->getFilmBySearchQuery();
+		$this->assertTrue((isset($res['error']) && $res['error'] != ''));
+	}
+
+	public function testGetFilmBySearchQuery_NothingWasFoundInTopSearchResult() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$res = $parser->getFilmBySearchQuery('qqqwwweeezzz');
+		$this->assertTrue((isset($res['error']) && $res['error'] != ''));
+	}
+
+	public function testGetFilmBySearchQuery_FoundedFilmIdIsNumeric() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$this->assertTrue(is_numeric($parser->getFilmBySearchQuery('test')['id']));
+	}
+
+
+	// Test: $KinopoiskParser->getFilmByDirectUrl();
+	
+
+	// Test: $KinopoiskParser->parseAllSite();
 }

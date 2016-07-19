@@ -20,9 +20,9 @@ class KinopoiskParser {
 	private $_project_root = '';
 
 	private $main_domen 		= 'http://www.kinopoisk.ru';
-	private $no_image_prefix 	= 'poster_none.png';
-	private $film_prefix 		= '/film/';
 	private $search_page_url 	= '/index.php?first=no&what=&kp_query=';
+	private $film_prefix_in_url	= '/film/';
+	private $no_image_prefix 	= 'poster_none.png';
 	private $errors_arr = array(
 		'0' => 'Enter Film Title',
 		'1' => 'Nothing was found...',
@@ -400,7 +400,7 @@ class KinopoiskParser {
 		else {
 	 		// get film ID from direct url
 			$this->_film_id = $this->getFilmIdFromUrl($url);
-			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
+			$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix_in_url.$this->_film_id;
 
 			// parse page data
 			$this->process();
@@ -414,7 +414,7 @@ class KinopoiskParser {
 		// TODO: check file_get_contents() for try-catch
 		$this->_film_id = file_get_contents($this->_project_root.$this->log_result);
 		$this->_film_id = ($this->_film_id == '' ? 1 : $this->_film_id+1);
-		$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
+		$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix_in_url.$this->_film_id;
 
 		// parse page data
 		$this->process();
@@ -422,7 +422,7 @@ class KinopoiskParser {
 		if (isset($this->result['error']) && strlen($this->result['error'])) $this->d($this->result['error'], 1);
 
 		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
-		$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+		//$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
 		// TODO: check require_once() for try-catch & add redirect.tpl to public method
 		require_once $this->_project_root.'/tpl/redirect.tpl';
 		exit();

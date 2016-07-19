@@ -1,6 +1,6 @@
 @echo off
 
- php d:/bin/phpunit.phar d:\Dropbox\work\random-film\versions\php\parser-kinopoisk\v2.0\inc\tests\kinopoiskParserTest.php
+ php d:/bin/phpunit.phar d:\Dropbox\work\random-film\versions\php\parser-kinopoisk\v3.0\inc\tests\kinopoiskParserTest.php
 
 :: phpunit kinopoiskParserTest.php
 
