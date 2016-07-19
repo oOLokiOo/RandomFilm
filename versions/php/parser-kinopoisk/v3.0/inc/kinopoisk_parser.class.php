@@ -69,8 +69,8 @@ class KinopoiskParser {
 	public $log_error 	= '/logs/error.log';
 
 
-	public function __construct($project_root) {
-		$this->_project_root = $project_root;
+	public function __construct($project_root = '') {
+		$this->_project_root = ($project_root != '') ? $project_root : __DIR__.'/../';
 	}
 
 
@@ -83,33 +83,38 @@ class KinopoiskParser {
 
 	/**
 	 * @param 	string $url 	kinopoisk.ru full film url. default - ''.
-	 * @return 	boolean TRUE, OR FALSE if bad $url.
+	 * @return 	boolean 		TRUE, OR FALSE if bad $url.
 	 */
 	private function getPageDom($url = '') {
 		if ($url == '') {
 			$this->setError(4);
 			return false;
-		} else {
+		}
+
+		try {
 			$curl = new Curl();
 			$response = null;
-
 			$response = $curl->get($url);
-			$this->_dom = str_get_html($response);
-
-			return true;
+		} catch (Exception $e) {
+			$this->result['error'] = 'CurlException: '.$e->getMessage();
+			return false;
 		}
+
+		$this->_dom = str_get_html($response);
+
+		return true;
 	}
 
 	/**
 	 * @param 	string $url 	kinopoisk.ru full film url. default - ''.
-	 * @return 	int 	film ID if found OR 0.
+	 * @return 	int 			film ID if found OR 0.
 	 */
 	private function getFilmIdFromUrl($url = '') {
 		$film_id = 0;
 		$tmp_arr = array();
 
 		$tmp_arr = explode('/film/', $url);
-		$film_id = explode('/', $tmp_arr[1])[0];
+		if (isset($tmp_arr[1])) $film_id = explode('/', $tmp_arr[1])[0];
 		$film_id = (is_numeric($film_id) ? $film_id : 0);
 
 		return $film_id;
@@ -117,7 +122,7 @@ class KinopoiskParser {
 
 	/**
 	 * @param 	string $str 	kinopoisk.ru parsed category title. default - ''.
-	 * @return 	string 	decoded title.
+	 * @return 	string 			decoded title.
 	 */
 	private function decode($str = '') {
 		$str = mb_convert_encoding($str, 'UTF-8', 'Windows-1251');
@@ -145,7 +150,7 @@ class KinopoiskParser {
 
 	/**
 	 * @param 	int 	$error_number 	number from project errors array.
-	 * @return 	boolean TRUE, if error was found in project array and setted OR FALSE.
+	 * @return 	boolean 				TRUE, if error was found in project array and setted OR FALSE.
 	 */
 	private function setError($error_number) {
 		if (is_numeric($error_number) && isset($this->errors_arr[$error_number])) {
@@ -165,9 +170,11 @@ class KinopoiskParser {
 	}
 
 
-	private function process() {
-		//if ($this->_dom == null) return;
+	private function setup($url) {
+		return (($this->_dom == null && $url != '') ? $this->getPageDom($url) : false);
+	}
 
+	private function process() {
 		if ($this->_film_id > 0) {
 			// get DOM of detail page
 			$this->getPageDom($this->result['detail_page_url']);
@@ -303,9 +310,10 @@ class KinopoiskParser {
 
 	/**
 	 * My own Debug function.
+	 *
 	 * @param 	mixed 	$data 	data for debugging.
 	 * @param 	boolean $die 	parameter for stop running script after debug. default - FALSE.
-	 * @return 	boolean TRUE, OR Die().
+	 * @return 	boolean 		TRUE, OR Die().
 	 */
 	public function d($data, $die = false) {
 		echo '<pre>';
@@ -318,10 +326,48 @@ class KinopoiskParser {
 		return true;
 	}
 
+	/**
+	 * @param 	string 	$url 	kinopoisk.ru full film url. default - ''.
+	 * @return 	SimpleHtmlDom  	DOM object, OR null	
+	 */
+	public function findStarring($url = '') {
+		$starring = null;
+
+		if ($this->setup($url)) {
+			$starring = $this->_dom->find($this->css_selector_starring, 0);
+			if ($starring) {
+				$this->result['starring'] = $this->decode($starring->innertext);
+
+				foreach ($starring->find('li') as $li_content) {
+					$this->result['starring_arr'][] = $this->decode(strip_tags($li_content->innertext));
+				}
+
+				array_pop($this->result['starring_arr']);
+				$this->result['starring'] = implode(',', $this->result['starring_arr']);
+			}
+		}
+
+		return $starring;
+	}
+
+	/**
+	 * @param 	string 	$url 	kinopoisk.ru full film url. default - ''.
+	 * @return 	SimpleHtmlDom  	DOM object, OR null	
+	 */
+	public function findImage($url = '') {
+		$img = null;
+
+		if ($this->setup($url)) {
+			$img = $this->_dom->find($this->css_selector_image, 0);
+			if ($img) $this->result['img'] = $img->src;
+		}
+
+		return $img;
+	}
 
 	/**
 	 * @param 	string 	$query 	film title for searching in top kinopoisk.ru results. default - ''.
-	 * @return 	array 	array of kinopoisk.ru all parsed results.
+	 * @return 	array 			array of kinopoisk.ru all parsed results.
 	 */
  	public function getFilmBySearchQuery($query = '') {
 		if ($query == '') $this->setError(0);
@@ -346,8 +392,8 @@ class KinopoiskParser {
  	}
 
 	/**
-	 * @param 	string $url 	kinopoisk.ru full film url. default - ''.
-	 * @return 	array 	array of kinopoisk.ru all parsed results.
+	 * @param 	string 	$url 	kinopoisk.ru full film url. default - ''.
+	 * @return 	array 			array of kinopoisk.ru all parsed results.
 	 */
 	public function getFilmByDirectUrl($url = '') {
 		if ($url == '') $this->setError(4);
@@ -365,6 +411,7 @@ class KinopoiskParser {
 
 	public function parseAllSite() {
 		// get film ID from $this->log_result
+		// TODO: check file_get_contents() for try-catch
 		$this->_film_id = file_get_contents($this->_project_root.$this->log_result);
 		$this->_film_id = ($this->_film_id == '' ? 1 : $this->_film_id+1);
 		$this->result['detail_page_url'] = $this->main_domen.$this->film_prefix.$this->_film_id;
@@ -376,37 +423,8 @@ class KinopoiskParser {
 
 		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
 		$uri_parts = explode('?', $_SERVER['REQUEST_URI'], 2);
+		// TODO: check require_once() for try-catch & add redirect.tpl to public method
 		require_once $this->_project_root.'/tpl/redirect.tpl';
 		exit();
-	}
-
-
-	public function findStarring($url = '') {
-		if ($this->_dom == null) $this->getPageDom($url);
-		$starring = null;
-
-		$starring = $this->_dom->find($this->css_selector_starring, 0);
-		if ($starring) {
-			$this->result['starring'] = $this->decode($starring->innertext);
-
-			foreach ($starring->find('li') as $li_content) {
-				$this->result['starring_arr'][] = $this->decode(strip_tags($li_content->innertext));
-			}
-
-			array_pop($this->result['starring_arr']);
-			$this->result['starring'] = implode(',', $this->result['starring_arr']);
-		}
-
-		return $starring;
-	}
-
-	public function findImage($url = '') {
-		if ($this->_dom == null) $this->getPageDom($url);
-		$img = null;
-
-		$img = $this->_dom->find($this->css_selector_image, 0);
-		if ($img) $this->result['img'] = $img->src;
-
-		return $img;
 	}
 }
