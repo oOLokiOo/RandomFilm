@@ -268,11 +268,11 @@ class KinopoiskParser {
 				$img = $this->findImage($this->result['detail_page_url']);
 
 				// save all data to DB & HDD
-				///*
 				if ($this->save_result === true) {
 					// check for 404 page
 					if ($this->result['en'] == '' && $this->result['ru'] == '') {
 						// OR <title> ($this->decode($this->_dom->find('title', 0)->innertext)) == '404: Страница не найдена - Кинопоиск.ru'
+						// TODO: check on top of process() method
 						$this->log('Film not found! 404 ERROR! URL - '.$this->result['detail_page_url']);
 					} else {
 						// save image to DB
@@ -300,7 +300,6 @@ class KinopoiskParser {
 					// write ID of new added to the DB film to log result file
 					$this->log($this->_film_id, 'result');
 				}
-				//*/
 			}
 			else $this->setError(3);
 		}

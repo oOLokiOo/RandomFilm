@@ -78,7 +78,26 @@ class KinopoiskParserTest extends PHPUnit_Framework_TestCase {
 
 
 	// Test: $KinopoiskParser->getFilmByDirectUrl();
-	
+	public function testGetFilmByDirectUrl_WithNotSettedDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$res = $parser->getFilmByDirectUrl();
+		$this->assertTrue((isset($res['error']) && $res['error'] != ''));
+	}
+
+	public function testGetFilmByDirectUrl_WithBadDirectUrl() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$res = $parser->getFilmByDirectUrl('BAD_URL');
+		$this->assertTrue((isset($res['error']) && $res['error'] != ''));
+	}
+
+	public function testGetFilmByDirectUrl_FoundedFilmIdIsNumeric() {
+		echo "\n... ".__FUNCTION__." ...\n";
+		$parser = new KinopoiskParser();
+		$this->assertTrue(is_numeric($parser->getFilmByDirectUrl('http://www.kinopoisk.ru/film/61237/')['id']));
+	}
+
 
 	// Test: $KinopoiskParser->parseAllSite();
 }
