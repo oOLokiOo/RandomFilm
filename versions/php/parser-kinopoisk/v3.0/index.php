@@ -1,52 +1,83 @@
 <?php
 
-/**
- * @author Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com>
- * @version 3.0
- * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0
- * @see https://github.com/RubtsovAV/php-curl-lib
- * @see http://simplehtmldom.sourceforge.net
- */
+namespace Inc\KinopoiskParser;
 
 mb_internal_encoding('UTF-8');
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
-ini_set('memory_limit', '2048M');
-ini_set('max_execution_time', 86400);
-set_time_limit(86400);
-
-if (!defined('KinopoiskParserProjectRoot')) define('KinopoiskParserProjectRoot', __DIR__);
 
 
-require_once KinopoiskParserProjectRoot.'/inc/kinopoisk_parser.class.php';
+const ROOT = __DIR__;
 
-$css_path = '../../../../css/style.css'; // Just for local & github project version, common CSS file, you can remove it from here.
-$search_query = ((isset($_REQUEST['search_query']) && $_REQUEST['search_query'] != '') ? $_REQUEST['search_query'] : '');
+$result 		= null;
+$save_result 	= false;
+$action 		= 'web_version';
+//$action 		= 'parse_all_site';
 
-$result = array();
-$parser = new KinopoiskParser(KinopoiskParserProjectRoot);
+require_once ROOT.'/inc/KinopoiskParser/Parser.php';
+use Inc\KinopoiskParser\KinopoiskParser\Parser as KinopoiskParser;
 
-// mode - 1
-/*
-$result = $parser->getFilmBySearchQuery($search_query);
-//$parser->save_result = true;
-$parser->d($result);
-require_once KinopoiskParserProjectRoot.'/tpl/index.tpl';
-*/
+$parser = new Parser();
 
-/*
-// mode - 2
-// 61237 - железный человек
-// 709570 - test
-// 7095700 - 404 not found
-$result = $parser->getFilmByDirectUrl('http://www.kinopoisk.ru/film/61237/');
-//$parser->save_result = true;
-$parser->d($result);
-require_once KinopoiskParserProjectRoot.'/tpl/index.tpl';
-*/
+switch ($action) {
+	case 'web_version':
+		$search_query = ((isset($_REQUEST['search_query']) && trim($_REQUEST['search_query']) != '') ? $_REQUEST['search_query'] : '');
+		if ($search_query != '') $result = $parser->getFilmBySearchQuery($search_query);
+		//$parser->d($result);
 
-// mode - 3
-///*
-$parser->save_result = true;
-$parser->parseAllSite();
-//*/
+		require_once ROOT.'/tpl/index.tpl';
+		break;
+
+	case 'parse_all_site':
+		$result_log 			= ROOT.'/logs/result.log';
+		$result_images_path 	= ROOT.'/result/';
+		$no_image_prefix 		= 'poster_none.png';
+		$wait_to_redirect_time 	= 5; // in sec. to avoid blocking of the frequent requests.
+
+		$film_id = file_get_contents($result_log);
+		$film_id = ($film_id == '' ? 1 : $film_id+1);
+		$result = $parser->getFilmByDirectUrl('http://www.kinopoisk.ru/film/'.$film_id);
+		$parser->d($result, 1);
+var_dump($result->data->img->src); die();
+		// add all parsed data to DB
+		/*
+		if ($save_result === true) {
+			if ($result->data->img) {
+				$image_path = $result_images_path.$result->data->id.'.jpg';
+				$tmp = explode('/', $result->data->img->src);
+				if ($tmp[count($tmp)-1] != $no_image_prefix) file_put_contents($image_path, file_get_contents($result->data->img->src));
+			}
+
+			$mongo = new MongoClient();
+			$collection = $mongo->kinopoisk->movies->films;
+			try {
+				$collection->save($result->data);
+			} catch (MongoException $e) {
+				$parser->d($result);
+				die('<h1>MongoException Error: code - '.$e->getCode().'. ObjectID: '.$film_id.'</h1>');
+			}
+			$mongo->close();
+		}
+		*/
+		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
+		require_once ROOT.'/tpl/redirect.tpl';
+		break;
+
+	default:
+		// TESTS ->getFilmByDirectUrl();
+		//var_dump($parser->getFilmByDirectUrl());
+		//var_dump($parser->getFilmByDirectUrl('test'));
+		//var_dump($parser->getFilmByDirectUrl('http://www.kinopoisk.ru/61237777777777777/'));
+		//var_dump($parser->getFilmByDirectUrl('http://www.kinopoisk.ru/film/61237777777777777/'));
+		//var_dump($parser->getFilmByDirectUrl('http://www.kinopoisk.ru/film/61237/'));
+
+		// TESTS ->getFilmBySearchQuery();
+		//var_dump($parser->getFilmBySearchQuery());
+		//var_dump($parser->getFilmBySearchQuery('testqqqwwweee11111222333qzzzzzzzzzzzzzz'));
+		//var_dump($parser->getFilmBySearchQuery('test'));
+
+		die('action not found...');
+		break;
+}
+
+exit();
