@@ -78,14 +78,6 @@ class Parser {
 	private function pushLog($str = '') {
 		return $this->_file->writeToFile($this->log_error, 'ERROR: ( '.date('H:i:s d.m.Y', time()).' ) ::: '.$str."\n");
 	}
-
-	private function getResult() {
-		return $this->_file->getFromFile($this->log_result);
-	}
-
-	private function pushResult($str = '') {
-		return $this->_file->writeToFile($this->log_result, $str);
-	}
 	// ---
 
 	// --- parsing url...

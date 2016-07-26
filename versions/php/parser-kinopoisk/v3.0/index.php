@@ -10,9 +10,9 @@ ini_set('error_reporting', E_ALL);
 const ROOT = __DIR__;
 
 $result 		= null;
-$save_result 	= false;
+$save_result 	= true;
 $action 		= 'web_version';
-//$action 		= 'parse_all_site';
+$action 		= 'parse_all_site';
 
 require_once ROOT.'/inc/KinopoiskParser/Parser.php';
 use Inc\KinopoiskParser\KinopoiskParser\Parser as KinopoiskParser;
@@ -37,18 +37,17 @@ switch ($action) {
 		$film_id = file_get_contents($result_log);
 		$film_id = ($film_id == '' ? 1 : $film_id+1);
 		$result = $parser->getFilmByDirectUrl('http://www.kinopoisk.ru/film/'.$film_id);
-		$parser->d($result, 1);
-var_dump($result->data->img->src); die();
+
 		// add all parsed data to DB
-		/*
 		if ($save_result === true) {
 			if ($result->data->img) {
 				$image_path = $result_images_path.$result->data->id.'.jpg';
-				$tmp = explode('/', $result->data->img->src);
-				if ($tmp[count($tmp)-1] != $no_image_prefix) file_put_contents($image_path, file_get_contents($result->data->img->src));
+				$tmp = explode('/', $result->data->img);
+
+				if ($tmp[count($tmp)-1] != $no_image_prefix) file_put_contents($image_path, file_get_contents($result->data->img));
 			}
 
-			$mongo = new MongoClient();
+			$mongo = new \MongoClient();
 			$collection = $mongo->kinopoisk->movies->films;
 			try {
 				$collection->save($result->data);
@@ -57,8 +56,11 @@ var_dump($result->data->img->src); die();
 				die('<h1>MongoException Error: code - '.$e->getCode().'. ObjectID: '.$film_id.'</h1>');
 			}
 			$mongo->close();
+
+			// write ID of new added to the DB film to log result file
+			file_put_contents($result_log, $film_id);
 		}
-		*/
+
 		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
 		require_once ROOT.'/tpl/redirect.tpl';
 		break;
