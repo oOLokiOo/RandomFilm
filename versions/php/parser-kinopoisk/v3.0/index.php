@@ -12,10 +12,10 @@ const ROOT = __DIR__;
 $result 		= null;
 $save_result 	= true;
 $action 		= 'web_version';
-$action 		= 'parse_all_site';
+//$action 		= 'parse_all_site';
 
 require_once ROOT.'/inc/KinopoiskParser/Parser.php';
-use Inc\KinopoiskParser\KinopoiskParser\Parser as KinopoiskParser;
+use Inc\KinopoiskParser\Parser as KinopoiskParser;
 
 $parser = new Parser();
 
