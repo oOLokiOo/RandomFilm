@@ -95,7 +95,7 @@ class Parser {
 
 	private function checkQuery($str = '') {
 		if ($this->checkCommon($str) === false) {
-			$this->setError(ERR_QUERY_IS_EMPTY);
+			$this->setError(self::ERR_QUERY_IS_EMPTY);
 			return false;
 		}
 
@@ -104,12 +104,12 @@ class Parser {
 
 	private function checkUrl($str = '') {
 		if ($this->checkCommon($str) === false) {
-			$this->setError(ERR_URL_IS_EMPTY);
+			$this->setError(self::ERR_URL_IS_EMPTY);
 			return false;
 		}
 
 		if ((strpos($str, $this->url_matches) === false)) {
-			$this->setError(ERR_BAD_SEARCH_DOMAIN, $str);
+			$this->setError(self::ERR_BAD_SEARCH_DOMAIN, $str);
 			return false;
 		}
 
@@ -125,7 +125,7 @@ class Parser {
 		if (isset($tmp_arr[1])) $film_id = explode('/', $tmp_arr[1])[0];
 		$film_id = (is_numeric($film_id) ? $film_id : 0);
 
-		if ($film_id == 0) $this->setError(ERR_CANT_FIND_FILM_ID, $url);
+		if ($film_id == 0) $this->setError(self::ERR_CANT_FIND_FILM_ID, $url);
 
 		return $film_id;
 	}
@@ -250,7 +250,7 @@ class Parser {
 
 			$this->result->data = $this->_model;
 		}
-		else $this->setError(ERR_PAGE_NOT_FOUND, $url);
+		else $this->setError(self::ERR_PAGE_NOT_FOUND, $url);
 
 		return $this->result;
 	}
@@ -290,7 +290,7 @@ class Parser {
 
 			return $this->process($url);
 		}
-		else $this->setError(ERR_NOTHING_FOUND_BY_URL, $url);
+		else $this->setError(self::ERR_NOTHING_FOUND_BY_URL, $url);
 
 		return $this->result;
 	}
@@ -310,9 +310,9 @@ class Parser {
 					$this->_page->get($url)->dom != null) {
 					return $this->process($url);
 				}
-				else $this->setError(ERR_NOTHING_FOUND_BY_URL, $url);
+				else $this->setError(self::ERR_NOTHING_FOUND_BY_URL, $url);
 			}
-			else $this->setError(ERR_NOTHING_FOUND_BY_QUERY, $query);
+			else $this->setError(self::ERR_NOTHING_FOUND_BY_QUERY, $query);
 		}
 
 		return $this->result;
