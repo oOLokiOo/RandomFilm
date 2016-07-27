@@ -1,6 +1,6 @@
 # Kinopoisk.ru PHP simple parser / КиноПоиск.ру PHP простой парсер
 
-_This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0_
+_This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v2.0_
 
 
 <hr />
