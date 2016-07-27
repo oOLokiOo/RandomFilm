@@ -2,7 +2,7 @@
 
 
 ### WARNING!!! DEPRECATED VERSION!
-Lasted version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v2.0
+New version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v2.0
 
 <hr />
 - **curl.php** library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> )
