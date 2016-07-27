@@ -290,6 +290,7 @@ class Parser {
 
 			return $this->process($url);
 		}
+		else $this->setError(ERR_NOTHING_FOUND_BY_URL, $url);
 
 		return $this->result;
 	}
