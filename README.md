@@ -10,9 +10,9 @@ And open it, by URL:<br />
 <i>http://random-film/versions/php/***</i>
 <br />
 
-* Finished - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk
-* New version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/new-version
-* Old version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/old-version
+* Finished - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0
+* v2.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/new-version
+* v1.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/old-version
 <hr />
 
 <p><b>JS</b></p>
