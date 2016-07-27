@@ -13,8 +13,29 @@
 
 		setTimeout(timer, 1000);	
 	</script>
+
+	<!-- Just for local & github project version, common CSS file, you can remove it from here -->
+	<link rel="stylesheet" href="../../../../css/style.css" />
+	<style>
+		html,
+		body {
+			height: 100%;
+			min-height: 100%;
+			text-align: center;
+			font-size: 300%;
+		}
+
+		main:before {
+			width: 100%;
+			content: '';
+			display: inline-block;
+			vertical-align: middle;
+		}
+	</style>
 </head>
 <body>
-	<b id="timer"><?=$wait_to_redirect_time?></b>
+	<main>
+		<b id="timer"><?=$wait_to_redirect_time?></b>
+	</main>
 </body>
 </html>
