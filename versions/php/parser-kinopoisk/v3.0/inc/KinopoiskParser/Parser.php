@@ -21,7 +21,7 @@ class Parser {
 	private $_model	= null;
 	private $_file	= null;
 
-	private $data;
+	private $result;
 
 	private $url_matches		= 'kinopoisk.ru';
 	private $main_domen			= 'http://www.kinopoisk.ru';
