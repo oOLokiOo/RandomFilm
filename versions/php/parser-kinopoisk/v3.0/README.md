@@ -1,12 +1,13 @@
 # Kinopoisk.ru PHP simple parser / КиноПоиск.ру PHP простой парсер
 
-_This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v2.0_
+_This is updated version of previous version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v2.0_
 
 
 <hr />
 - **curl.php** library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> )
 - **simple_html_dom.php** library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll)
-// TODO: ...
+
+<br />// TODO: ...
 <hr />
 
 
