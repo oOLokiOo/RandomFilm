@@ -273,10 +273,6 @@ class Parser {
 		$this->logging = ($val === true ? true : false);
 	}
 
-	public function setLogResultPath($path = '') {
-		$this->log_result = $path;
-	}
-
 	public function setLogErrorPath($path = '') {
 		$this->log_error = $path;
 	}
