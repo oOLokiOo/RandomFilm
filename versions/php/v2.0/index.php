@@ -5,10 +5,12 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 
 
-require_once __DIR__.'/../parser-kinopoisk/v3.0/inc/KinopoiskParser/Parser.php';
-require_once __DIR__.'/inc/RandomFilm.php';
+const ROOT = __DIR__;
 
-/* *** PROJECT XML STRUCTURE ***
+require_once ROOT.'/../parser-kinopoisk/v3.0/inc/KinopoiskParser/Parser.php';
+require_once ROOT.'/inc/RandomFilm.php';
+
+/* *** PROJECT USER XML STRUCTURE ***
 
 <?xml version="1.0" encoding="UTF-8"?>
 <movies>
@@ -27,12 +29,14 @@ require_once __DIR__.'/inc/RandomFilm.php';
 		<imdb>http://www.imdb.com/xxx2</imdb>
 	</film>
 </movies>
-
 */
 
-$USER_XML_PATH = '../../../users/1/films.xml'; // TODO: link User Class here
+$result 		= null;
+$USER_XML_PATH 	= '../../../users/1/films.xml'; // TODO: link User Class here
 
 $app = new RandomFilm($USER_XML_PATH);
+//$user = $app->userSocialLogin();
+//$result = $app->getUserRandomFilm();
 
-require_once __DIR__.'/tpl/index.tpl';
+require_once ROOT.'/tpl/index.tpl';
 exit();

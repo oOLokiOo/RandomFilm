@@ -10,7 +10,16 @@
  */
 
 class RandomFilm {
-	private $random_movie = null;
+	private $result;
+	private $random_film = null;
+
+	private $USER_XML_PATH = '';
+
+	private $google_images_url 				= 'http://www.google.by/search?q=';
+	private $google_images_url_end_prefix 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
+
+	private $en_search_prefix 	= 'kinopoisk.ru'; // film poster
+	private $ru_search_prefix 	= 'kinopoisk.ru'; // фильм постер
 
 	const ERR_XML_NOT_FOUND = 1;
 	const ERR_CANT_PARSE_STRING = 2;
@@ -20,13 +29,6 @@ class RandomFilm {
 		'2' => 'String could not be parsed as XML'
 		);
 
-	private $google_images_url 				= 'http://www.google.by/search?q=';
-	private $google_images_url_end_prefix 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
-
-	private $en_search_prefix 	= 'kinopoisk.ru'; // film poster
-	private $ru_search_prefix 	= 'kinopoisk.ru'; // фильм постер
-
-	private $USER_XML_PATH = '';
 	
 	private $search_movie_title = '';
 
@@ -39,9 +41,9 @@ class RandomFilm {
 
 	public function __construct($USER_XML_PATH = '') {
 		$this->USER_XML_PATH = $USER_XML_PATH; // TODO: link User Class here
-		$this->random_movie = $this->get_random_movie();
+		$this->random_film = $this->get_random_film();
 
-		if ($this->random_movie != null) {
+		if ($this->random_film != null) {
 			$this->search_movie_title = $this->get_search_movie_title();
 			$this->image_url = $this->get_image_url();
 			$this->h1_title = $this->get_h1_title();
@@ -99,8 +101,8 @@ class RandomFilm {
 		return true;
 	}
 
-	public function get_random_movie() {
-		$random_movie = null;
+	public function get_random_film() {
+		$random_film = null;
 
 		@$xml = file_get_contents($this->USER_XML_PATH);
 
@@ -108,21 +110,21 @@ class RandomFilm {
 			//@$xmlData = new SimpleXMLElement($xml);
 			@$xmlData = simplexml_load_string($xml);
 
-			if ($xmlData) $random_movie = $xmlData->film[rand(0, count($xmlData) - 1)];
+			if ($xmlData) $random_film = $xmlData->film[rand(0, count($xmlData) - 1)];
 			else $this->set_error(1);
 		}
 		else $this->set_error(0);
 
-		return $random_movie;
+		return $random_film;
 	}
 
 	public function get_search_movie_title() {
 		if ($this->search_movie_title != '') return $this->search_movie_title;
-		if ($this->random_movie == null) $this->random_movie = $this->get_random_movie();
+		if ($this->random_film == null) $this->random_film = $this->get_random_film();
 
-		$search_movie_title = ($this->random_movie->en != '' ? $this->random_movie->en . ' ' : '')
-			. ($this->random_movie->ru != '' ? $this->random_movie->ru . ' ' : '')
-			//. ($this->random_movie->year != '' ? $this->random_movie->year . ' ' : '')
+		$search_movie_title = ($this->random_film->en != '' ? $this->random_film->en . ' ' : '')
+			. ($this->random_film->ru != '' ? $this->random_film->ru . ' ' : '')
+			//. ($this->random_film->year != '' ? $this->random_film->year . ' ' : '')
 			. $this->en_search_prefix; // RU_SEARCH_PREFIX - bad result with "RU"
 
 		return $search_movie_title;
@@ -141,14 +143,19 @@ class RandomFilm {
 
 	public function get_h1_title() {
 		if ($this->h1_title != '') return $this->h1_title;
-		if ($this->random_movie == null) $this->random_movie = $this->get_random_movie();
+		if ($this->random_film == null) $this->random_film = $this->get_random_film();
 
-		$h1_title = ($this->random_movie->ru ? $this->random_movie->ru . ' | ' : '')
-			. ($this->random_movie->en ? $this->random_movie->en . ' | ' : '')
-			. ($this->random_movie->year ? $this->random_movie->year : '');
+		$h1_title = ($this->random_film->ru ? $this->random_film->ru . ' | ' : '')
+			. ($this->random_film->en ? $this->random_film->en . ' | ' : '')
+			. ($this->random_film->year ? $this->random_film->year : '');
 
 		//if (mb_substr($h1_title, -2) == "| ") $h1_title = mb_substr($h1_title, 0, mb_strlen($h1_title, -2));
 
 		return $h1_title;
+	}
+
+
+	public function getRandomFilm() {
+		// TODO: ...
 	}
 }
