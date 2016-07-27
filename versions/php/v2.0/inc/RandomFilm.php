@@ -10,6 +10,8 @@
  */
 
 class RandomFilm {
+	private $random_movie = null;
+
 	const ERR_XML_NOT_FOUND = 1;
 	const ERR_CANT_PARSE_STRING = 2;
 
@@ -18,15 +20,14 @@ class RandomFilm {
 		'2' => 'String could not be parsed as XML'
 		);
 
-	private $GOOGLE_IMAGES_URL 				= 'http://www.google.by/search?q=';
-	private $GOOGLE_IMAGES_URL_END_PREFIX 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
+	private $google_images_url 				= 'http://www.google.by/search?q=';
+	private $google_images_url_end_prefix 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
 
-	private $EN_SEARCH_PREFIX 	= 'kinopoisk.ru'; // film poster
-	private $RU_SEARCH_PREFIX 	= 'kinopoisk.ru'; // фильм постер
+	private $en_search_prefix 	= 'kinopoisk.ru'; // film poster
+	private $ru_search_prefix 	= 'kinopoisk.ru'; // фильм постер
 
-	private $XML_PATH = '';
+	private $USER_XML_PATH = '';
 	
-	private $random_movie 		= null;
 	private $search_movie_title = '';
 
 
@@ -36,8 +37,8 @@ class RandomFilm {
 	public $error 				= '';
 
 
-	public function __construct($XML_PATH = '') {
-		$this->XML_PATH = $XML_PATH;
+	public function __construct($USER_XML_PATH = '') {
+		$this->USER_XML_PATH = $USER_XML_PATH; // TODO: link User Class here
 		$this->random_movie = $this->get_random_movie();
 
 		if ($this->random_movie != null) {
@@ -51,7 +52,7 @@ class RandomFilm {
 	private function get_from_images_google($search_words = '') {
 		$parser = new Inc\KinopoiskParser\Parser();
 
-		$url = $this->GOOGLE_IMAGES_URL.urlencode($search_words).$this->GOOGLE_IMAGES_URL_END_PREFIX;
+		$url = $this->google_images_url.urlencode($search_words).$this->google_images_url_end_prefix;
 		$image_url = '';
 
 		// get thumb from google search by images 
@@ -101,7 +102,7 @@ class RandomFilm {
 	public function get_random_movie() {
 		$random_movie = null;
 
-		@$xml = file_get_contents($this->XML_PATH);
+		@$xml = file_get_contents($this->USER_XML_PATH);
 
 		if ($xml) {
 			//@$xmlData = new SimpleXMLElement($xml);
@@ -122,7 +123,7 @@ class RandomFilm {
 		$search_movie_title = ($this->random_movie->en != '' ? $this->random_movie->en . ' ' : '')
 			. ($this->random_movie->ru != '' ? $this->random_movie->ru . ' ' : '')
 			//. ($this->random_movie->year != '' ? $this->random_movie->year . ' ' : '')
-			. $this->EN_SEARCH_PREFIX; // RU_SEARCH_PREFIX - bad result with "RU"
+			. $this->en_search_prefix; // RU_SEARCH_PREFIX - bad result with "RU"
 
 		return $search_movie_title;
 	}

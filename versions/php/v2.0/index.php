@@ -30,8 +30,9 @@ require_once __DIR__.'/inc/RandomFilm.php';
 
 */
 
-$XML_PATH = '../../../users/1/films.xml';
+$USER_XML_PATH = '../../../users/1/films.xml'; // TODO: link User Class here
 
-$app = new RandomFilm($XML_PATH);
+$app = new RandomFilm($USER_XML_PATH);
 
 require_once __DIR__.'/tpl/index.tpl';
+exit();
