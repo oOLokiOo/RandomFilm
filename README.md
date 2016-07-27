@@ -11,8 +11,8 @@ And open it, by URL:<br />
 <br />
 
 * Finished - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0
-* v2.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/new-version
-* v1.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/old-version
+* v2.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/v2.0
+* v1.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/v1.0
 <hr />
 
 <p><b>JS</b></p>
