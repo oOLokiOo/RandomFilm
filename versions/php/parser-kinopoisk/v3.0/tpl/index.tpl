@@ -18,7 +18,6 @@
 
 		table {
 			margin: 0 auto;
-			border: 1px solid #aaa;
 			padding: 10px;
 		}
 			table tr td {

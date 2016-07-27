@@ -12,7 +12,7 @@ const ROOT = __DIR__;
 $result 		= null;
 $save_result 	= true;
 $action 		= 'web_version';
-//$action 		= 'parse_all_site';
+$action 		= 'parse_all_site';
 
 require_once ROOT.'/inc/KinopoiskParser/Parser.php';
 use Inc\KinopoiskParser\Parser as KinopoiskParser;
@@ -39,7 +39,7 @@ switch ($action) {
 		$result = $parser->getFilmByDirectUrl('http://www.kinopoisk.ru/film/'.$film_id);
 
 		// add all parsed data to DB
-		if ($save_result === true) {
+		if ($save_result === true && isset($result->data)) {
 			if ($result->data->img) {
 				$image_path = $result_images_path.$result->data->id.'.jpg';
 				$tmp = explode('/', $result->data->img);
