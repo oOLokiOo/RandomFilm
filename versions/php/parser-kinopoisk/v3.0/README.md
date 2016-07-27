@@ -12,8 +12,15 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 
 **Integrate the class into your project:**
 ```php
-// TODO: ...
+namespace Inc\KinopoiskParser;
+
+require_once %PATH_TO_Parser.php_DIRECTORY%.'/Parser.php';
+use Inc\KinopoiskParser\Parser as KinopoiskParser;
+
+$parser = new Parser();
 ```
+**_NOTICE*:_** _Replace %PATH_TO_Parser.php_DIRECTORY% with real path!_
+
 
 
 <hr />
@@ -27,14 +34,12 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 
 * getFilmBySearchQuery public method:
 ```php
-// TODO: ...
 $result = $parser->getFilmBySearchQuery('%SEARCH_QUERY%');
 ```
 **_NOTICE*:_** _Replace %SEARCH_QUERY% with real film title!_
 
 * getFilmByDirectUrl public method:
 ```php
-// TODO: ...
 $result = $parser->getFilmByDirectUrl('%URL%');
 ```
 **_NOTICE*:_** _Replace %URL% with real full url with to detail kinopoisk.ru film page!_
