@@ -1,28 +1,22 @@
 <?php
 
 /**
- * Common Class for my project - "random-film".
+ * RandomFilm.php
  * 
  * @author Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com>
  * @version 2.0
- * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php
+ * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php/v2.0
  */
 
-class APP {
+class RandomFilm {
+	const ERR_XML_NOT_FOUND = 1;
+	const ERR_CANT_PARSE_STRING = 2;
+
 	private $errors_arr = array(
-		'0' => 'User Films Xml file - not Found',
-		'1' => 'String could not be parsed as XML'
+		'1' => 'User Films Xml file - not Found',
+		'2' => 'String could not be parsed as XML'
 		);
 
-	/**
-	 * @see Commented properties & methods are DEPRECATED! https://developers.google.com/web-search/docs/
-	 */
-	//private $GOOGLE_IMAGES_URL 		= 'http://ajax.googleapis.com/ajax/services/search/images?';
-	//private $CURL_REQUEST_ATTEMPT 	= 5;
-	//private $BLOCKED_RESOURCES = array(
-	//	'www.impawards.com',
-	//	'en.wikipedia.org'
-	//);
 	private $GOOGLE_IMAGES_URL 				= 'https://www.google.by/search?q=';
 	private $GOOGLE_IMAGES_URL_END_PREFIX 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
 
@@ -41,13 +35,10 @@ class APP {
 	public $error 				= '';
 
 
-	/**
-	 * @param string $XML_PATH path to XML file with movies.
-	 */
 	public function __construct($XML_PATH = '') {
 		$this->XML_PATH = $XML_PATH;
 		$this->random_movie = $this->get_random_movie();
-		
+
 		if ($this->random_movie != null) {
 			$this->search_movie_title = $this->get_search_movie_title();
 			$this->image_url = $this->get_image_url();
@@ -55,68 +46,7 @@ class APP {
 		}
 	}
 
-	/**
-	 * @throws 	FALSE & Echo CURL WARNING in case of error.
-	 * 
-	 * @param 	string 	$search_words 	title for Google Search.
-	 * 
-	 * @return 	array|boolean 	result of decoded json array or FALSE.
-	 *
-	 * @see Commented properties & methods are DEPRECATED! https://developers.google.com/web-search/docs/
-	 */
-	/*
-	private function get_from_images_google($search_words = '') {
-		$manual_referer = 'http://google.com/';
 
-		$args = array(
-			'v' => '1.0',
-			'q' => $search_words,
-			'imgsz' => 'large',
-			'rsz' => 8
-		);
-
-		$url = $this->GOOGLE_IMAGES_URL;
-
-		foreach ($args as $key => $val) {
-			$url .= $key.'='.rawurlencode($val).'&';
-		}
-
-		$ch = curl_init();
-
-		curl_setopt($ch, CURLOPT_URL, $url);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_REFERER, $manual_referer);
-
-		$body = curl_exec($ch);
-		$response = curl_getinfo($ch);
-
-		$attempt = $this->CURL_REQUEST_ATTEMPT;
-
-		if ($response['http_code'] != 200) {
-			while ($attempt > 0) {
-				$body = curl_exec($ch);
-				$response = curl_getinfo($ch);
-				if ($response['http_code'] == 200) break;
-				$attempt--;
-			}
-		}
-
-		curl_close($ch);
-
-		if ($attempt <= 0) {
-			echo 'WARNING: CURL cant do request. Do something...';
-			return false;
-		}
-
-		$json = json_decode($body, true);
-
-		return $json['responseData']['results'];
-	}
-	*/
-
-	/**
-	 *
-	 */
 	private function get_from_images_google($search_words = '') {
 		require_once getcwd().'/../parser-kinopoisk/v2.0/inc/kinopoisk_parser.class.php';
 
@@ -141,7 +71,7 @@ class APP {
 
 			$parser = new KinopoiskParser();
 			$parser->direct_url = $google_image_href;
-			$image_url = $parser->find_image()->src;
+			$image_url = $parser->findImage()->src;
 		}
 
 		if ($image_url == '') {
@@ -152,34 +82,6 @@ class APP {
 		return $image_url;
 	}
 
-	/**
-	 * @param 	array 	$imges_arr 			array of images from result after Google Search.
-	 * @param 	array 	$BLOCKED_RESOURCES 	array with resourses witch blocks their images for parsing.
-	 * 
-	 * @return 	string 	result of decoded json array
-	 *
-	 * @see Commented properties & methods are DEPRECATED! https://developers.google.com/web-search/docs/
-	 */
-	/*
-	private function filter_from_blocked_resources($imges_arr = array(), $BLOCKED_RESOURCES = array()) {
-		$good_url = '';
-
-		for ($i = 0; $i < count($imges_arr); $i++) {
-			if (!in_array($imges_arr[$i]['visibleUrl'], $BLOCKED_RESOURCES)) {
-				$good_url = $imges_arr[$i]['url'];
-				break;
-			}
-		}
-
-		return (isset($imges_arr[0]['url']) && $good_url == '' ? $imges_arr[0]['url'] : $good_url); 
-	}
-	*/
-
-	/**.
-	 * @param 	int 	$error_num 	nuber of error from error array.
-	 * 
-	 * @return 	boolean TRUE, if error was set. FALSE, if not.
-	 */
 	private function set_error($error_num = null) {
 		if (is_numeric($error_num)) {
 			$this->error = $this->errors_arr[$error_num];
@@ -190,12 +92,6 @@ class APP {
 	}
 
 
-	/**
-	 * @param 	mixed 	$data 	data for debuging.
-	 * @param 	boolean $die 	parameter for stop running script after debug. default - FALSE.
-	 * 
-	 * @return 	boolean TRUE, or die.
-	 */
 	public function d($data, $die = false) {
 		echo '<pre>';
 		print_r($data);
@@ -207,9 +103,6 @@ class APP {
 		return true;
 	}
 
-	/**
-	 * @return 	object|null object with parsed movie data from XML file or NULL.
-	 */
 	public function get_random_movie() {
 		$random_movie = null;
 
@@ -227,9 +120,6 @@ class APP {
 		return $random_movie;
 	}
 
-	/**
-	 * @return 	string title of movie for Google serach, to get it poster image.
-	 */
 	public function get_search_movie_title() {
 		if ($this->search_movie_title != '') return $this->search_movie_title;
 		if ($this->random_movie == null) $this->random_movie = $this->get_random_movie();
@@ -242,9 +132,6 @@ class APP {
 		return $search_movie_title;
 	}
 
-	/**
-	 * @return 	string filter Google Search results and return single image from it.
-	 */
 	public function get_image_url() {
 		if ($this->image_url != '') return $this->image_url;
 		if ($this->search_movie_title != '') $this->search_movie_title = $this->get_search_movie_title();
@@ -256,9 +143,6 @@ class APP {
 		return $image_url;
 	}
 
-	/**
-	 * @return 	string filtered $this->search_movie_title.
-	 */
 	public function get_h1_title() {
 		if ($this->h1_title != '') return $this->h1_title;
 		if ($this->random_movie == null) $this->random_movie = $this->get_random_movie();

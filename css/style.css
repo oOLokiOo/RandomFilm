@@ -23,7 +23,7 @@ h1 {
 	text-transform: capitalize;
 }
 	h1>a {
-		color: #444;
+		color: #000;
 	}
 
 img {
@@ -67,3 +67,8 @@ main>section {
 
 
 /* --- FOOTER --- */
+footer {
+	padding: 0 0 20px 0;
+	font-size: 12px;
+	font-weight: bold;
+}

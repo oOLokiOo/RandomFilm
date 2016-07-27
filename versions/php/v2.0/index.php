@@ -5,7 +5,7 @@ error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 
 
-require_once getcwd().'/inc/app.class.php';
+require_once __DIR__.'/inc/RandomFilm.php';
 
 /* *** PROJECT XML STRUCTURE ***
 
@@ -29,8 +29,7 @@ require_once getcwd().'/inc/app.class.php';
 */
 
 $XML_PATH = '../../../users/1/films.xml';
-$CSS_PATH = '../../../css/style.css';
 
-$app = new APP($XML_PATH);
+$app = new RandomFilm($XML_PATH);
 
-require_once getcwd().'/tpl/index.tpl';
+require_once __DIR__.'/tpl/index.tpl';

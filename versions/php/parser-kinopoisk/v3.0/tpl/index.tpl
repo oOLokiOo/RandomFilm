@@ -34,11 +34,6 @@
 				width: 130px;
 				font-weight: bold;
 			}
-
-		footer {
-			padding: 0 0 20px 0;
-			font-size: 12px;
-		}
 	</style>
 	<!-- /end -->
 </head>
@@ -52,7 +47,7 @@
 		<p><b>Введите название фильма:<b/></p>
 		<form method="post">
 			<input type="text" name="search_query" value="" />
-			<button type="submit">Go!</button>
+			<button type="submit">Get Film!</button>
 		</form>
 
 		<section>

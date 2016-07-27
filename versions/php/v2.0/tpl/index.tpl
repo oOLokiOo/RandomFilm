@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 
 	<!-- Just for local & github project version, common CSS file, you can remove it from here -->
-	<link rel="stylesheet" href="<?=$CSS_PATH?>" />
+	<link rel="stylesheet" href="../../../css/style.css" />
 	<style type="text/css">
 		img {
 			<?php if ($app->get_large_images == true) { ?>
