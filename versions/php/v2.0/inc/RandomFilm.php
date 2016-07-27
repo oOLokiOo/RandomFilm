@@ -6,6 +6,7 @@
  * @author Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com>
  * @version 2.0
  * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php/v2.0
+ * @see https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0
  */
 
 class RandomFilm {
@@ -17,7 +18,7 @@ class RandomFilm {
 		'2' => 'String could not be parsed as XML'
 		);
 
-	private $GOOGLE_IMAGES_URL 				= 'https://www.google.by/search?q=';
+	private $GOOGLE_IMAGES_URL 				= 'http://www.google.by/search?q=';
 	private $GOOGLE_IMAGES_URL_END_PREFIX 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
 
 	private $EN_SEARCH_PREFIX 	= 'kinopoisk.ru'; // film poster
@@ -48,14 +49,13 @@ class RandomFilm {
 
 
 	private function get_from_images_google($search_words = '') {
-		require_once getcwd().'/../parser-kinopoisk/v2.0/inc/kinopoisk_parser.class.php';
-
 		$curl = new Curl();
 		$url = $this->GOOGLE_IMAGES_URL.urlencode($search_words).$this->GOOGLE_IMAGES_URL_END_PREFIX;
 		$image_url = '';
 
 		// get thumb from google search by images 
 		$html = $curl->get($url);
+
 		$dom = str_get_html($html);
 		$result = $dom->find('#search .images_table a', 0);
 		$google_image_href = $result->attr['href'];
@@ -68,6 +68,10 @@ class RandomFilm {
 		// get big iamge from kinopoisk.ru
 		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
 			//$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
+
+			//$parser = new Inc\KinopoiskParser\Parser();
+			//$parser->getFilmByDirectUrl($google_image_href);
+			//$image_url = $parser->data->img;
 
 			$parser = new KinopoiskParser();
 			$parser->direct_url = $google_image_href;
