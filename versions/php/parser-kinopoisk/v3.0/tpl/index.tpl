@@ -17,6 +17,7 @@
 		}
 
 		table {
+			box-shadow: 0 0 10px rgba(0,0,0,0.5);
 			margin: 0 auto;
 			padding: 10px;
 		}
@@ -31,6 +32,7 @@
 			}
 			table .lit {
 				width: 130px;
+				font-weight: bold;
 			}
 
 		footer {
@@ -47,14 +49,14 @@
 	<main>
 		<p><h3><?=(isset($result->data->error) ? $result->data->error[0] : '')?></h3></p>
 
-		<p>Введите название фильма:</p>
+		<p><b>Введите название фильма:<b/></p>
 		<form method="post">
 			<input type="text" name="search_query" value="" />
 			<button type="submit">Go!</button>
 		</form>
 
 		<section>
-			<p>Результат:</p>
+			<p><b>Результат:</b></p>
 
 			<table>
 				<tr>

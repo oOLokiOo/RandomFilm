@@ -9,7 +9,7 @@ html, body {
 	background-color: #fff;
 }
 
-textarea:focus, input:focus {
+textarea:focus, input:focus, button:focus {
 	outline: none;
 }
 
@@ -32,7 +32,7 @@ img {
 	border: 1px solid #444;
 }
 
-input, textarea, table {
+input, textarea, table, button {
 	padding: 8px;
 	border-radius: 8px;
 	border: 1px solid #aaa;
