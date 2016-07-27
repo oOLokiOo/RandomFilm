@@ -49,33 +49,24 @@ class RandomFilm {
 
 
 	private function get_from_images_google($search_words = '') {
-		$curl = new Curl();
+		$parser = new Inc\KinopoiskParser\Parser();
+
 		$url = $this->GOOGLE_IMAGES_URL.urlencode($search_words).$this->GOOGLE_IMAGES_URL_END_PREFIX;
 		$image_url = '';
 
 		// get thumb from google search by images 
-		$html = $curl->get($url);
-
-		$dom = str_get_html($html);
+		$page = $parser->getSubsidiaryPage($url);
+		$dom = $page->dom;
 		$result = $dom->find('#search .images_table a', 0);
 		$google_image_href = $result->attr['href'];
 		$google_image_thumb = $result->children[0]->attr['src'];
 
-		//data:image/jpeg;base64,
-		//echo($url); die();
-		//$this->d($html, 1);
-
 		// get big iamge from kinopoisk.ru
 		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
-			//$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
+			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 
-			//$parser = new Inc\KinopoiskParser\Parser();
-			//$parser->getFilmByDirectUrl($google_image_href);
-			//$image_url = $parser->data->img;
-
-			$parser = new KinopoiskParser();
-			$parser->direct_url = $google_image_href;
-			$image_url = $parser->findImage()->src;
+			$res = $parser->getFilmByDirectUrl($google_image_href);
+			$image_url = $res->data->img;
 		}
 
 		if ($image_url == '') {
