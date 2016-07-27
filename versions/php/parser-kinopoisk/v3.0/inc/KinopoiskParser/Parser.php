@@ -313,4 +313,8 @@ class Parser {
 
 		return $this->result;
 	}
+
+	public function getSubsidiaryPage($url = '') {
+		return $this->_page->get($url);
+	}
 }
