@@ -27,12 +27,14 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 
 * getFilmBySearchQuery public method:
 ```php
+// TODO: ...
 $result = $parser->getFilmBySearchQuery('%SEARCH_QUERY%');
 ```
-**_NOTICE*:_** _Replace %PATH_TO_kinopoisk_parser.class.php_DIRECTORY% with real path!_
+**_NOTICE*:_** _Replace %SEARCH_QUERY% with real query!_
 
 * getFilmByDirectUrl public method:
 ```php
+// TODO: ...
 $result = $parser->getFilmByDirectUrl('%URL%');
 ```
-**_NOTICE*:_** _Replace %PATH_TO_kinopoisk_parser.class.php_DIRECTORY% with real path!_
+**_NOTICE*:_** _Replace %URL% with real full url with to detail kinopoisk.ru film page!_
