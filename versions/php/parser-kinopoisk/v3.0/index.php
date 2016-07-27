@@ -12,7 +12,7 @@ const ROOT = __DIR__;
 $result 		= null;
 $save_result 	= true;
 $action 		= 'web_version';
-//$action 		= 'parse_all_site';
+$action 		= 'parse_all_site';
 
 require_once ROOT.'/inc/KinopoiskParser/Parser.php';
 use Inc\KinopoiskParser\Parser as KinopoiskParser;
@@ -56,10 +56,10 @@ switch ($action) {
 				die('<h1>MongoException Error: code - '.$e->getCode().'. ObjectID: '.$film_id.'</h1>');
 			}
 			$mongo->close();
-
-			// write ID of new added to the DB film to log result file
-			file_put_contents($result_log, $film_id);
 		}
+
+		// write ID of new added to the DB film to log result file
+		file_put_contents($result_log, $film_id);
 
 		// do redirect to index page with random parameter to avoid the ban by browser because of recursion
 		require_once ROOT.'/tpl/redirect.tpl';

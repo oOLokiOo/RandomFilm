@@ -22,7 +22,7 @@
 			height: 100%;
 			min-height: 100%;
 			text-align: center;
-			font-size: 300%;
+			font-size: 250%;
 		}
 
 		main:before {
@@ -35,6 +35,7 @@
 </head>
 <body>
 	<main>
+		ID - <?=$film_id?><br />
 		<b id="timer"><?=$wait_to_redirect_time?></b>
 	</main>
 </body>
