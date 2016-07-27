@@ -28,6 +28,14 @@ class Parser {
 	private $search_page_url 	= '/index.php?first=no&what=&kp_query=';
 	private $film_prefix_in_url	= '/film/';
 
+	const ERR_PAGE_NOT_FOUND = 1;
+	const ERR_NOTHING_FOUND_BY_QUERY = 2;
+	const ERR_NOTHING_FOUND_BY_URL = 3;
+	const ERR_CANT_FIND_FILM_ID = 4;
+	const ERR_QUERY_IS_EMPTY = 5;
+	const ERR_URL_IS_EMPTY = 6;
+	const ERR_BAD_SEARCH_DOMAIN = 7;
+
 	private $errors_arr = array(
 		'1' => '404 - page with this $url was not found',
 		'2' => 'nothing was found by this $query',
@@ -87,7 +95,7 @@ class Parser {
 
 	private function checkQuery($str = '') {
 		if ($this->checkCommon($str) === false) {
-			$this->setError(5); // search $query is empty
+			$this->setError(ERR_QUERY_IS_EMPTY);
 			return false;
 		}
 
@@ -96,12 +104,12 @@ class Parser {
 
 	private function checkUrl($str = '') {
 		if ($this->checkCommon($str) === false) {
-			$this->setError(6); // search $url is empty
+			$this->setError(ERR_URL_IS_EMPTY);
 			return false;
 		}
 
 		if ((strpos($str, $this->url_matches) === false)) {
-			$this->setError(7, $str); // search $url does not contains domen kinopoisk.ru
+			$this->setError(ERR_BAD_SEARCH_DOMAIN, $str);
 			return false;
 		}
 
@@ -117,7 +125,7 @@ class Parser {
 		if (isset($tmp_arr[1])) $film_id = explode('/', $tmp_arr[1])[0];
 		$film_id = (is_numeric($film_id) ? $film_id : 0);
 
-		if ($film_id == 0) $this->setError(4, $url); // can't find FILM ID in this $url
+		if ($film_id == 0) $this->setError(ERR_CANT_FIND_FILM_ID, $url);
 
 		return $film_id;
 	}
@@ -242,7 +250,7 @@ class Parser {
 
 			$this->result->data = $this->_model;
 		}
-		else $this->setError(1, $url); // 404 - page with this $url was not found
+		else $this->setError(ERR_PAGE_NOT_FOUND, $url);
 
 		return $this->result;
 	}
@@ -301,9 +309,9 @@ class Parser {
 					$this->_page->get($url)->dom != null) {
 					return $this->process($url);
 				}
-				else $this->setError(3, $url); // nothing was found by this $url
+				else $this->setError(ERR_NOTHING_FOUND_BY_URL, $url);
 			}
-			else $this->setError(2, $query); // nothing was found by this $query
+			else $this->setError(ERR_NOTHING_FOUND_BY_QUERY, $query);
 		}
 
 		return $this->result;
