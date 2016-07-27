@@ -30,7 +30,7 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 // TODO: ...
 $result = $parser->getFilmBySearchQuery('%SEARCH_QUERY%');
 ```
-**_NOTICE*:_** _Replace %SEARCH_QUERY% with real query!_
+**_NOTICE*:_** _Replace %SEARCH_QUERY% with real film title!_
 
 * getFilmByDirectUrl public method:
 ```php
