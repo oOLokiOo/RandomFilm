@@ -14,7 +14,7 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 ```php
 namespace Inc\KinopoiskParser;
 
-require_once %PATH_TO_Parser.php_DIRECTORY%.'/Parser.php';
+require_once %PATH_TO_Parser.php_DIRECTORY%.'/inc/Parser.php';
 use Inc\KinopoiskParser\Parser as KinopoiskParser;
 
 $parser = new Parser();
