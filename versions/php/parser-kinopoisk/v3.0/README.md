@@ -13,8 +13,10 @@ _This is updated version of previous version - https://github.com/oOLokiOo/rando
 
 **Integrate the class into your project:**
 ```php
-require_once %PATH_TO_Parser.php_DIRECTORY%.'/inc/KinopoiskParser/Parser.php';
-$parser = new Inc\KinopoiskParser\Parser();
+require_once %PATH_TO_Parser.php_DIRECTORY%.'/KinopoiskParser/Parser.php';
+use \KinopoiskParser\Parser;
+
+$parser = new Parser();
 ```
 **_NOTICE*:_** _Replace %PATH_TO_Parser.php_DIRECTORY% with real path!_
 

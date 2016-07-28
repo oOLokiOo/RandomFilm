@@ -1,6 +1,6 @@
 <?php
 
-namespace Inc\KinopoiskParser;
+namespace KinopoiskParser;
 
 class File {
 
