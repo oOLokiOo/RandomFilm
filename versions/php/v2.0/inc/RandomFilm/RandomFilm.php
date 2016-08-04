@@ -52,7 +52,7 @@ class RandomFilm {
 
 
 	private function get_from_images_google($search_words = '') {
-		$parser = new \KinopoiskParser\Parser();
+		$parser = new \Parser\KinopoiskParser();
 		$parser->setLogErrorPath(__DIR__.'/../../logs/error.log');
 
 		$url = $this->google_images_url.urlencode($search_words).$this->google_images_url_end_prefix;

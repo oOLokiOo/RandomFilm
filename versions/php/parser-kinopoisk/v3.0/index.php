@@ -1,7 +1,5 @@
 <?php
 
-//namespace KinopoiskParser;
-
 mb_internal_encoding('UTF-8');
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
@@ -14,10 +12,10 @@ $save_result 	= true;
 $action 		= 'web_version';
 $action 		= 'parse_all_site';
 
-require_once ROOT.'/inc/KinopoiskParser/Parser.php';
-use \KinopoiskParser\Parser;
+require_once ROOT.'/inc/Parser/KinopoiskParser.php';
+use \Parser\KinopoiskParser;
 
-$parser = new Parser();
+$parser = new KinopoiskParser();
 
 switch ($action) {
 	case 'web_version':

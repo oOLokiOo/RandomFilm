@@ -1,6 +1,6 @@
 <?php
 
-namespace KinopoiskParser;
+namespace Parser;
 
 interface iKinopoiskParser {
 

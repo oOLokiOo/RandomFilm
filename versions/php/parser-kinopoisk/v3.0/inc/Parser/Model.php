@@ -1,6 +1,6 @@
 <?php
 
-namespace KinopoiskParser;
+namespace Parser;
 
 class Model {
 	public $_id 			= 0; // just MongoDB feature

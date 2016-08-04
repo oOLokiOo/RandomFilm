@@ -1,6 +1,6 @@
 <?php
 
-namespace KinopoiskParser;
+namespace Parser;
 
 /**
  * KinopoiskParser.php
@@ -17,7 +17,7 @@ require_once 'Page.php';
 require_once 'Model.php';
 require_once 'File.php';
 
-class Parser implements iKinopoiskParser {
+class KinopoiskParser implements iKinopoiskParser {
 	private $_page	= null;
 	private $_model	= null;
 	private $_file	= null;

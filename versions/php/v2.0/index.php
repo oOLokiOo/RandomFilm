@@ -7,7 +7,7 @@ ini_set('error_reporting', E_ALL);
 
 const ROOT = __DIR__;
 
-require_once ROOT.'/../parser-kinopoisk/v3.0/inc/KinopoiskParser/Parser.php';
+require_once ROOT.'/../parser-kinopoisk/v3.0/inc/Parser/KinopoiskParser.php';
 require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
 
 /* *** PROJECT USER XML STRUCTURE ***

@@ -1,6 +1,6 @@
 <?php
 
-namespace KinopoiskParser;
+namespace Parser;
 
 require_once 'lib/curl.php';
 require_once 'lib/simple_html_dom.php';
