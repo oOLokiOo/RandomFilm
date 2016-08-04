@@ -34,7 +34,7 @@ class RandomFilm {
 
 	public $random_film 		= null;
 
-	public $get_large_images 	= false; // It makes the process slower...
+	public $get_large_images 	= true; // It makes the process slower...
 	public $image_url 			= '';
 	public $h1_title 			= '';
 	public $error 				= '';

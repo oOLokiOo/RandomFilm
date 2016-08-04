@@ -23,7 +23,7 @@
 
 	<main>
 		<?php if ($app->error != '') { ?><p class="error"><?=$app->error?></p><?php } ?>
-		
+
 		<h1><a target="_blank" href="http://google.com/search?q=<?=str_replace(' | ', ' ', $app->h1_title)?> смотреть фильм онлайн"><?=$app->h1_title?></a></h1>
 
 		<?php if (isset($app->random_film->kinopoisk)) { ?><a href="<?=$app->random_film->kinopoisk?>" target="_blank">KINOPOISK</a><br /><?php } ?>

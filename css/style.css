@@ -38,6 +38,7 @@ input, textarea, table, button {
 	word-wrap: break-word;
 	background-color: #ff6e6e;
 	border: 1px solid #333;
+	margin: 4px;
 }
 
 .error, input, textarea, table, button {

@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../../css/style.css" />
 	<style>
 		p {
-			padding: 0 4px;
+			padding: 10px 0;
 			margin: 0;
 		}
 
@@ -42,7 +42,7 @@
 	</header>
 
 	<main>
-		<p><h3><?=(isset($result->data->error) ? $result->data->error[0] : '')?></h3></p>
+		<?php if(isset($result->errors)) { ?><p class="error"><?=$result->errors[0]?></p><?php } ?>
 
 		<p><b>Введите название фильма:<b/></p>
 		<form method="post">

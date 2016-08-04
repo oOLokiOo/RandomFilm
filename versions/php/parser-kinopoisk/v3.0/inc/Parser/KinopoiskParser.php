@@ -29,6 +29,8 @@ class KinopoiskParser implements iKinopoiskParser {
 	private $_model	= null;
 	private $_file	= null;
 
+	// result -> data
+	// result -> errors
 	private $result;
 
 	private $url_matches		= 'kinopoisk.ru';
@@ -64,15 +66,11 @@ class KinopoiskParser implements iKinopoiskParser {
 		$this->_model	= new Model();
 		$this->_file	= new File();
 
-		// result -> data
-		// result -> errors
-		$this->result = new stdClass();
+		$this->reset();
 	}
 
 
 	private function reset() {
-		// result -> errors
-		// result -> data
 		$this->result = new stdClass();
 	}
 

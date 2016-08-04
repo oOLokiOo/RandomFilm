@@ -12,12 +12,13 @@ class Page {
 	// result -> response
 	// result -> error
 	// result -> dom	
-	public $result;
+	private $result;
 
 
 	public function __construct() {
 		$this->curl = new \Curl();
-		$this->result = new stdClass();
+
+		$this->reset();
 	}
 
 
