@@ -1,9 +1,10 @@
 <?php
 
-namespace Parser;
+namespace Helpers;
+use stdClass;
 
-require_once 'lib/curl.php';
-require_once 'lib/simple_html_dom.php';
+require_once 'Lib/curl.php';
+require_once 'Lib/simple_html_dom.php';
 
 class Page {
 	private $curl = null;
@@ -16,12 +17,12 @@ class Page {
 
 	public function __construct() {
 		$this->curl = new \Curl();
-		$this->result = new \stdClass();
+		$this->result = new stdClass();
 	}
 
 
 	private function reset() {
-		$this->result = new \stdClass();
+		$this->result = new stdClass();
 	}
 
 

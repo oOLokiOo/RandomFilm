@@ -1,6 +1,12 @@
 <?php
 
+
 namespace Parser;
+
+use stdClass;
+use \Helpers\Page;
+use \Helpers\Model;
+use \Helpers\File;
 
 /**
  * KinopoiskParser.php
@@ -13,9 +19,10 @@ namespace Parser;
  */
 
 require_once 'iKinopoiskParser.php';
-require_once 'Page.php';
-require_once 'Model.php';
-require_once 'File.php';
+require_once 'Helpers/Page.php';
+require_once 'Helpers/Model.php';
+require_once 'Helpers/File.php';
+
 
 class KinopoiskParser implements iKinopoiskParser {
 	private $_page	= null;
@@ -59,14 +66,14 @@ class KinopoiskParser implements iKinopoiskParser {
 
 		// result -> data
 		// result -> errors
-		$this->result = new \stdClass();
+		$this->result = new stdClass();
 	}
 
 
 	private function reset() {
 		// result -> errors
 		// result -> data
-		$this->result = new \stdClass();
+		$this->result = new stdClass();
 	}
 
 	// --- logging...
