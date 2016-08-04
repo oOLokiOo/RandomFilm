@@ -12,11 +12,12 @@ namespace KinopoiskParser;
  * @see http://simplehtmldom.sourceforge.net
  */
 
+require_once 'iKinopoiskParser.php';
 require_once 'Page.php';
 require_once 'Model.php';
 require_once 'File.php';
 
-class Parser {
+class Parser implements iKinopoiskParser {
 	private $_page	= null;
 	private $_model	= null;
 	private $_file	= null;
@@ -63,6 +64,8 @@ class Parser {
 
 
 	private function reset() {
+		// result -> errors
+		// result -> data
 		$this->result = new \stdClass();
 	}
 
@@ -269,7 +272,7 @@ class Parser {
 		return true;
 	}
 
-	public function setLogging($val) {
+	public function setLogging($val = false) {
 		$this->logging = ($val === true ? true : false);
 	}
 
