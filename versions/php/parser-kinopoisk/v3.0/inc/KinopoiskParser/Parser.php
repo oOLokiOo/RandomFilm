@@ -80,7 +80,7 @@ class Parser {
 			return true;
 		}
 
-		throw new Exception('Can\'t setError(); something going wrong...');
+		throw new \Exception('Can\'t setError(); something going wrong...');
 	}
 
 	private function pushLog($str = '') {

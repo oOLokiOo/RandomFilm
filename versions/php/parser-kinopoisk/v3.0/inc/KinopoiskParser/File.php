@@ -21,12 +21,12 @@ class File {
 				FILE_APPEND);
 		}
 
-		throw new Exception('Can\'t writeToFile(); - '.$path);
+		throw new \Exception('Can\'t writeToFile(); - '.$path);
 	}
 
 	private function getFromFile($path = '') {
 		if ($this->checkPath($path) === true) file_put_contents($path);
 
-		throw new Exception('Can\'t getFromFile(); - '.$path);
+		throw new \Exception('Can\'t getFromFile(); - '.$path);
 	}
 }

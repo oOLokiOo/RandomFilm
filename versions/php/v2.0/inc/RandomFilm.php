@@ -52,7 +52,8 @@ class RandomFilm {
 
 
 	private function get_from_images_google($search_words = '') {
-		$parser = new Inc\KinopoiskParser\Parser();
+		$parser = new \KinopoiskParser\Parser();
+		$parser->setLogErrorPath(__DIR__.'/../logs/error.log');
 
 		$url = $this->google_images_url.urlencode($search_words).$this->google_images_url_end_prefix;
 		$image_url = '';
@@ -62,19 +63,15 @@ class RandomFilm {
 		$dom = $page->dom;
 		$result = $dom->find('#search .images_table a', 0);
 		$google_image_href = $result->attr['href'];
-		$google_image_thumb = $result->children[0]->attr['src'];
+		$image_url = $result->children[0]->attr['src'];
 
 		// get big iamge from kinopoisk.ru
 		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
 			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 
 			$res = $parser->getFilmByDirectUrl($google_image_href);
-			$image_url = $res->data->img;
-		}
-
-		if ($image_url == '') {
-			$image_url = $google_image_thumb;
-			$this->get_large_images = false;
+			if (!count($res->errors)) $image_url = $res->data->img;
+			else $this->error = $res->errors[0];
 		}
 
 		return $image_url;
@@ -93,7 +90,7 @@ class RandomFilm {
 	public function d($data, $die = false) {
 		echo '<pre>';
 		print_r($data);
-		var_dump($data);
+		//var_dump($data);
 		echo '</pre>';
 
 		if ($die != false) die();
@@ -134,8 +131,6 @@ class RandomFilm {
 		if ($this->image_url != '') return $this->image_url;
 		if ($this->search_movie_title != '') $this->search_movie_title = $this->get_search_movie_title();
 
-		//$images_arr = $this->get_from_images_google($this->search_movie_title);
-		//$image_url = $this->filter_from_blocked_resources($images_arr, $this->BLOCKED_RESOURCES);
 		$image_url = $this->get_from_images_google($this->search_movie_title);
 
 		return $image_url;

@@ -32,10 +32,10 @@ class Model {
 
 
 	public function __set($key, $val) {
-		throw new Exception('Can\'t push property!');
+		throw new \Exception('Can\'t push property!');
 	}
 
 	public function __get($key) {
-		throw new Exception('Property does not exist!');
+		throw new \Exception('Property does not exist!');
 	}
 }

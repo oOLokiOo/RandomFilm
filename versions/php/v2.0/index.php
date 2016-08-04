@@ -35,8 +35,6 @@ $result 		= null;
 $USER_XML_PATH 	= '../../../users/1/films.xml'; // TODO: link User Class here
 
 $app = new RandomFilm($USER_XML_PATH);
-//$user = $app->userSocialLogin();
-//$result = $app->getUserRandomFilm();
 
 require_once ROOT.'/tpl/index.tpl';
 exit();

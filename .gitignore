@@ -1,5 +1,4 @@
 **/users
-**/img/posters
 /versions/php/parser-kinopoisk/v2.0/result/*
 /versions/php/parser-kinopoisk/v2.0/logs/*
 /versions/php/parser-kinopoisk/v3.0/result/*
@@ -8,3 +7,4 @@
 /versions/php/parser-kinopoisk/v3.0/v3.0.sublime-project
 /versions/php/v2.0/random-film.sublime-workspace
 /versions/php/v2.0/random-film.sublime-project
+/versions/php/v2.0/logs/*
