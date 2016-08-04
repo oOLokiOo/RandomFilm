@@ -33,9 +33,18 @@ img {
 }
 
 input, textarea, table, button {
-	padding: 8px;
-	border-radius: 8px;
 	border: 1px solid #aaa;
+}
+
+.error {
+	word-wrap: break-word;
+	background-color: #ff6e6e;
+	border: 1px solid #333;
+}
+
+.error, input, textarea, table, button {
+	padding: 10px;
+	border-radius: 10px;	
 }
 
 button, input[type="submit"] {

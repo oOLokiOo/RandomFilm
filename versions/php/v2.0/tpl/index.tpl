@@ -22,7 +22,7 @@
 	</header>
 
 	<main>
-		<?php if ($app->error != '') { ?><p><b><?=$app->error?></b></p><?php } ?>
+		<?php if ($app->error != '') { ?><p class="error"><?=$app->error?></p><?php } ?>
 		<h1><a target="_blank" href="http://google.com/search?q=<?=str_replace(' | ', ' ', $app->h1_title)?> смотреть фильм онлайн"><?=$app->h1_title?></a></h1>
 		<button type="button" onclick="location.reload(); return false;">Get Film!</button>
 		<br /><br />
