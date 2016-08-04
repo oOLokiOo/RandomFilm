@@ -11,7 +11,6 @@
 
 class RandomFilm {
 	private $result;
-	private $random_film = null;
 
 	private $USER_XML_PATH = '';
 
@@ -33,7 +32,9 @@ class RandomFilm {
 	private $search_movie_title = '';
 
 
-	public $get_large_images 	= true; // It makes the process slower...
+	public $random_film 		= null;
+
+	public $get_large_images 	= false; // It makes the process slower...
 	public $image_url 			= '';
 	public $h1_title 			= '';
 	public $error 				= '';
@@ -41,17 +42,17 @@ class RandomFilm {
 
 	public function __construct($USER_XML_PATH = '') {
 		$this->USER_XML_PATH = $USER_XML_PATH; // TODO: link User Class here
-		$this->random_film = $this->get_random_film();
+		$this->random_film = $this->getRandomFilm();
 
 		if ($this->random_film != null) {
-			$this->search_movie_title = $this->get_search_movie_title();
-			$this->image_url = $this->get_image_url();
-			$this->h1_title = $this->get_h1_title();
+			$this->search_movie_title = $this->getSearchMovieTitle();
+			$this->image_url = $this->getImageUrl();
+			$this->h1_title = $this->getH1Title();
 		}
 	}
 
 
-	private function get_from_images_google($search_words = '') {
+	private function getFromImagesGoogle($search_words = '') {
 		$parser = new \Parser\KinopoiskParser();
 		$parser->setLogErrorPath(__DIR__.'/../../logs/error.log');
 
@@ -77,7 +78,7 @@ class RandomFilm {
 		return $image_url;
 	}
 
-	private function set_error($error_num = null) {
+	private function setError($error_num = null) {
 		if (is_numeric($error_num)) {
 			$this->error = $this->errors_arr[$error_num];
 			return true;
@@ -98,7 +99,7 @@ class RandomFilm {
 		return true;
 	}
 
-	public function get_random_film() {
+	public function getRandomFilm() {
 		$random_film = null;
 
 		@$xml = file_get_contents($this->USER_XML_PATH);
@@ -108,16 +109,16 @@ class RandomFilm {
 			@$xmlData = simplexml_load_string($xml);
 
 			if ($xmlData) $random_film = $xmlData->film[rand(0, count($xmlData) - 1)];
-			else $this->set_error(1);
+			else $this->setError(1);
 		}
-		else $this->set_error(0);
+		else $this->setError(0);
 
 		return $random_film;
 	}
 
-	public function get_search_movie_title() {
+	public function getSearchMovieTitle() {
 		if ($this->search_movie_title != '') return $this->search_movie_title;
-		if ($this->random_film == null) $this->random_film = $this->get_random_film();
+		if ($this->random_film == null) $this->random_film = $this->getRandomFilm();
 
 		$search_movie_title = ($this->random_film->en != '' ? $this->random_film->en . ' ' : '')
 			. ($this->random_film->ru != '' ? $this->random_film->ru . ' ' : '')
@@ -127,18 +128,18 @@ class RandomFilm {
 		return $search_movie_title;
 	}
 
-	public function get_image_url() {
+	public function getImageUrl() {
 		if ($this->image_url != '') return $this->image_url;
-		if ($this->search_movie_title != '') $this->search_movie_title = $this->get_search_movie_title();
+		if ($this->search_movie_title != '') $this->search_movie_title = $this->getSearchMovieTitle();
 
-		$image_url = $this->get_from_images_google($this->search_movie_title);
+		$image_url = $this->getFromImagesGoogle($this->search_movie_title);
 
 		return $image_url;
 	}
 
-	public function get_h1_title() {
+	public function getH1Title() {
 		if ($this->h1_title != '') return $this->h1_title;
-		if ($this->random_film == null) $this->random_film = $this->get_random_film();
+		if ($this->random_film == null) $this->random_film = $this->getRandomFilm();
 
 		$h1_title = ($this->random_film->ru ? $this->random_film->ru . ' | ' : '')
 			. ($this->random_film->en ? $this->random_film->en . ' | ' : '')
@@ -147,10 +148,5 @@ class RandomFilm {
 		//if (mb_substr($h1_title, -2) == "| ") $h1_title = mb_substr($h1_title, 0, mb_strlen($h1_title, -2));
 
 		return $h1_title;
-	}
-
-
-	public function getRandomFilm() {
-		// TODO: ...
 	}
 }

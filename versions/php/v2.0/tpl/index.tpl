@@ -23,7 +23,14 @@
 
 	<main>
 		<?php if ($app->error != '') { ?><p class="error"><?=$app->error?></p><?php } ?>
+		
 		<h1><a target="_blank" href="http://google.com/search?q=<?=str_replace(' | ', ' ', $app->h1_title)?> смотреть фильм онлайн"><?=$app->h1_title?></a></h1>
+
+		<?php if (isset($app->random_film->kinopoisk)) { ?><a href="<?=$app->random_film->kinopoisk?>" target="_blank">KINOPOISK</a><br /><?php } ?>
+
+		<?php if (isset($app->random_film->imdb)) { ?><a href="<?=$app->random_film->imdb?>" target="_blank">IMDB</a><br /><?php } ?>
+
+		<br />
 		<button type="button" onclick="location.reload(); return false;">Get Film!</button>
 		<br /><br />
 		<img src="<?=$app->image_url?>" alt="<?=$app->h1_title?>" title="<?=$app->h1_title?>" />

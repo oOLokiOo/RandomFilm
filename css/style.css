@@ -16,7 +16,6 @@ textarea:focus, input:focus, button:focus {
 a {
 	color: #7C7CFB;
 	font-weight: bold;
-	font-size: 20px;
 }
 
 h1 {
@@ -27,7 +26,6 @@ h1 {
 	}
 
 img {
-	min-width: 500px;
 	max-width: 800px;
 	border: 1px solid #444;
 }
