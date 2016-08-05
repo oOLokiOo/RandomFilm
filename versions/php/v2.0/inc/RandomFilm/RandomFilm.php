@@ -1,5 +1,7 @@
 <?php
 
+require_once ROOT.'/../parser-kinopoisk/v3.0/inc/Parser/KinopoiskParser.php';
+
 /**
  * RandomFilm.php
  * 
@@ -10,15 +12,14 @@
  */
 
 class RandomFilm {
-	private $result;
+	private $_parser = null;
 
 	private $USER_XML_PATH = '';
 
 	private $google_images_url 				= 'http://www.google.by/search?q=';
-	private $google_images_url_end_prefix 	= '&source=lnms&tbm=isch&sa=X'; // &ved=???
-
-	private $en_search_prefix 	= 'kinopoisk.ru'; // film poster
-	private $ru_search_prefix 	= 'kinopoisk.ru'; // фильм постер
+	private $google_images_url_end_prefix 	= '&source=lnms&tbm=isch'; // for switching to google images tab
+	private $en_search_prefix 				= 'kinopoisk.ru'; // film poster
+	private $ru_search_prefix 				= 'kinopoisk.ru'; // фильм постер
 
 	const ERR_XML_NOT_FOUND = 1;
 	const ERR_CANT_PARSE_STRING = 2;
@@ -28,39 +29,68 @@ class RandomFilm {
 		'2' => 'String could not be parsed as XML'
 		);
 
-	
-	private $search_movie_title = '';
+
+	// result -> data
+	// result -> errors
+	public $result;
+
+	public $get_large_images 	= true; // it makes the process slower...
 
 
-	public $random_film 		= null;
+	public function __construct() {
+		$this->result = new stdClass();
 
-	public $get_large_images 	= true; // It makes the process slower...
-	public $image_url 			= '';
-	public $h1_title 			= '';
-	public $error 				= '';
-
-
-	public function __construct($USER_XML_PATH = '') {
-		$this->USER_XML_PATH = $USER_XML_PATH; // TODO: link User Class here
-		$this->random_film = $this->getRandomFilm();
-
-		if ($this->random_film != null) {
-			$this->search_movie_title = $this->getSearchMovieTitle();
-			$this->image_url = $this->getImageUrl();
-			$this->h1_title = $this->getH1Title();
-		}
+		$this->_parser = new \Parser\KinopoiskParser();
+		$this->_parser->setLogErrorPath(__DIR__.'/../../logs/error.log'); // TODO: fix it!
 	}
 
 
-	private function getFromImagesGoogle($search_words = '') {
-		$parser = new \Parser\KinopoiskParser();
-		$parser->setLogErrorPath(__DIR__.'/../../logs/error.log');
+	// --- to XmlDB Class
+	private function getFilmFromXml() {
+		$random_film = null;
 
-		$url = $this->google_images_url.urlencode($search_words).$this->google_images_url_end_prefix;
+		@$xml = file_get_contents($this->USER_XML_PATH);
+
+		if ($xml) {
+			//@$xmlData = new SimpleXMLElement($xml);
+			@$xmlData = simplexml_load_string($xml);
+
+			if ($xmlData) $random_film = $xmlData->film[rand(0, count($xmlData) - 1)];
+			else $this->setError(ERR_CANT_PARSE_STRING);
+		}
+		else $this->setError(ERR_XML_NOT_FOUND);
+
+		return $random_film;
+	}
+
+
+	// --- to Film Class - preparing film object
+	private function prepareSearchTitle() {
+		$search_title = ($this->result->data->en != '' ? $this->result->data->en . ' ' : '')
+			. ($this->result->data->ru != '' ? $this->result->data->ru . ' ' : '')
+			//. ($this->result->data->year != '' ? $this->result->data->year . ' ' : '')
+			. $this->en_search_prefix; // RU_SEARCH_PREFIX - bad result with "RU"
+
+		return $search_title;
+	}
+
+	private function prepareH1Title() {
+		$h1_title = ($this->result->data->ru ? $this->result->data->ru . ' | ' : '')
+			. ($this->result->data->en ? $this->result->data->en . ' | ' : '')
+			. ($this->result->data->year ? $this->result->data->year : '');
+
+		//if (mb_substr($h1_title, -2) == "| ") $h1_title = mb_substr($h1_title, 0, mb_strlen($h1_title, -2));
+
+		return $h1_title;
+	}
+
+	// --- to KinopoiskParser class ???
+	private function getUrlFromGoogleImages($search_words = '') {
 		$image_url = '';
+		$search_url = $this->google_images_url.urlencode($search_words).$this->google_images_url_end_prefix;
 
 		// get thumb from google search by images 
-		$page = $parser->getSubsidiaryPage($url);
+		$page = $this->_parser->getSubsidiaryPage($search_url);
 		$dom = $page->dom;
 		$result = $dom->find('#search .images_table a', 0);
 		$google_image_href = $result->attr['href'];
@@ -70,25 +100,33 @@ class RandomFilm {
 		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
 			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 
-			$res = $parser->getFilmByDirectUrl($google_image_href);
-			if (!count($res->errors)) $image_url = $res->data->img;
-			else $this->error = $res->errors[0];
+			$film = $this->_parser->getFilmByDirectUrl($google_image_href);
+			
+			if (!count($film->errors)) $image_url = $film->data->img;
+			else $this->result->errors = $film->errors;
 		}
 
 		return $image_url;
 	}
 
-	private function setError($error_num = null) {
-		if (is_numeric($error_num)) {
-			$this->error = $this->errors_arr[$error_num];
+	// --- to COMMON class
+	private function setError($error_number, $error_addition = '') {
+		if (isset($error_number) && 
+			is_numeric($error_number) && 
+			$error_number > 0 && 
+			isset($this->errors_arr[$error_number])) {
+
+			$log_str = $this->errors_arr[$error_number].($error_addition != '' ? ' --- '.$error_addition : '');
+			$this->result->errors[] = $log_str;
+			//if ($this->logging === true) $this->pushLog($log_str);
+
 			return true;
 		}
 
-		return false;
+		throw new \Exception('Can\'t setError(); something going wrong...');
 	}
 
-
-	public function d($data, $die = false) {
+	private function d($data, $die = false) {
 		echo '<pre>';
 		print_r($data);
 		//var_dump($data);
@@ -99,54 +137,19 @@ class RandomFilm {
 		return true;
 	}
 
-	public function getRandomFilm() {
-		$random_film = null;
 
-		@$xml = file_get_contents($this->USER_XML_PATH);
+	// --- public methods...
+	public function getFilm($USER_XML_PATH = '') {
+		$this->USER_XML_PATH = $USER_XML_PATH;
 
-		if ($xml) {
-			//@$xmlData = new SimpleXMLElement($xml);
-			@$xmlData = simplexml_load_string($xml);
+		$this->result->data = $this->getFilmFromXml();
 
-			if ($xmlData) $random_film = $xmlData->film[rand(0, count($xmlData) - 1)];
-			else $this->setError(1);
+		if ($this->result->data != null) {
+			$this->result->data->search_title = $this->prepareSearchTitle();
+			$this->result->data->image_url = $this->getUrlFromGoogleImages($this->result->data->search_title);
+			$this->result->data->h1_title = $this->prepareH1Title();
 		}
-		else $this->setError(0);
 
-		return $random_film;
-	}
-
-	public function getSearchMovieTitle() {
-		if ($this->search_movie_title != '') return $this->search_movie_title;
-		if ($this->random_film == null) $this->random_film = $this->getRandomFilm();
-
-		$search_movie_title = ($this->random_film->en != '' ? $this->random_film->en . ' ' : '')
-			. ($this->random_film->ru != '' ? $this->random_film->ru . ' ' : '')
-			//. ($this->random_film->year != '' ? $this->random_film->year . ' ' : '')
-			. $this->en_search_prefix; // RU_SEARCH_PREFIX - bad result with "RU"
-
-		return $search_movie_title;
-	}
-
-	public function getImageUrl() {
-		if ($this->image_url != '') return $this->image_url;
-		if ($this->search_movie_title != '') $this->search_movie_title = $this->getSearchMovieTitle();
-
-		$image_url = $this->getFromImagesGoogle($this->search_movie_title);
-
-		return $image_url;
-	}
-
-	public function getH1Title() {
-		if ($this->h1_title != '') return $this->h1_title;
-		if ($this->random_film == null) $this->random_film = $this->getRandomFilm();
-
-		$h1_title = ($this->random_film->ru ? $this->random_film->ru . ' | ' : '')
-			. ($this->random_film->en ? $this->random_film->en . ' | ' : '')
-			. ($this->random_film->year ? $this->random_film->year : '');
-
-		//if (mb_substr($h1_title, -2) == "| ") $h1_title = mb_substr($h1_title, 0, mb_strlen($h1_title, -2));
-
-		return $h1_title;
+		return $this->result;
 	}
 }

@@ -2,10 +2,10 @@
 
 namespace Parser;
 
-interface iKinopoiskParser {
+interface IKinopoiskParser {
 
 	/**
-	 * [d description] my own debug function
+	 * [d description] debug function
 	 * 
 	 * @param 	mixed 		$data 	
 	 * @param 	boolean 	$die 	param for stopping php further processing 
@@ -14,7 +14,7 @@ interface iKinopoiskParser {
 	public function d($data, $die = false);
 
 	/**
-	 * [setLogging description] sets file logging
+	 * [setLogging description] sets we need file logging or not
 	 * 
 	 * @param boolean $val
 	 */

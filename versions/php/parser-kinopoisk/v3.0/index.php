@@ -15,6 +15,7 @@ $action 		= 'parse_all_site';
 require_once ROOT.'/inc/Parser/KinopoiskParser.php';
 use \Parser\KinopoiskParser;
 
+
 $parser = new KinopoiskParser();
 
 switch ($action) {

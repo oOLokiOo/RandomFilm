@@ -7,7 +7,6 @@ ini_set('error_reporting', E_ALL);
 
 const ROOT = __DIR__;
 
-require_once ROOT.'/../parser-kinopoisk/v3.0/inc/Parser/KinopoiskParser.php';
 require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
 
 /* *** PROJECT USER XML STRUCTURE ***
@@ -32,9 +31,10 @@ require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
 */
 
 $result 		= null;
-$USER_XML_PATH 	= '../../../users/1/films.xml'; // TODO: link User Class here
+$USER_XML_PATH 	= '../../../users/1/films.xml'; // TODO: link UserClass here
 
-$app = new RandomFilm($USER_XML_PATH);
+$app = new RandomFilm();
+$film = $app->getFilm($USER_XML_PATH);
 
 require_once ROOT.'/tpl/index.tpl';
 exit();

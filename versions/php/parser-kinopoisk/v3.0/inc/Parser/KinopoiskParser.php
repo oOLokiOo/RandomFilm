@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Parser;
 
 use stdClass;
@@ -18,13 +17,13 @@ use \Helpers\File;
  * @see http://simplehtmldom.sourceforge.net
  */
 
-require_once 'iKinopoiskParser.php';
+require_once 'IKinopoiskParser.php';
 require_once 'Helpers/Page.php';
 require_once 'Helpers/Model.php';
 require_once 'Helpers/File.php';
 
 
-class KinopoiskParser implements iKinopoiskParser {
+class KinopoiskParser implements IKinopoiskParser {
 	private $_page	= null;
 	private $_model	= null;
 	private $_file	= null;
