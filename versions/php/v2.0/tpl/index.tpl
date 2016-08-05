@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="../../../css/style.css" />
 	<style type="text/css">
 		img {
-			<?php if ($film->data->get_large_images == true) { ?>
+			<?php if ($app->show_large_image === true) { ?>
 				min-width: 360px;
 			<?php } else { ?>
 				min-width: 180px;
@@ -22,7 +22,7 @@
 	</header>
 
 	<main>
-		<?php if ($film->errors != '') { ?>
+		<?php if (isset($film->errors)) { ?>
 			<p class="error">
 				<?php foreach($film->errors as $error) { ?>
 					<?=$error?>

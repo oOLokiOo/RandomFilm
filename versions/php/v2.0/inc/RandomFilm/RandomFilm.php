@@ -34,16 +34,20 @@ class RandomFilm {
 	// result -> errors
 	public $result;
 
-	public $get_large_images 	= true; // it makes the process slower...
+	public $show_large_image = true; // it makes the process slower...
 
 
 	public function __construct() {
-		$this->result = new stdClass();
-
 		$this->_parser = new \Parser\KinopoiskParser();
 		$this->_parser->setLogErrorPath(__DIR__.'/../../logs/error.log'); // TODO: fix it!
+
+		$this->reset();
 	}
 
+
+	private function reset() {
+		$this->result = new stdClass();
+	}
 
 	// --- to XmlDB Class
 	private function getFilmFromXml() {
@@ -97,7 +101,7 @@ class RandomFilm {
 		$image_url = $result->children[0]->attr['src'];
 
 		// get big iamge from kinopoisk.ru
-		if ($this->get_large_images == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
+		if ($this->show_large_image == true && strpos($google_image_href, 'kinopoisk.ru') !== false) {
 			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 
 			$film = $this->_parser->getFilmByDirectUrl($google_image_href);
@@ -140,6 +144,7 @@ class RandomFilm {
 
 	// --- public methods...
 	public function getFilm($USER_XML_PATH = '') {
+		$this->reset();
 		$this->USER_XML_PATH = $USER_XML_PATH;
 
 		$this->result->data = $this->getFilmFromXml();
