@@ -30,7 +30,6 @@ require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
 </movies>
 */
 
-$result 		= null;
 // PATH = %ROOT%/users/%USER_ID%/films.xml
 $USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
 

@@ -6,7 +6,7 @@ html, body {
 	font-family: 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Geneva, Verdana, sans-serif;
 	font-size: 15px;
 	text-align: center;
-	background-color: #fff;
+	background-color: #FFF;
 }
 
 textarea:focus, input:focus, button:focus {
@@ -36,9 +36,11 @@ input, textarea, table, button {
 
 .error {
 	word-wrap: break-word;
-	background-color: #ff6e6e;
+	background-color: #FF6E6E;
 	border: 1px solid #333;
 	margin: 4px;
+	color: #FFF;
+	text-shadow: 1px 1px black;
 }
 
 .error, input, textarea, table, button {
@@ -62,6 +64,26 @@ pre {
 
 /* --- HEADER --- */
 
+
+/* --- MENU --- */
+menu {
+	background-color: #EFEFEF;
+	top: 0;
+	left: 0;
+	padding: 0;
+	margin: 0;
+    border-bottom: 1px solid #AAA;
+}
+
+menu ul, menu li {
+	margin: 0;
+	padding: 4px;
+}
+
+menu ul li {
+	list-style-type: none;
+	display: inline-block;
+}
 
 /* --- MAIN --- */
 main {

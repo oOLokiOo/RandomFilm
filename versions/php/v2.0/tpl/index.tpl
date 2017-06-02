@@ -19,9 +19,14 @@
 </head>
 <body>
 	<header>
-	</header>
+		<menu>
+			<ul>
+				<li><a href="#">Settings<a></li>
+				<li> / </li>
+				<li><a href="#">Logout<a></li>
+			</ul>
+		</menu>
 
-	<main>
 		<?php if (isset($film->errors)) { ?>
 			<p class="error">
 				<?php foreach($film->errors as $error) { ?>
@@ -29,7 +34,9 @@
 				<?php } ?>
 			</p>
 		<?php } ?>
+	</header>
 
+	<main>
 		<h1><a target="_blank" href="http://google.com/search?q=<?=str_replace(' | ', ' ', $film->data->h1_title)?> смотреть фильм онлайн"><?=$film->data->h1_title?></a></h1>
 
 		<?php if (isset($film->data->kinopoisk)) { ?><a href="<?=$film->data->kinopoisk?>" target="_blank">KINOPOISK</a><br /><?php } ?>
