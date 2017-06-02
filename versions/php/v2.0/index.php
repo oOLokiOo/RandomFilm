@@ -30,12 +30,45 @@ require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
 </movies>
 */
 
-// PATH = %ROOT%/users/%USER_ID%/films.xml
-$USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
 
-$app = new RandomFilm();
-$app->show_large_image = false;
-$film = $app->getFilm($USER_XML_PATH);
+$tpl = 'index';
+$page = (isset($_REQUEST['page']) ? $_REQUEST['page'] : '');
 
-require_once ROOT.'/tpl/index.tpl';
+switch ($page) {
+	//case '':
+	case 'login':
+		$tpl = 'login';
+		break;
+
+	case 'settings':
+		// PATH = %ROOT%/users/%USER_ID%/films.xml
+		$USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
+
+		@$xml = file_get_contents($USER_XML_PATH);
+
+		if ($xml) {
+			@$xmlData = simplexml_load_string($xml);
+		}
+
+		$tpl = 'settings';
+		break;
+
+	case 'edit':
+		$tpl = 'edit';
+		break;
+	
+	case '': // tmp
+	case 'index':
+		// PATH = %ROOT%/users/%USER_ID%/films.xml
+		$USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
+
+		$app = new RandomFilm();
+		$app->show_large_image = false;
+		$film = $app->getFilm($USER_XML_PATH);
+
+		$tpl = 'index';
+		break;
+}
+
+require_once ROOT.'/tpl/'.$tpl.'.tpl';
 exit();
