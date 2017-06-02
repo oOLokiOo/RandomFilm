@@ -7,4 +7,7 @@
 /versions/php/parser-kinopoisk/v3.0/v3.0.sublime-project
 /versions/php/v2.0/random-film.sublime-workspace
 /versions/php/v2.0/random-film.sublime-project
+/versions/php/v2.0/composer.lock
+/versions/php/v2.0/vendor/*
+/versions/php/v2.0/users/*
 /versions/php/v2.0/logs/*

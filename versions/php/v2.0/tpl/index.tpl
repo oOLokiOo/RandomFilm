@@ -4,8 +4,7 @@
 	<title>Random movie that you would like to revise (c) Script was made by Ivan Volkov aka oOLokiOo</title>
 	<meta charset="utf-8">
 
-	<!-- Just for local & github project version, common CSS file, you can remove it from here -->
-	<link rel="stylesheet" href="../../../css/style.css" />
+	<link rel="stylesheet" href="/assets/css/style.css" />
 	<style type="text/css">
 		img {
 			<?php if ($app->show_large_image === true) { ?>
@@ -15,7 +14,8 @@
 			<?php } ?>
 		}
 	</style>
-	<!-- /end -->
+
+	<!--script type='text/javascript' src='/vendor/components/jquery/jquery.min.js'></script-->
 </head>
 <body>
 	<header>

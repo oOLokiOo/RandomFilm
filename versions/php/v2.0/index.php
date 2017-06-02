@@ -31,7 +31,8 @@ require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
 */
 
 $result 		= null;
-$USER_XML_PATH 	= '../../../users/1/films.xml'; // TODO: link UserClass here
+// PATH = %ROOT%/users/%USER_ID%/films.xml
+$USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
 
 $app = new RandomFilm();
 $app->show_large_image = false;
