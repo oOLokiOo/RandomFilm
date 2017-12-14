@@ -7,7 +7,7 @@ New version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/p
 <hr />
 * <b>curl.php</b> - library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> ) <br />
 * <b>simple_html_dom.php</b> - library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll ) <br />
-⋅⋅* index.php - simple script for parsing ( By Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com> ) <br />
+* <b>index.php</b> - simple script for parsing ( By Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com> ) <br />
 <hr />
 
 <p style="font-weight:normal">
