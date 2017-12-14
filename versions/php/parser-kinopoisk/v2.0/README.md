@@ -5,9 +5,9 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 Lasted version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0
 
 <hr />
-* <b>curl.php</b> - library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> )
-* <b>simple_html_dom.php</b> - library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll )
-* <b>kinopoisk_parser.class.php</b> - PHP class for parsing ( By Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com> )
+* <b>curl.php</b> - library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> ) <br />
+* <b>simple_html_dom.php</b> - library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll ) <br />
+* <b>kinopoisk_parser.class.php</b> - PHP class for parsing ( By Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com> ) <br />
 <hr />
 
 
@@ -23,11 +23,11 @@ $parser = new KinopoiskParser();
 
 <hr />
 **BASIC METHODS:**
-* $parser->search_query
-* $parser->direct_url
-* $parser->parse_all_nonstop
-* $parser->web_version
-* $parser->save_result
+* $parser->search_query <br />
+* $parser->direct_url <br />
+* $parser->parse_all_nonstop <br />
+* $parser->web_version <br />
+* $parser->save_result <br />
 
 **BASIC USAGE:**
 
