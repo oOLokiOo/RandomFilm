@@ -27,7 +27,7 @@ $parser = new KinopoiskParser();
 * $parser->direct_url <br />
 * $parser->parse_all_nonstop <br />
 * $parser->web_version <br />
-* $parser->save_result <br />
+* $parser->save_result <br /><br />
 
 **BASIC USAGE:**
 
