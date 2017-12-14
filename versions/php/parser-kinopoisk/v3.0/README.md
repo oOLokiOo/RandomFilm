@@ -4,8 +4,8 @@ _This is updated version of previous version - https://github.com/oOLokiOo/rando
 
 
 <hr />
-* <b>curl.php</b> - library https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> ) <br />
-  * <b>simple_html_dom.php</b> library http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll ) <br />
+* <b>curl.php</b> - library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> ) <br />
+  * <b>simple_html_dom.php</b> library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll ) <br />
 
 // TODO: ...
 <hr />
