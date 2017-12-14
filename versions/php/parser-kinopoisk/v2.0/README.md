@@ -22,7 +22,7 @@ $parser = new KinopoiskParser();
 
 
 <hr />
-**BASIC METHODS:** <br />
+<b>BASIC METHODS:</b> <br />
 * $parser->search_query <br />
 * $parser->direct_url <br />
 * $parser->parse_all_nonstop <br />
