@@ -5,9 +5,9 @@ _This is updated version of my DEPRECATED script - https://github.com/oOLokiOo/r
 Lasted version - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0
 
 <hr />
-- **curl.php** library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> )
-- **simple_html_dom.php** library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll)
-- **kinopoisk_parser.class.php** - PHP class for parsing ( By Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com> )
+* <b>curl.php</b> - library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> )
+* <b>simple_html_dom.php</b> - library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll )
+* <b>kinopoisk_parser.class.php</b> - PHP class for parsing ( By Ivan Volkov aka oOLokiOo <ivan.volkov.older@gmail.com> )
 <hr />
 
 
