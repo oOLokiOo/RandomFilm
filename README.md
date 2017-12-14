@@ -15,10 +15,10 @@ And open it, by URL:<br />
 <hr />
 
 <p><b>JS</b></p>
-* Only JS - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index.html
-* JS + jQuery - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index_jquery.html
+* Only JS - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index.html <br />
+* JS + jQuery - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index_jquery.html <br />
 <hr />
 
 <p><b>GOLANG</b></p>
-* WEB version - https://github.com/oOLokiOo/random-film/tree/master/versions/golang/web
-* GUI version - https://github.com/oOLokiOo/random-film/tree/master/versions/golang/gui
+* WEB version - https://github.com/oOLokiOo/random-film/tree/master/versions/golang/web <br />
+* GUI version - https://github.com/oOLokiOo/random-film/tree/master/versions/golang/gui 
