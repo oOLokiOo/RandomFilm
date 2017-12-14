@@ -4,10 +4,10 @@ _This is updated version of previous version - https://github.com/oOLokiOo/rando
 
 
 <hr />
-- **curl.php** library - https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> )
-- **simple_html_dom.php** library - http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll)
+* <b>curl.php</b> - library https://github.com/RubtsovAV/php-curl-lib ( By Alexander Rubtsov <RubtsovAV@gmail.com> ) <br />
+  * <b>simple_html_dom.php</b> library http://simplehtmldom.sourceforge.net ( By S.C. Chen <me578022@gmail.com>, John Schlick, Rus Carroll) <br />
 
-<br />// TODO: ...
+// TODO: ...
 <hr />
 
 
@@ -23,11 +23,11 @@ $parser = new Parser();
 
 
 <hr />
-**BASIC METHODS:**
-* $parser->setLogging();
-* $parser->setLogErrorPath();
-* $parser->getFilmByDirectUrl();
-* $parser->getFilmBySearchQuery();
+**BASIC METHODS:** <br />
+* $parser->setLogging(); <br />
+* $parser->setLogErrorPath(); <br />
+* $parser->getFilmByDirectUrl(); <br />
+* $parser->getFilmBySearchQuery(); <br />
 
 **BASIC USAGE:**
 
