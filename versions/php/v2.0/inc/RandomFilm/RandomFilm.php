@@ -130,18 +130,6 @@ class RandomFilm {
 		throw new \Exception('Can\'t setError(); something going wrong...');
 	}
 
-	private function d($data, $die = false) {
-		echo '<pre>';
-		print_r($data);
-		//var_dump($data);
-		echo '</pre>';
-
-		if ($die != false) die();
-
-		return true;
-	}
-
-
 	// --- public methods...
 	public function getFilm($USER_XML_PATH = '') {
 		$this->reset();

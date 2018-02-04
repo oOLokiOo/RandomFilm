@@ -4,10 +4,16 @@ mb_internal_encoding('UTF-8');
 error_reporting(E_ALL);
 ini_set('error_reporting', E_ALL);
 
+function d($data, $die = false) {
+	echo '<pre>';
+	print_r($data);
+	//var_dump($data);
+	echo '</pre>';
 
-const ROOT = __DIR__;
+	if ($die != false) die();
 
-require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
+	return true;
+}
 
 /* *** PROJECT USER XML STRUCTURE ***
 
@@ -31,6 +37,11 @@ require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
 */
 
 
+const ROOT = __DIR__;
+
+require_once ROOT.'/inc/RandomFilm/RandomFilm.php';
+
+
 $tpl = 'index';
 $page = (isset($_REQUEST['page']) ? $_REQUEST['page'] : '');
 
@@ -41,6 +52,8 @@ switch ($page) {
 		break;
 
 	case 'settings':
+		//require_once ROOT.'/inc/KinopoiskParser/kinopoisk_parser.class.php';
+
 		// PATH = %ROOT%/users/%USER_ID%/films.xml
 		$USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
 
@@ -63,7 +76,7 @@ switch ($page) {
 		$USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
 
 		$app = new RandomFilm();
-		$app->show_large_image = false;
+		$app->show_large_image = false; // true to configure large image
 		$film = $app->getFilm($USER_XML_PATH);
 
 		$tpl = 'index';
