@@ -70,13 +70,13 @@ switch ($page) {
 		$tpl = 'edit';
 		break;
 	
-	case '': // tmp
+	case '':
 	case 'index':
 		// PATH = %ROOT%/users/%USER_ID%/films.xml
 		$USER_XML_PATH 	= ROOT.'/users/1/films.xml'; // TODO: link UserClass here
 
 		$app = new RandomFilm();
-		$app->show_large_image = false; // true to configure large image
+		$app->show_large_image = true; // true to configure large image (increases page load)
 		$film = $app->getFilm($USER_XML_PATH);
 
 		$tpl = 'index';

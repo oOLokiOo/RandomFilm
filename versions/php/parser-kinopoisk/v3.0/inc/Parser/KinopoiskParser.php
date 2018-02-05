@@ -128,11 +128,14 @@ class KinopoiskParser implements IKinopoiskParser {
 		$tmp_arr = array();
 
 		$tmp_arr = explode('/film/', $url);
+		$tmp_arr = explode('/', $tmp_arr[1]); // for new kinopoisk.ru url format
+		$tmp_arr = explode('-', $tmp_arr[0]); // for new kinopoisk.ru url format
 
-		if (isset($tmp_arr[1])) $film_id = explode('/', $tmp_arr[1])[0];
+		$film_id = $tmp_arr[count($tmp_arr)-1];
+		//if (isset($tmp_arr[1])) $film_id = explode('/', $tmp_arr[1])[0];
 		$film_id = (is_numeric($film_id) ? $film_id : 0);
 
-		if ($film_id == 0) $this->setError(self::ERR_CANT_FIND_FILM_ID, $url);
+		if ($tmp_arr == 0) $this->setError(self::ERR_CANT_FIND_FILM_ID, $url);
 
 		return $film_id;
 	}

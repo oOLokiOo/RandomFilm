@@ -105,8 +105,8 @@ class RandomFilm {
 			$google_image_href = substr($google_image_href, 7, strlen($google_image_href)-1); // crop "/url?q=" from redirect url
 
 			$film = $this->_parser->getFilmByDirectUrl($google_image_href);
-			
-			if (!count($film->errors)) $image_url = $film->data->img;
+
+			if (!isset($film->errors)) $image_url = $film->data->img;
 			else $this->result->errors = $film->errors;
 		}
 

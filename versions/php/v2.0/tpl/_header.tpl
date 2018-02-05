@@ -32,7 +32,7 @@
 		<?php if (isset($film->errors)) { ?>
 			<p class="error">
 				<?php foreach($film->errors as $error) { ?>
-					<?=$error?>
+					<?=$error?><br />
 				<?php } ?>
 			</p>
 		<?php } ?>

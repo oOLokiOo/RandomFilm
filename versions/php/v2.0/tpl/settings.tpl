@@ -35,8 +35,10 @@
 	if ($xmlData) {
 		echo '<table class="films_list">';
 		foreach ($xmlData->film as $film) {
+			$title = $film->ru.' / '.$film->en.' '.$film->year;
+
 			echo '<tr>';
-			echo '<td width="82%" align="left">'.$film->ru.' / '.$film->en.' '.$film->year.'</td>';
+			echo '<td width="82%" align="left"><a target="_blank" href="http://google.com/search?q='.str_replace(' / ', ' ', $title).' смотреть фильм онлайн">'.$title.'</a></td>';
 			echo '<td width="4%"><a href="#">edit</a></td>';
 			echo '<td width="4%"><a href="#">del</a></td>';
 			echo '</tr>';
