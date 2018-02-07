@@ -11,3 +11,4 @@
 /versions/php/v2.0/vendor/*
 /versions/php/v2.0/users/*
 /versions/php/v2.0/logs/*
+/versions/nodejs/node_modules/*
