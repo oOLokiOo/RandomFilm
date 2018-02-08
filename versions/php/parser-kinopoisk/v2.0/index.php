@@ -38,7 +38,7 @@ $mongo->close();
 
 require_once ROOT.'/inc/kinopoisk_parser.class.php';
 
-$css_path = '../../../../css/style.css'; // Just for local & github project version, common CSS file, you can remove it from here
+$css_path = '../css/style.css'; // Just for local & github project version, common CSS file, you can remove it from here
 $search_query = ((isset($_REQUEST['search_query']) && $_REQUEST['search_query'] != '') ? $_REQUEST['search_query'] : '');
 
 $parser = new KinopoiskParser();

@@ -65,7 +65,7 @@ if (isset($_REQUEST['movie']) && $_REQUEST['movie'] != '') {
 	<meta charset="utf-8">
 
 	<!-- Just for local & github project version, common CSS file, you can remove it from here -->
-	<link rel="stylesheet" href="../../../../css/style.css" />
+	<link rel="stylesheet" href="style.css" />
 	<style>
 		p {
 			padding: 4px;

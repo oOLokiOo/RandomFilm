@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 
 	<!-- Just for local & github project version, common CSS file, you can remove it from here -->
-	<link rel="stylesheet" href="../../../../css/style.css" />
+	<link rel="stylesheet" href="../css/style.css" />
 	<style>
 		p {
 			padding: 10px 0;
