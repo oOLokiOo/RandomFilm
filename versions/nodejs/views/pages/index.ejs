@@ -1,6 +1,6 @@
 <% include ../_header.ejs %>
 
-	<h1><a target="_blank" href="http://google.com/search?q=<%= h1_title %> смотреть фильм онлайн"><%= h1_title %></a></h1>
+	<h1><a target="_blank" href="http://google.com/search?q=<%= h1_title.replace(/ \| /g, ' ') %> смотреть фильм онлайн"><%= h1_title %></a></h1>
 
 	<%if (film.kinopoisk) { %><a href="<%= film.kinopoisk %>" target="_blank">KINOPOISK</a><br /><% } %>
 
@@ -10,6 +10,6 @@
 	<button type="button" onclick="location.reload(); return false;">Get Film!</button>
 	
 	<br /><br />
-	<img src="" alt="<%= h1_title %>" title="<%= h1_title %>" />
+	<img src="<%= image_url %>" alt="<%= h1_title %>" title="<%= h1_title %>" />
 
 <% include ../_footer.ejs %>
