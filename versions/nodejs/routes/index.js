@@ -1,7 +1,8 @@
-/*
- * GET home page.
- */
-
-app.index = function(req, res){
-  res.render('index', { title: 'Random movie that you would like to revise (c) Script was made by Ivan Volkov aka oOLokiOo' });
-};
+app.get('/', function(req, res) {
+	res.render('pages/index', {
+		config: config,
+		film: film,
+		h1_title: h1_title,
+		image_url: '#'
+	});
+});

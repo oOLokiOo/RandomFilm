@@ -7,15 +7,13 @@
 	<link rel="stylesheet" href="/css/style.css" />
 	<style type="text/css">
 		img {
-			<?php if ($app->show_large_image === true) { ?>
+			<%if (config.show_large_image === true) { %>
 				min-width: 360px;
-			<?php } else { ?>
+			<% } else { %>
 				min-width: 180px;
-			<?php } ?>
+			<% } %>
 		}
 	</style>
-
-	<!--script type='text/javascript' src='/vendor/components/jquery/jquery.min.js'></script-->
 </head>
 <body>
 	<header>
