@@ -1,0 +1,16 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "node app.js": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ivan Volkov aka oOLokiOo",
+  "license": "ISC"
+}
