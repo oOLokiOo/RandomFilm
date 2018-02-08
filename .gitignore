@@ -12,3 +12,4 @@
 /versions/php/v2.0/users/*
 /versions/php/v2.0/logs/*
 /versions/nodejs/node_modules/*
+/versions/nodejs/public/users/1/films.xml
