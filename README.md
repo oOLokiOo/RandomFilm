@@ -13,7 +13,7 @@ And open it, by URL:<br />
 * v2.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/v2.0
 <hr />
 <p><b>JS</b></p>
-* Only JS - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index.html <br />
+* Native JS - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index.html <br />
 * JS + jQuery - https://github.com/oOLokiOo/random-film/blob/master/versions/js/index_jquery.html <br />
 <hr />
 <p><b>GOLANG</b></p>
