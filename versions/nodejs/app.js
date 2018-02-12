@@ -19,7 +19,8 @@ var config = {
 
 var index_page = {
 		h1_title: "",
-		image_url: ""
+		google_image_url: "",
+		kinopoisk_image_url: ""
 	};
 
 var film = {};
@@ -27,15 +28,43 @@ var parser = new xml2js.Parser();
 
 
 // HELPERS - Get URL from Goole Images
-function getUrlFromGoogleImages(search_query, callback) {
-	let url = "https://google.com/search?q="+search_query+"&dcr=0&source=lnms&tbm=isch&sa=X";
+function getUrlFromKinopoisk(search_query, callback) {
+	let url = "https://google.com/search?q="+encodeURI(search_query)+"&dcr=0&source=lnms&tbm=isch&sa=X";
 
 	request(url, function(error, response, html) {
 		if (!error) {
 			let $ = cheerio.load(html);
-			let image_url = $("#search img:first-child").attr("src");
+			
+			let kinopoisk_image_url = $("#search img:first-child").parent().parent().find("a").attr("href");
+			kinopoisk_image_url = kinopoisk_image_url.slice(7, kinopoisk_image_url.length-1); // crop "/url?q=" from redirect url
 
-			return callback(image_url, false);
+			request(url, function(error, response, html) {
+				if (!error) {
+					let $ = cheerio.load(html);
+					//let img = $("#photoBlock .popupBigImage img").html();
+					console.log(html);
+
+					//return callback(kinopoisk_image_url, false);
+				} else {            
+		            return callback(null, error);
+		        }
+			});
+		} else {            
+            return callback(null, error);
+        }
+	});
+}
+
+// HELPERS - Get URL from Goole Images
+function getUrlFromGoogleImages(search_query, callback) {
+	let url = "https://google.com/search?q="+encodeURI(search_query)+"&dcr=0&source=lnms&tbm=isch&sa=X";
+
+	request(url, function(error, response, html) {
+		if (!error) {
+			let $ = cheerio.load(html);
+			let google_image_url = $("#search img:first-child").attr("src");
+
+			return callback(google_image_url, false);
 		} else {            
             return callback(null, error);
         }
@@ -66,11 +95,19 @@ function prepareIndexPage() {
 						+ config.en_search_prefix;
 
 			// do search
-			getUrlFromGoogleImages(
-				film.en,
-				function(data, err) {
-					index_page.image_url = data;
-				});
+			if (config.show_large_image === true) {
+				getUrlFromKinopoisk(
+					search_title,
+					function(data, err) {
+						index_page.kinopoisk_image_url = data;
+					});
+			} else {
+				getUrlFromGoogleImages(
+					search_title,
+					function(data, err) {
+						index_page.google_image_url = data;
+					});
+			}
 
 			console.log(film);
 			//console.log("-------------------"); console.log(index_page); console.log("-------------------");
@@ -105,7 +142,7 @@ app.get("/", function(req, res) {
 		config: config,
 		film: film,
 		h1_title: index_page.h1_title,
-		image_url: index_page.image_url
+		image_url: (config.show_large_image === true ? index_page.kinopoisk_image_url : index_page.google_image_url)
 	}); // TODO:: add all to APP.*
 
 	prepareIndexPage();
