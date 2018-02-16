@@ -9,7 +9,7 @@ Add to your hosts:<br />
 And open it, by URL:<br />
 <i>http://random-film/versions/php/***</i>
 <br />
-* Finished - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0
+* Finished - https://github.com/oOLokiOo/random-film/tree/master/versions/php/parser-kinopoisk/v3.0 <br />
 * v2.0 - https://github.com/oOLokiOo/random-film/tree/master/versions/php/v2.0
 <hr />
 <p><b>JS</b></p>
