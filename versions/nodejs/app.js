@@ -2,7 +2,9 @@
 var express = require("express");
 var fs 		= require("fs");
 var request = require("request");
+var util	= require("util");
 var http 	= require("http");
+var opn 	= require("opn");
 var cheerio = require("cheerio");
 var xml2js 	= require("xml2js");
 var path	= require("path");
@@ -20,7 +22,8 @@ var config = {
 var index_page = {
 		h1_title: "",
 		google_image_url: "",
-		kinopoisk_image_url: ""
+		kinopoisk_image_url: "",
+		no_large_image: ""
 	};
 
 var film = {};
@@ -36,21 +39,31 @@ function getUrlFromKinopoisk(search_query, callback) {
 			let $ = cheerio.load(html);
 			
 			let kinopoisk_image_url = $("#search img:first-child").parent().parent().find("a").attr("href");
-			kinopoisk_image_url = kinopoisk_image_url.slice(7, kinopoisk_image_url.length-1); // crop "/url?q=" from redirect url
+			kinopoisk_image_url = (kinopoisk_image_url != undefined ? kinopoisk_image_url.slice(7, kinopoisk_image_url.length-1) : ""); // crop "/url?q=" from redirect url
+			console.log("\n"+kinopoisk_image_url);
 
-			request(url, function(error, response, html) {
+			request(kinopoisk_image_url, function(error, response, html) {
 				if (!error) {
-					let $ = cheerio.load(html);
-					//let img = $("#photoBlock .popupBigImage img").html();
-					console.log(html);
+					//console.log("\n"+util.inspect(response, false, null));
 
-					//return callback(kinopoisk_image_url, false);
-				} else {            
-		            return callback(null, error);
+					let $ = cheerio.load(html);
+					let image_url = $("#photoBlock .popupBigImage img").attr("src");
+					let ext = (image_url != undefined ? image_url.split(".").pop() : "");
+
+					if (ext != "jpg") {
+						index_page.no_large_image = true;
+						return callback(null, error);
+
+					 // opn(kinopoisk_image_url); // opn("https://www.kinopoisk.ru/404/");
+					}
+					else return callback(kinopoisk_image_url, false);
+				} else {
+					index_page.no_large_image = true;
+					return callback(null, error);
 		        }
 			});
-		} else {            
-            return callback(null, error);
+		} else {
+			return callback(null, error);
         }
 	});
 }
@@ -95,22 +108,26 @@ function prepareIndexPage() {
 						+ config.en_search_prefix;
 
 			// do search
+			console.log(config);
+			console.log(index_page);
+
 			if (config.show_large_image === true) {
 				getUrlFromKinopoisk(
 					search_title,
 					function(data, err) {
+						console.log(" --- kinopoisk_image_url = "+data);
 						index_page.kinopoisk_image_url = data;
 					});
 			} else {
 				getUrlFromGoogleImages(
 					search_title,
 					function(data, err) {
+						console.log(" --- google_image_url = "+data);
 						index_page.google_image_url = data;
 					});
 			}
 
 			console.log(film);
-			//console.log("-------------------"); console.log(index_page); console.log("-------------------");
 		});
 	});
 }
@@ -138,10 +155,22 @@ http.createServer(app).listen(app.get("port"), function() {
 
 // Routes
 app.get("/", function(req, res) {
+	if (req.query.show_large_image == "false") { 
+		config.show_large_image = false;
+		index_page.no_large_image = false;
+	}
+
+	if (req.query.show_large_image == "true") { 
+		config.show_large_image = true;
+		index_page.no_large_image = true;
+	}
+
+
 	res.render("pages/index", {
 		config: config,
 		film: film,
 		h1_title: index_page.h1_title,
+		no_large_image: index_page.no_large_image,
 		image_url: (config.show_large_image === true ? index_page.kinopoisk_image_url : index_page.google_image_url)
 	}); // TODO:: add all to APP.*
 

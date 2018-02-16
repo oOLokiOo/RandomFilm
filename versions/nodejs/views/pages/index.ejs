@@ -8,7 +8,10 @@
 
 	<br />
 	<button type="button" onclick="location.reload(); return false;">Get Film!</button>
+
 	
+	<br /><br />
+	<%if (no_large_image == true) { %>Large image was not found...<br />Shop with samll image? <button type="button" onclick="location.href = '/?page=index&show_large_image=false'; return false;">Yes</button><% } else { %>Change to large images? <button type="button" onclick="location.href = '/?page=index&show_large_image=true'; return false;">Yes</button><% } %>
 	<br /><br />
 	<img src="<%= image_url %>" alt="<%= h1_title %>" title="<%= h1_title %>" />
 
