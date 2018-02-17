@@ -30,7 +30,7 @@ var film = {};
 var parser = new xml2js.Parser();
 
 
-// HELPERS - Get URL from Goole Images
+// HELPERS - Get URL from Kinopoisk Images
 function getUrlFromKinopoisk(search_query, callback) {
 	let url = "https://google.com/search?q="+encodeURI(search_query)+"&dcr=0&source=lnms&tbm=isch&sa=X";
 
