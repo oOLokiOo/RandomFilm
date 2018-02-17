@@ -1,0 +1,2 @@
+go build
+web.exe
